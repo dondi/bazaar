@@ -1,0 +1,62 @@
+\documentclass[11pt]{article}
+
+% Look up the geometry package to learn the layout options.
+\usepackage{geometry}
+\geometry{letterpaper}
+
+% Uncomment the line below for rotated page geometry.
+%\geometry{landscape}
+
+% If you comment out the line below, paragraphs will begin with an indent
+% and not a blank line.
+\usepackage[parfill]{parskip}
+
+% Other useful packages, particularly for figures.
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{CMSI 370 Assignment 0000}
+\author{Interaction Design Padawan}
+
+\begin{document}
+\maketitle
+
+\section{Some Section}
+
+\begin{enumerate}
+\item A numbered
+\item list
+\item of answers to questions
+\item or anything else
+\end{enumerate}
+
+\section{Another Section}
+
+\begin{itemize}
+\item A bulleted
+\item list
+\item of whatever
+\item you like
+\end{itemize}
+
+\section{Yet Another Section}
+
+\begin{tabular}{|l|c|r|}\hline
+tabular data & takes      & some getting used to \\\hline
+but          & you'll get & the hang of it \\\hline\hline
+             &            & pretty quickly \\\hline
+\end{tabular}
+
+And of course, plain old paragraph text is fine too.  Just remember
+to skip a line in your \LaTeX\ source\ldots
+
+\ldots to separate paragraphs from each other.  In \LaTeX, individual
+line breaks
+still
+count
+as a
+single
+paragraph.
+
+\end{document}
