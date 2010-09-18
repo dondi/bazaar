@@ -1,0 +1,133 @@
+<!doctype html>
+
+<!-- This file presents a sampling of the latest HTML5
+     and CSS3 features. -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>HTML5/CSS3 Sampler</title>
+        
+        <!-- Inline styles are for one-file convenience only.
+             Almost every other time, this is in one or more
+             .css files. -->
+        <style>
+            /* These styles show how, in HTML5, anything can be made to
+               behave like a table without using table tags. */
+            .grid { display: table; }
+            .grid div { display: table-row; }
+            .grid div span {
+                display: table-cell;
+                padding: 1em;
+            }
+            
+            /* These styles show proper absolute positioning in HTML5. */
+            .freestyle { position: relative; }
+            .freestyle div { position: absolute; }
+            
+            .strikeout { text-decoration: line-through; }
+
+            /* Settings for individual elements. */
+            #text-shadow-demo { text-shadow: 2px 3px 5px #444; }
+            #glow-demo { text-shadow: 0px 0px 16px yellow; }
+            
+            #emboss-demo {
+                background-color: #aaaaff;
+                text-shadow: -1px -1px 0px white;
+            }
+
+            /* In practice, these are initial values only. */
+            #freestyle-demo {
+                width: 100%; height: 256px;
+                background-color: #eee;
+                margin: 1em 0;
+            }
+            #box1 { left: 50px; top: 25px; }
+            #box2 { left: 100px; top: 30px; }
+            #box3 { left: 75ex; bottom: 5px; }
+            #box4 { left: 110px; top: 10em; }
+            #box5 { right: 1em; top: 50px; }
+            #box6 { left: 50%; top: 50%; }
+        </style>
+    </head>
+    
+    <body>
+        <h1>HTML5 and CSS3 Sampler</h1>
+
+        <p>This page presents a sampling of features from the latest
+           HTML5 and CSS3 standards.  It’s not meant to be comprehensive,
+           but does highlight some capabilities that were impossible
+           (or highly ugly, code-wise) in older versions of HTML and
+           CSS.</p>
+        
+        <p>There <em>is</em> one rule on this page: <strong><em>no images
+           allowed</em></strong>.  Or,
+           <span class="strikeout">images</span>.</p>
+
+        <p>Also, while this might strike you as a rule, the way we
+           operate we assume this as a matter of course: <strong>The
+           page must
+           <a href="http://validator.w3.org">validate</a></strong>!</p>
+
+        <div class="grid">
+            <div>
+                <span id="text-shadow-demo">text shadow</span>
+                <span id="box-shadow-demo">box shadow</span>
+                <span id="rounded-corner-demo">rounded corners</span>
+            </div>
+            <div>
+                <span id="linear-gradient-demo">linear gradient</span>
+                <span id="radial-gradient-demo">radial gradient</span>
+            </div>
+            <div>
+                <span id="emboss-demo">text shadow as “emboss” effect</span>
+                <span></span>
+                <span id="glow-demo">text shadow as a “glow”</span>
+            </div>
+        </div>
+        
+        <div class="freestyle" id="freestyle-demo">
+            <div id="box1">We</div>
+            <div id="box2">can</div>
+            <div id="box3">go</div>
+            <div id="box4">anywhere</div>
+            <div id="box5">at</div>
+            <div id="box6">all.</div>
+        </div>
+        
+        <div class="grid">
+            <div>
+                <span>You can</span>
+                <span>mix</span>
+                <span>and match</span>
+            </div>
+            <div>
+                <span>borders, corners,</span>
+                <span>shadows,</span>
+                <span>margin,</span>
+            </div>
+            <div>
+                <span>padding, gradients,</span>
+                <span>and other styles</span>
+                <span>to achieve</span>
+            </div>
+            <div>
+                <span>more effects</span>
+                <span>than you might</span>
+                <span>have imagined —</span>
+            </div>
+            <div>
+                <span>all</span>
+                <span>without</span>
+                <span>image files.</span>
+            </div>
+        </div>
+        
+        <p>The main caveat?  Web browser compatibility.  For the purposes
+           of this sampler, we aren’t worried about that, but it is a
+           practical concern.</p>
+        
+        <p>Makes you wish that all web browser developers were on the
+           ball with the latest standards, right?</p> 
+
+    </body>
+</html>
