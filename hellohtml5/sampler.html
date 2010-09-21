@@ -13,7 +13,7 @@
         <style>
             /* These styles show how, in HTML5, anything can be made to
                behave like a table without using table tags. */
-            .grid { display: table; }
+            .grid { display: table; border-spacing: 10px; }
             .grid div { display: table-row; }
             .grid div span {
                 display: table-cell;
@@ -24,10 +24,76 @@
             .freestyle { position: relative; }
             .freestyle div { position: absolute; }
             
+            /* Piecemeal classes, good for mix-and-match. */
             .strikeout { text-decoration: line-through; }
+            .solid { background-color: rgb(255, 200, 255); }
+            .bordered { border: ridge 8px #999; }
+            .textshadow { text-shadow: -2px -2px 4px #050; }
+
+            .innershadow {
+                -moz-box-shadow: 2px 1px 8px #088 inset;
+                -webkit-box-shadow: 2px 1px 8px #088 inset;
+                box-shadow: 2px 1px 8px #088 inset;
+            }
+
+            .outershadow {
+                -moz-box-shadow: 2px 1px 8px #088;
+                -webkit-box-shadow: 2px 1px 8px #088;
+                box-shadow: 2px 1px 8px #088;
+            }
+
+            .rounded {
+                border-radius: 12px;
+                -moz-border-radius: 12px;
+            }
+
+            .gradient {
+                background-image: -moz-linear-gradient(top, #eee, #aaa);
+                background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), color-stop(1, #aaa));
+            }
+
+            .boxout {
+                border-style: solid;
+                border-width: 1px;
+                border-color: gray;
+                margin: 10px;
+                padding: 20px;
+            }
 
             /* Settings for individual elements. */
             #text-shadow-demo { text-shadow: 2px 3px 5px #444; }
+            #box-shadow-demo, #rounded-corner-demo {
+                text-align: center;
+            }
+
+            /* At the moment, some CSS3 properties can only be set using
+               browser-specific names.  This is the ONE validation error
+               that we will let pass. */
+            #box-shadow-demo {
+                -moz-box-shadow: 0 4px 8px #aaa;
+                -webkit-box-shadow: 0 4px 8px #aaa;
+                box-shadow: 0 4px 8px #aaa;
+            }
+
+            #rounded-corner-demo {
+                background-color: rgb(255, 200, 200);
+                border-radius: 20px;
+                border-bottom-right-radius: 10px;
+                -moz-border-radius: 20px;
+                -moz-border-radius-bottomright: 10px;
+            }
+
+            /* Expressions that are not understood are ignored. */
+            #linear-gradient-demo {
+                background-image: -moz-linear-gradient(left, #00abeb, lightgreen 25%, #fff);
+                background-image: -webkit-gradient(linear, left center, right center, color-stop(0, #00abeb), color-stop(0.25, lightgreen), color-stop(1, #fff));
+            }
+
+            #radial-gradient-demo {
+                background-image: -moz-radial-gradient(25% 50%, circle, white 0%, rgb(200, 0, 0) 50%, rgb(128, 0, 0) 100%);
+                background-image: -webkit-gradient(radial, 25% 50%, 0, 50% 100%, 100, color-stop(0, white), color-stop(0.5, rgb(200, 0, 0)), color-stop(1, rgb(128, 0, 0)));
+            }
+
             #glow-demo { text-shadow: 0px 0px 16px yellow; }
             
             #emboss-demo {
@@ -41,6 +107,7 @@
                 background-color: #eee;
                 margin: 1em 0;
             }
+
             #box1 { left: 50px; top: 25px; }
             #box2 { left: 100px; top: 30px; }
             #box3 { left: 75ex; bottom: 5px; }
@@ -76,11 +143,11 @@
             </div>
             <div>
                 <span id="linear-gradient-demo">linear gradient</span>
+                <span></span>
                 <span id="radial-gradient-demo">radial gradient</span>
             </div>
             <div>
                 <span id="emboss-demo">text shadow as “emboss” effect</span>
-                <span></span>
                 <span id="glow-demo">text shadow as a “glow”</span>
             </div>
         </div>
@@ -94,31 +161,39 @@
             <div id="box6">all.</div>
         </div>
         
+        <div class="boxout gradient">You can be an absolute space hog.</div>
+        
+        <div class="boxout">
+            <span class="textshadow">or</span>
+            <span class="bordered">just line things up</span>
+            <span class="outershadow">as you go.</span>
+        </div>
+
         <div class="grid">
             <div>
-                <span>You can</span>
-                <span>mix</span>
-                <span>and match</span>
+                <span class="solid">You can</span>
+                <span class="gradient rounded innershadow">mix</span>
+                <span class="bordered">and match</span>
             </div>
             <div>
-                <span>borders, corners,</span>
-                <span>shadows,</span>
-                <span>margin,</span>
+                <span class="innershadow">borders, corners,</span>
+                <span class="solid innershadow">shadows,</span>
+                <span class="gradient">gradients,</span>
             </div>
             <div>
-                <span>padding, gradients,</span>
-                <span>and other styles</span>
-                <span>to achieve</span>
+                <span class="gradient rounded">and</span>
+                <span class="bordered rounded">other styles</span>
+                <span class="gradient innershadow">to achieve</span>
             </div>
             <div>
-                <span>more effects</span>
-                <span>than you might</span>
-                <span>have imagined —</span>
+                <span class="outershadow">more effects</span>
+                <span class="rounded solid">than you might</span>
+                <span class="outershadow rounded">have imagined —</span>
             </div>
             <div>
-                <span>all</span>
-                <span>without</span>
-                <span>image files.</span>
+                <span class="textshadow">all</span>
+                <span class="textshadow innershadow">without</span>
+                <span class="gradient textshadow">image files.</span>
             </div>
         </div>
         
