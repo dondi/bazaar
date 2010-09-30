@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Layouts and Positioning</title>
+        <style>
+            div, span {
+                border: solid black 1px;
+            }
+            
+            #main {
+                display: table;
+            }
+            
+            #main div {
+                display: table-row;
+            }
+               
+            #sidebar {
+                display: table-cell;
+                width: 200px;
+            }
+
+            #fox {
+                display: table-cell;
+                padding: 10px;
+                margin-left: 240px;
+                width: 90%;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div>
+            <div>Hello</div>
+            <div id="main">
+                <div>
+                    <span id="sidebar"><ol><li>1</li><li>2</li><li>3</li></ol></span>
+                    <span id="fox">The quick brown fox jumps over the lazy dog.</span>
+                </div>
+            </div>
+            <div><ul>
+                <li>Iron Man</li>
+                <li>Spider-Man</li>
+                <li>Thor</li>
+            </ul></div>
+        </div>
+    </body>
+</html>
