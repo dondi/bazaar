@@ -1,0 +1,103 @@
+/* These styles show how, in HTML5, anything can be made to
+   behave like a table without using table tags. */
+.grid { display: table; border-spacing: 10px; }
+.grid div { display: table-row; }
+.grid div span {
+    display: table-cell;
+    padding: 1em;
+}
+
+/* These styles show proper absolute positioning in HTML5. */
+.freestyle { position: relative; }
+.freestyle div { position: absolute; }
+
+/* Piecemeal classes, good for mix-and-match. */
+.strikeout { text-decoration: line-through; }
+.solid { background-color: rgb(255, 200, 255); }
+.bordered { border: ridge 8px #999; }
+.textshadow { text-shadow: -2px -2px 4px #050; }
+
+.innershadow {
+    -moz-box-shadow: inset 2px 1px 8px #088;
+    -webkit-box-shadow: inset 2px 1px 8px #088;
+    box-shadow: inset 2px 1px 8px #088;
+}
+
+.outershadow {
+    -moz-box-shadow: 2px 1px 8px #088;
+    -webkit-box-shadow: 2px 1px 8px #088;
+    box-shadow: 2px 1px 8px #088;
+}
+
+.rounded {
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+}
+
+.gradient {
+    background-image: -moz-linear-gradient(top, #eee, #aaa);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), color-stop(1, #aaa));
+}
+
+.boxout {
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    margin: 10px;
+    padding: 20px;
+}
+
+/* Settings for individual elements. */
+#text-shadow-demo { text-shadow: 2px 3px 5px #444; }
+#box-shadow-demo, #rounded-corner-demo {
+    text-align: center;
+}
+
+/* At the moment, some CSS3 properties can only be set using
+   browser-specific names.  This is the ONE validation error
+   that we will let pass. */
+#box-shadow-demo {
+    -moz-box-shadow: 0px 4px 8px #aaa;
+    -webkit-box-shadow: 0px 4px 8px #aaa;
+    box-shadow: 0px 4px 8px #aaa;
+}
+
+#rounded-corner-demo {
+    background-color: rgb(255, 200, 200);
+    border-radius: 20px;
+    border-bottom-right-radius: 10px;
+    -moz-border-radius: 20px;
+    -moz-border-radius-bottomright: 10px;
+}
+
+/* Expressions that are not understood are ignored. */
+#linear-gradient-demo {
+    background-image: -moz-linear-gradient(left, #00abeb, lightgreen 25%, #fff);
+    background-image: -webkit-gradient(linear, left center, right center, color-stop(0, #00abeb), color-stop(0.25, lightgreen), color-stop(1, #fff));
+}
+
+#radial-gradient-demo {
+    background-image: -moz-radial-gradient(25% 50%, circle, white 0%, rgb(200, 0, 0) 50%, rgb(128, 0, 0) 100%);
+    background-image: -webkit-gradient(radial, 25% 50%, 0, 50% 100%, 100, color-stop(0, white), color-stop(0.5, rgb(200, 0, 0)), color-stop(1, rgb(128, 0, 0)));
+}
+
+#glow-demo { text-shadow: 0px 0px 16px yellow; }
+
+#emboss-demo {
+    background-color: #aaaaff;
+    text-shadow: -1px -1px 0px white;
+}
+
+/* In practice, these are initial values only. */
+#freestyle-demo {
+    width: 100%; height: 256px;
+    background-color: #eee;
+    margin: 1em 0;
+}
+
+#box1 { left: 50px; top: 25px; }
+#box2 { left: 100px; top: 30px; }
+#box3 { left: 75ex; bottom: 5px; }
+#box4 { left: 110px; top: 10em; }
+#box5 { right: 1em; top: 50px; }
+#box6 { left: 50%; top: 50%; }
