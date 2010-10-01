@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>User Interface Gallery</title>
+        <style type="text/css">
+            div { margin: 1ex 0; }
+            #select-block label { vertical-align: top; }
+            #select-block select { vertical-align: top; }
+        </style>
+    </head>
+
+    <body>
+        <h1 id="header">User Interface Gallery</h1>
+
+        <p id="introduction">This page contains web elements for common
+            user interface components and controls.</p>
+
+        <div id="widgets">
+            <div>
+                <label for="input1" id="input1Label">Input 1</label>:
+                <input id="input1" type="text" />
+                <label for="input2" id="input2Label">Input 2</label>:
+                <input id="input2" type="text" />
+                <label for="password" id="passwordLabel">Password:</label>
+                <input id="password" type="password" />
+            </div>
+            <div>
+                <input id="check1" type="checkbox" />
+                <label for="check1" id="check1Label">Check me</label>
+                <input id="check2" type="checkbox" />
+                <label for="check2" id="check2Label">Check me too</label>
+            </div>
+            <div>
+                <input id="radio1" type="radio"
+                    name="radioGroup" value="eenie" />
+                <label for="radio1" id="eenieLabel">Eenie</label>&nbsp;
+                <input id="radio2" type="radio"
+                    name="radioGroup" value="meenie" />
+                <label for="radio2" id="meenieLabel">Meenie</label>&nbsp;
+                <input id="radio3" type="radio"
+                    name="radioGroup" value="mynie" />
+                <label for="radio3" id="mynieLabel">Mynie</label>&nbsp;
+                <input id="radio4" type="radio"
+                    name="radioGroup" value="moe" />
+                <label for="radio4" id="moeLabel">Moe</label>
+            </div>
+            <div>
+            </div>
+            <div id="select-block">
+                <label for="category" id="comboLabel">Category:</label>
+                <select id="category">
+                  <option selected="selected" value="a">animal</option>
+                  <option value="v">vegetable</option>
+                  <option value="m">mineral</option>
+                </select>
+                <label for="wonder" id="wonderLabel">Wonder:</label>
+                <select id="wonder" size="5">
+                  <option id="pyramidOption"
+                      value="pyramid">Great Pyramid of Giza</option>
+                  <option id="gardensOption"
+                      value="gardens">Hanging Gardens of Babylon</option>
+                  <option id="statueOption"
+                      value="statue">Statue of Zeus at Olympia</option>
+                  <option id="templeOption"
+                      value="temple">Temple of Artemis at Ephesus</option>
+                  <option id="mausoleumOption"
+                      value="mausoleum">Mausoleum of Maussollos at
+                      Halicarnassus</option>
+                  <option id="colossusOption"
+                      value="colossus">Colossus of Rhodes</option>
+                  <option id="lighthouseOption"
+                      value="lighthouse">Lighthouse of Alexandria</option>
+                </select>
+            </div>
+            <div><textarea id="textArea" cols="80" rows="25"></textarea></div>
+            <div>
+                <button id="pressMeButton">Press Me</button>
+                <button id="clickMeButton">Click Me</button>
+            </div>
+        </div>
+    </body>
+</html>
