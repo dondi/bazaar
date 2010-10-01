@@ -1,0 +1,54 @@
+<!doctype html>
+
+<!-- This file demonstrates dynamic element resizing through
+     JavaScript. -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>JavaScript Resizing Demo</title>
+
+        <style type="text/css">
+            #resize-target {
+                background-color: #ddf;
+                width: 100%;
+            }
+        </style>
+
+        <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                // Identify the element here:
+                	var contentId = "#resize-target";
+
+                // A helper function for determining the element's
+                // distance from the top of the page.
+                var pageY = function(elem) {
+                    return elem.offsetParent ?
+                        (elem.offsetTop + pageY(elem.offsetParent)) :
+                        	elem.offsetTop;
+                };
+        
+                // The resize entry point.
+                var resizeElement = function() {
+                    var height = document.documentElement.clientHeight;
+                    height -= pageY($(contentId)[0]) +
+                        parseInt($("body").css("margin-bottom"));
+                    height = (height < 0) ? 0 : height;
+                    $(contentId).css("height", height + "px");
+                }
+
+                $(window).resize(resizeElement);
+                resizeElement();
+            });
+        </script>
+    </head>
+    
+    <body>
+        <p>The element below dynamically resizes based on the height of
+           the browser window, using JavaScript.  Adapted from this
+           <a href="http://stackoverflow.com/questions/325273/make-iframe-to-fit-100-of-containers-remaining-height">Stack
+           Overflow question/answer</a>.</p>
+        
+        <div id="resize-target">Put content here.</div>
+    </body>
+</html>
