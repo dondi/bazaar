@@ -1,0 +1,30 @@
+<!doctype html>
+
+<!-- This example demonstrates the jQuery UI tabs component. -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Layouts and Positioning</title>
+        <link rel="stylesheet" href="css/jquery.ui.all.css" type="text/css" />
+        <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $("#fruit-options").tabs();
+            });
+        </script>
+    </head>
+    
+    <body>
+        <div id="fruit-options">
+            <ul>
+                <li><a href="#apples">Apples</a></li>
+                <li><a href="#oranges">Oranges</a></li>
+                <li><a href="#bananas">Bananas</a></li>
+            </ul>
+            <div id="apples">An apple a day keeps the doctor away.</div>
+            <div id="oranges">Orange you glad this is not a banana?</div>
+            <div id="bananas">Banana fanna fo fanna fee fi fo fanna.</div>
+        </div>
+    </body>
+</html>
