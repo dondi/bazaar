@@ -1,50 +1,231 @@
 <!doctype html>
 
+<!-- This file illustrates some options for arranging and styling elements
+     in layout-like ways. -->
 <html>
     <head>
         <meta charset="UTF-8" />
         <title>Layouts and Positioning</title>
         <style>
+            /* Overall styles for box visibility and other common
+               formatting. */
             div, span {
                 border: solid black 1px;
             }
             
-            #main {
+            .code {
+                border: none;
+                font-family: monospace;
+            }
+
+            /* Styles that demonstrate margin and padding. */
+            #sidebar-margin-padding {
+                margin: 5px;
+            }
+
+            #content-margin-padding {
+                margin-left: 240px;
+                padding: 10px;
+            }
+
+            /* Styles for the table approach. */
+            
+            /* Certain styles do not change across the table examples, so
+               these have been implemented as classes. */ 
+            .main-table {
                 display: table;
             }
             
-            #main div {
+            /* The > sign enforces immediate containment. */
+            .main-table > div {
                 display: table-row;
             }
-               
-            #sidebar {
+
+            .sidebar-table, .content-table {
                 display: table-cell;
+            }
+
+            .content-table {
+                padding: 10px;
+                margin-left: 240px;
+            }
+               
+            #sidebar-table-hardcoded {
                 width: 200px;
             }
 
-            #fox {
-                display: table-cell;
-                padding: 10px;
+            #content-table-hardcoded {
+                width: 500px;
+            }
+
+            #sidebar-table-percent {
+                width: 25%;
+            }
+
+            #content-table-percent {
+                width: 75%;
+            }
+
+            /* Styles for the float approach. */
+            #sidebar-float {
+                float: left;
+                width: 230px;
+            }
+            
+            #content-float {
                 margin-left: 240px;
-                width: 90%;
+                min-height: 400px;
             }
         </style>
     </head>
     
     <body>
+        <p>This page demonstrates a number of variations regarding layout
+           and child placement.  Make sure to resize this window at some
+           point, since some variations exhibit further differences under
+           that condition as well.</p>
+
+        <h1>Default Behavior</h1>
         <div>
             <div>Hello</div>
-            <div id="main">
+            <div id="main-default">
+                <div id="sidebar-default"><ol>
+                    <li>Item</li>
+                    <li>Item</li>
+                    <li>Item</li>
+                </ol></div>
+                <div id="content-default">The quick brown fox jumps
+                    over the lazy dog.</div>
+            </div>
+            <div><ul>
+                <li>Item</li>
+                <li>Item</li>
+                <li>Item</li>
+            </ul></div>
+        </div>
+        
+        <h1>Margin and Padding</h1>
+        <div>
+            <div>Hello</div>
+            <div id="main-margin-padding">
+                <div id="sidebar-margin-padding"><ol>
+                    <li>Item</li>
+                    <li>Item</li>
+                    <li>Item</li>
+                </ol></div>
+                <div id="content-margin-padding">The quick brown fox jumps
+                    over the lazy dog.</div>
+            </div>
+            <div><ul>
+                <li>Item</li>
+                <li>Item</li>
+                <li>Item</li>
+            </ul></div>
+        </div>
+        
+        <h1>The <span class="code">table-</span> Family of Display
+            Property Values</h1>
+        
+        <p>The following variations were shown for layouts that use
+           <span class="code">table-</span> values for the
+           <span class="code">display</span> property.</p>
+        
+        <h2>No Preset Sizes</h2>
+
+        <div>
+            <div>Hello</div>
+            <div class="main-table">
+                <!-- Note the added intermediate div that serves as the
+                     table row. -->
                 <div>
-                    <span id="sidebar"><ol><li>1</li><li>2</li><li>3</li></ol></span>
-                    <span id="fox">The quick brown fox jumps over the lazy dog.</span>
+                    <div class="sidebar-table"><ol>
+                        <li>Item</li>
+                        <li>Item</li>
+                        <li>Item</li>
+                    </ol></div>
+                    <div class="content-table">The quick brown fox jumps
+                        over the lazy dog.</div>
                 </div>
             </div>
             <div><ul>
-                <li>Iron Man</li>
-                <li>Spider-Man</li>
-                <li>Thor</li>
+                <li>Item</li>
+                <li>Item</li>
+                <li>Item</li>
             </ul></div>
         </div>
+
+        <h2>Hardcoded Sizes</h2>
+
+        <div>
+            <div>Hello</div>
+            <div class="main-table">
+                <!-- Note the added intermediate div that serves as the
+                     table row. -->
+                <div>
+                    <div class="sidebar-table"
+                         id="sidebar-table-hardcoded"><ol>
+                        <li>Item</li>
+                        <li>Item</li>
+                        <li>Item</li>
+                    </ol></div>
+                    <div class="content-table"
+                         id="content-table-hardcoded">The quick brown fox
+                        jumps over the lazy dog.</div>
+                </div>
+            </div>
+            <div><ul>
+                <li>Item</li>
+                <li>Item</li>
+                <li>Item</li>
+            </ul></div>
+        </div>
+
+        <h2>Percent Units</h2>
+
+        <div>
+            <div>Hello</div>
+            <div class="main-table">
+                <!-- Note the added intermediate div that serves as the
+                     table row. -->
+                <div>
+                    <div class="sidebar-table"
+                         id="sidebar-table-percent"><ol>
+                        <li>Item</li>
+                        <li>Item</li>
+                        <li>Item</li>
+                    </ol></div>
+                    <div class="content-table"
+                         id="content-table-percent">The quick brown fox
+                        jumps over the lazy dog.</div>
+                </div>
+            </div>
+            <div><ul>
+                <li>Item</li>
+                <li>Item</li>
+                <li>Item</li>
+            </ul></div>
+        </div>
+
+        <h1>The <span class="code">float</span> and
+            <span class="code">min-height</span> Combination</h1>
+
+        <div>
+            <div>Hello</div>
+            <div id="main-float">
+                <div id="sidebar-float"><ol>
+                    <li>Item</li>
+                    <li>Item</li>
+                    <li>Item</li>
+                </ol></div>
+                <div id="content-float">The quick brown fox jumps
+                    over the lazy dog.</div>
+            </div>
+            <div><ul>
+                <li>Item</li>
+                <li>Item</li>
+                <li>Item</li>
+            </ul></div>
+        </div>
+
     </body>
 </html>
