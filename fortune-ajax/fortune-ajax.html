@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <!-- This page demonstrates a rudimentary Ajax connection using
+       jQuery's API. -->
+  <head>
+    <meta encoding="UTF-8" />
+    <title>Your Fortune!</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="fortune-library.js"></script>
+    <script type="text/javascript">
+      /*
+       * Watch out for the same-origin policy: open this as a local file,
+       * plus make sure that your browser allows local files to connect
+       * anywhere also.
+       *
+       * If your browser does not allow local corrections, you can adapt
+       * this code for use with the JavaScript Runner page at:
+       *
+       *     http://javascript.cs.lmu.edu/runner
+       *
+       * Since that page is on the same server as the fortune service,
+       * code that you type in there should connect OK.
+       */
+      $(FortuneLibrary.setupFortuneButton("getFortuneButton", "fortune",
+        "loadingFeedbackElement", "http://javascript.cs.lmu.edu/php/fortune.php"));
+    </script>
+  </head>
+  <body>
+    <h1>Your Fortune</h1>
+
+    <p>Click on the button below to see your fortune.</p>
+
+    <button id="getFortuneButton">Get My Fortune</button>
+    <span id="loadingFeedbackElement">Loading...</span>
+
+    <p id="fortune"></p>
+  </body>
+</html>
