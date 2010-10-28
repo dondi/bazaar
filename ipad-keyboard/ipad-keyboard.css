@@ -1,6 +1,24 @@
 body {
-    background-color: #bbbbbb;
+    background-image: -webkit-gradient(linear,
+        left top,
+        left bottom,
+        color-stop(0.3, rgb(157, 156, 166)),
+        color-stop(1, rgb(67, 68, 75))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(157, 156, 166) 30%,
+        rgb(67, 68, 75) 100%
+    );
     margin: 0;
+}
+
+#content-to-type {
+    background-color: white;
+    color: black;
+    margin: 10px;
+    padding: 10px;
+    width: 984px;
 }
 
 textarea {
@@ -10,12 +28,11 @@ textarea {
 
 div.keyboard {
     width: 1024px;
-    bottom: 0;
-    margin: 5px;
+    margin: 0 3px;
 }
 
 div.keyboard-row:last-child {
-    margin-left: 270px;
+    margin-left: 276px;
 }
 
 div.key, div.key span {
@@ -23,48 +40,79 @@ div.key, div.key span {
 }    
 
 div.key {
-    border: 1px solid #888888;
+    border: 1px solid black;
     display: inline-block;
     margin: 3px;
+    -moz-box-shadow: 0px 1px 2px #666666;
+    -webkit-box-shadow: 0px 1px 2px #666666;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 div.key span {
-    background-color: #eeeeee;
-    border: 1px outset white;
-    color: #555555;
+    border-top: 1px solid white;
+    color: black;
     display: inline-block;
     font-family: Helvetica Neue Bold, Helvetica, Arial, sans-serif;
-    font-size: 24px;
+    font-size: 25px;
     padding-top: 24px;
-    width: 75px;
-    height: 51px;
+    width: 79px;
+    height: 50px;
     text-align: center;
-    text-shadow: 1px 1px 1px white;
+}
+
+.inactive {
+    background-image: -webkit-gradient(linear,
+        left top,
+        left bottom,
+        color-stop(0.3, rgb(240, 240, 240)),
+        color-stop(1, rgb(210, 210, 216))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(240, 240, 240) 30%,
+        rgb(210, 210, 216) 100%
+    );
+}
+
+.active {
+    background-image: -webkit-gradient(linear,
+        left top,
+        left bottom,
+        color-stop(0.3, rgb(200, 200, 200)),
+        color-stop(1, rgb(105, 105, 108))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(200, 200, 200) 30%,
+        rgb(105, 105, 108) 100%
+    );
 }
 
 div.keyboard-row {
-    margin: 3px;
+    margin: 3px 1px;
 }
 
 div.keyboard-row.home {
-    margin-left: 45px;
+    margin-left: 38px;
 }
 
 div.key #backspace-key {
-    padding-right: 20px;
-    text-align: right;
+    width: 80px;
 }
 
 div.key #return-key {
-    width: 120px;
-    padding-right: 20px;
-    text-align: right;
+    width: 144px;
+}
+
+div.key #left-shift-key {
+    width: 78px;
 }
 
 div.key #right-shift-key {
-    width: 100px;
+    width: 90px;
 }
 
 div.key #space-bar {
-    width: 480px;
+    width: 439px;
 }
