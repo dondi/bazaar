@@ -1,0 +1,70 @@
+body {
+    background-color: #bbbbbb;
+    margin: 0;
+}
+
+textarea {
+    width: 1024px;
+    height: 256px;
+}
+
+div.keyboard {
+    width: 1024px;
+    bottom: 0;
+    margin: 5px;
+}
+
+div.keyboard-row:last-child {
+    margin-left: 270px;
+}
+
+div.key, div.key span {
+    border-radius: 7px;
+}    
+
+div.key {
+    border: 1px solid #888888;
+    display: inline-block;
+    margin: 3px;
+}
+
+div.key span {
+    background-color: #eeeeee;
+    border: 1px outset white;
+    color: #555555;
+    display: inline-block;
+    font-family: Helvetica Neue Bold, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    padding-top: 24px;
+    width: 75px;
+    height: 51px;
+    text-align: center;
+    text-shadow: 1px 1px 1px white;
+}
+
+div.keyboard-row {
+    margin: 3px;
+}
+
+div.keyboard-row.home {
+    margin-left: 45px;
+}
+
+div.key #backspace-key {
+    padding-right: 20px;
+    text-align: right;
+}
+
+div.key #return-key {
+    width: 120px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+div.key #right-shift-key {
+    width: 100px;
+}
+
+div.key #space-bar {
+    width: 480px;
+}
