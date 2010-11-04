@@ -22,12 +22,13 @@ $(function () {
         // Remove character from area to type
         textToType.text((textToTypeVal.slice(1)));
     });
+
 });
     
 /**
- * Performs the lexical distance analysis from the target string to the
- * user's input, then returns the number of differences (errors) as an
- * integer Derived from Levenshtein Distance article on Wikipedia :D
+ * Performs the lexical distance analysis from the target string to the user's
+ * input, then returns the number of differences (errors) as an integer Derived
+ * from Levenshtein Distance article on Wikipedia :D
  */
 var errors = function (targetString, userString) {
     var i, j, cost,
@@ -64,4 +65,67 @@ var errors = function (targetString, userString) {
     }
 
     return d[targetString.length][userString.length];
+};
+
+// Set up the timer recording.
+var TimerControl = {
+
+    setupEnd : function(endButton) {
+
+        return function() {
+
+            var Hr_start;
+            var Min_start;
+            var Sec_start;
+            var Hr_end;
+            var Min_start;
+            var Sec_start;
+            var running = 0;
+
+            function startTimer() {
+                var start = new Date();
+                Hr_start = start.getHours();
+                Min_start = start.getMinutes();
+                Sec_start = start.getSeconds();
+                running = 1;
+            }
+
+            function endTimer() {
+                var end = new Date();
+                Hr_end = end.getHours();
+                Min_end = end.getMinutes();
+                Sec_end = end.getSeconds();
+            }
+
+            function calcTime() {
+                var minute;
+                var sec;
+                if (Hr_end != Hr_start) {
+                    minute = 60 - Min_start + Min_end;
+                } else {
+                    minute = Min_end - Min_start;
+                }
+                if (Min_end != Min_start) {
+                    sec = 60 - Sec_start + Sec_end;
+                    minute = minute - 1;
+                } else {
+                    sec = Sec_end - Sec_start;
+                }
+                alert(minute + ":" + sec);
+            }
+
+            $('html').live("keydown", function() {
+                if (running == 0) {
+                    startTimer();
+                }
+            });
+
+            $(endButton).click(function() {
+                $(endButton).css("color", "red");
+                running = 0;
+                endTimer();
+                calcTime();
+            });
+        }
+    }
 };

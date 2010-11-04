@@ -21,11 +21,6 @@ body {
     width: 984px;
 }
 
-textarea {
-    width: 1024px;
-    height: 256px;
-}
-
 div.keyboard {
     /* Removed for now so that key rows don't spill over. */
     /* width: 1024px; */
