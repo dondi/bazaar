@@ -34,7 +34,7 @@ $(function () {
     $("#text-to-type").html(stringLibrary[Math.floor((Math.random() *
             stringLibrary.length))]);
     
-//    $("#timing-result").hide();
+    $("#timing-result").hide();
 });
     
 /**
@@ -100,7 +100,7 @@ var TimerControl = {
                 min_start = start.getMinutes();
                 sec_start = start.getSeconds();
                 running = true;
-//                $("#timing-result").hide();
+                $("#timing-result").hide();
             };
 
             var endTimer = function () {
@@ -124,8 +124,8 @@ var TimerControl = {
                 } else {
                     sec = sec_end - sec_start;
                 }
-                $("#timing-result").html(minute + ":" + sec);
-//                $("#timing-result").show();
+                $("#timing-result").html(minute + ":" + sec)
+                    .fadeIn();
             };
 
             $('html').live("click", function () {
@@ -139,7 +139,8 @@ var TimerControl = {
                 running = false;
                 endTimer();
                 calcTime();
+                event.stopPropagation();
             });
-        }
+        };
     }
 };
