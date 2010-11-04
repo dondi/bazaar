@@ -115,6 +115,14 @@ div.key #space-bar {
 }
 
 .typed-text {
-	color: green;
+    background-color: #fc0;
 }
 
+#timing-result {
+    background-color: white;
+    border-style: inset;
+    border-width: 1px;
+    float: right;
+    margin: 0 1em;
+    padding: 0 1ex;
+}

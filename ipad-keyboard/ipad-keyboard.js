@@ -1,4 +1,11 @@
 $(function () {
+    // Initialize the array of strings to type.
+    var stringLibrary = [
+        "the quick brown fox jumps over the lazy dog",
+        "seventy six trombones led the big parade",
+        "she sells seashells by the seashore"
+    ];
+
     // Initialize all keys as inactive.
     $("div.key span").addClass("inactive");
 
@@ -23,6 +30,11 @@ $(function () {
         textToType.text((textToTypeVal.slice(1)));
     });
 
+    // Choose a string at random and stick in text-to-type.
+    $("#text-to-type").html(stringLibrary[Math.floor((Math.random() *
+            stringLibrary.length))]);
+    
+//    $("#timing-result").hide();
 });
     
 /**
@@ -70,59 +82,61 @@ var errors = function (targetString, userString) {
 // Set up the timer recording.
 var TimerControl = {
 
-    setupEnd : function(endButton) {
+    setupEnd : function (endButton) {
 
-        return function() {
+        return function () {
 
-            var Hr_start;
-            var Min_start;
-            var Sec_start;
-            var Hr_end;
-            var Min_start;
-            var Sec_start;
-            var running = 0;
+            var hr_start,
+                min_start,
+                sec_start,
+                hr_end,
+                min_start,
+                sec_start,
+                running = false;
 
-            function startTimer() {
+            var startTimer = function () {
                 var start = new Date();
-                Hr_start = start.getHours();
-                Min_start = start.getMinutes();
-                Sec_start = start.getSeconds();
-                running = 1;
-            }
+                hr_start = start.getHours();
+                min_start = start.getMinutes();
+                sec_start = start.getSeconds();
+                running = true;
+//                $("#timing-result").hide();
+            };
 
-            function endTimer() {
+            var endTimer = function () {
                 var end = new Date();
-                Hr_end = end.getHours();
-                Min_end = end.getMinutes();
-                Sec_end = end.getSeconds();
-            }
+                hr_end = end.getHours();
+                min_end = end.getMinutes();
+                sec_end = end.getSeconds();
+            };
 
-            function calcTime() {
+            var calcTime = function () {
                 var minute;
                 var sec;
-                if (Hr_end != Hr_start) {
-                    minute = 60 - Min_start + Min_end;
+                if (hr_end !== hr_start) {
+                    minute = 60 - min_start + min_end;
                 } else {
-                    minute = Min_end - Min_start;
+                    minute = min_end - min_start;
                 }
-                if (Min_end != Min_start) {
-                    sec = 60 - Sec_start + Sec_end;
+                if (min_end !== min_start) {
+                    sec = 60 - sec_start + sec_end;
                     minute = minute - 1;
                 } else {
-                    sec = Sec_end - Sec_start;
+                    sec = sec_end - sec_start;
                 }
-                alert(minute + ":" + sec);
-            }
+                $("#timing-result").html(minute + ":" + sec);
+//                $("#timing-result").show();
+            };
 
-            $('html').live("keydown", function() {
-                if (running == 0) {
+            $('html').live("click", function () {
+                if (!running) {
                     startTimer();
                 }
             });
 
-            $(endButton).click(function() {
+            $(endButton).click(function () {
                 $(endButton).css("color", "red");
-                running = 0;
+                running = false;
                 endTimer();
                 calcTime();
             });
