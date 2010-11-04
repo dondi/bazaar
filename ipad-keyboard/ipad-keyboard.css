@@ -116,3 +116,8 @@ div.key #right-shift-key {
 div.key #space-bar {
     width: 439px;
 }
+
+.typed-text {
+	color: green;
+}
+
