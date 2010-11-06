@@ -118,6 +118,14 @@ div.key #space-bar {
     background-color: #fc0;
 }
 
+.error {
+    background-color: #f00;
+}
+ 
+.done {
+    background-color: #0bdc00;
+}
+
 #timing-result {
     background-color: white;
     border-style: inset;
