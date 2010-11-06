@@ -7,17 +7,17 @@ $(function () {
     ];
 
     // Initialize all keys as inactive.
-    $("div.key span").addClass("inactive");
+    $("div.key").addClass("inactive");
 
     // Set up the event handlers.
     $("div.key span").mousedown(function (event) {
-        $(event.currentTarget).removeClass("inactive");
-        $(event.currentTarget).addClass("active");
+        $(event.currentTarget.parentNode).removeClass("inactive");
+        $(event.currentTarget.parentNode).addClass("active");
     })
 
     .mouseup(function (event) {
-        $(event.currentTarget).removeClass("active");
-        $(event.currentTarget).addClass("inactive");
+        $(event.currentTarget.parentNode).removeClass("active");
+        $(event.currentTarget.parentNode).addClass("inactive");
         
         var typedText     = $('.typed-text'),
             textToType    = $('.text-to-type'),

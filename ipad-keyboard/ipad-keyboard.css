@@ -39,15 +39,18 @@ div.key {
     border: 1px solid black;
     display: inline-block;
     margin: 1px;
+    width: 79px;
+    height: 75px;
     -moz-box-shadow: 0px 1px 2px #666666;
     -webkit-box-shadow: 0px 1px 2px #666666;
     -moz-user-select: none;
     -webkit-user-select: none;
-	vertical-align: middle;
+    text-align: center;
+    vertical-align: middle;
 }
 
 div.key span {
-    border-top: 1px solid white;
+    /*border-top: 1px solid white;*/
     color: black;
     display: inline-block;
     font-family: Helvetica Neue Bold, Helvetica, Arial, sans-serif;
@@ -94,23 +97,23 @@ div.keyboard-row.home {
     margin-left: 38px;
 }
 
-div.key #backspace-key {
+#backspace-key-hit {
     width: 80px;
 }
 
-div.key #return-key {
+#return-key-hit {
     width: 144px;
 }
 
-div.key #left-shift-key {
+#left-shift-key-hit {
     width: 78px;
 }
 
-div.key #right-shift-key {
+#right-shift-key-hit {
     width: 90px;
 }
 
-div.key #space-bar {
+#space-bar-hit {
     width: 439px;
 }
 
