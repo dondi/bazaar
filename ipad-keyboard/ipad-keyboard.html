@@ -12,11 +12,15 @@
     <!-- Keyboard-specific event handling. -->
     <script src="ipad-keyboard.js"></script>
     <script src="ipad-keyboard-keys.js"></script>
-    <script>$(TimerControl.setupEnd("#end"));</script>
   </head>
   <body>
-    <p>
+    <p id="hud">
         <button id="end">End</button>
+        <button id="trial-button">Trial Run</button>
+        <button id="start-button">Start</button>
+        <input id="keyboard-checkbox" type="checkbox" />
+        <label for="keyboard-checkbox">Experimental Keyboard</label>
+        <span id="message"></span>
         <span id="timing-result"></span>
     </p>
 
