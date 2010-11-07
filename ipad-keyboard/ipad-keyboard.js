@@ -103,6 +103,32 @@ $(function () {
         });
     };
     
+    // Timing run setup function: reset things so that the web page is
+    // ready to accept "keypresses," track progress, and time the whole
+    // thing.
+    var startTimingSession = function () {
+        // State variables ("model").
+        var currentIndex;
+
+        // Choose a string at random and stick in text-to-type.
+        $(".text-to-type").html(stringLibrary[Math.floor((Math.random() *
+                stringLibrary.length))]);
+        
+        // Hide the timing result element.
+        $("#timing-result").hide();
+        
+        // Initialize state.
+        currentIndex = 0;
+        
+        // Set up the current text.
+        var textToTypeVal = $(".text-to-type").text();
+        $(".typed-text").text("");
+        $(".current-text").text(textToTypeVal.charAt(0));
+        $(".text-to-type").text(textToTypeVal.slice(1));
+        
+        // Set up event handlers.
+    };
+
     // Set up the event handlers.
     $("div.key span").mousedown(function (event) {
         $(event.currentTarget.parentNode).removeClass("inactive");
@@ -113,27 +139,32 @@ $(function () {
         $(event.currentTarget.parentNode).removeClass("active");
         $(event.currentTarget.parentNode).addClass("inactive");
         
-        var typedText     = $('.typed-text'),
-            textToType    = $('.text-to-type'),
+        var typedText = $('.typed-text'),
+            currentText = $('.current-text');
+            textToType = $('.text-to-type'),
             textToTypeVal = textToType.text();
         
-        // Append one character to typed area
-        typedText.append(textToTypeVal.charAt(0));
+        // Append the current text to the typed area.
+        typedText.append(currentText.text());
         
-        // Remove character from area to type
+        // Set the new current text.
+        currentText.text(textToTypeVal.charAt(0));
+        
+        // Remove character from area to type.
         textToType.text((textToTypeVal.slice(1)));
     });
 
     $("#keyboard-checkbox").click(function () {
         setupExperimentalKeyboard();
         $("#keyboard-checkbox").attr("disabled", "true");
+        $("#keyboard-checkbox-label")
+            .html($("#keyboard-checkbox-label").html() +
+                " (reload the page to get the standard keyboard back)");
     });
 
-    // Choose a string at random and stick in text-to-type.
-    $("#text-to-type").html(stringLibrary[Math.floor((Math.random() *
-            stringLibrary.length))]);
-    
-    $("#timing-result").hide();
+    // Finish off with a timing session.
+    startTimingSession();
+
 });
 
 // Set up the timer recording.

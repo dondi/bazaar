@@ -21,6 +21,11 @@ body {
     width: 984px;
 }
 
+div.keyboard, div.key {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 div.keyboard {
     /* Removed for now so that key rows don't spill over. */
     /* width: 1024px; */
@@ -43,8 +48,6 @@ div.key {
     height: 75px;
     -moz-box-shadow: 0px 1px 2px #666666;
     -webkit-box-shadow: 0px 1px 2px #666666;
-    -moz-user-select: none;
-    -webkit-user-select: none;
     text-align: center;
     vertical-align: middle;
 }
@@ -119,6 +122,10 @@ div.keyboard-row.home {
 
 .typed-text {
     background-color: #fc0;
+}
+
+.current-text {
+    border-bottom: solid black 2px;
 }
 
 .error {

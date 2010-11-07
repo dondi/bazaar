@@ -18,15 +18,16 @@
         <button id="trial-button">Trial Run</button>
         <button id="start-button">Start</button>
         <input id="keyboard-checkbox" type="checkbox" />
-        <label for="keyboard-checkbox">Experimental Keyboard (reload the
-            page to get the standard keyboard back)</label>
+        <label for="keyboard-checkbox"
+          id="keyboard-checkbox-label">Experimental Keyboard</label>
         <span id="message"></span>
         <span id="timing-result"></span>
     </p>
 
     <p id="content-to-type">
-      <span class="typed-text"></span><span class="text-to-type"
-          id="text-to-type"></span></p>
+      <span class="typed-text"></span><span
+        class="current-text"></span><span
+        class="text-to-type"></span></p>
     <div class="keyboard">
         <div class="keyboard-row">
             <div class="key" id="q-key-hit"><span id="q-key">Q</span></div>
