@@ -45,14 +45,14 @@ $(function () {
             },
 
             enhancedKeys = true,
-            minWidth = 77,
-            minHeight = 48,
-            normalWidth = 79,
-            normalHeight = 50,
-            maxWidth = 90,
-            maxHeight = 61,
+            minWidth = 57,
+            minHeight = 28,
+            normalWidth = 59,
+            normalHeight = 30,
+            maxWidth = 70,
+            maxHeight = 41,
             maxUsage = letterSizes["e"],
-            spanMargin = 2;
+            spanMargin = 1;
 
         // Function for making keys the right size.
         var changeSize = function (id, size) {
