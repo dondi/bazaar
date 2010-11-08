@@ -45,6 +45,8 @@ div.keyboard-row:last-child {
 
 div.key, div.key span {
     border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
 }    
 
 div.key {

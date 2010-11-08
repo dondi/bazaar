@@ -131,100 +131,99 @@ $(function () {
         // We don't start the timer until the user hits a key.
         ticking = false;
 
-        // The function for "advancing" the character one at a time.
-        var advanceText = function () {
-            var typedText = $('.typed-text'),
-                currentText = $('.current-text'),
-                textToType = $('.text-to-type'),
-                textToTypeVal = textToType.text();
-            
-            // Append the current text to the typed area.
-            typedText.text(typedText.text() + currentText.text());
-            
-            // Set the new current text.
-            currentText.text(textToTypeVal.charAt(0));
-            
-            // Remove character from area to type.
-            textToType.text((textToTypeVal.slice(1)));
-        };
-        
-        // The function for ending the timing session.
-        var endTimingSession = function () {
-            var end = new Date();
-            hr_end = end.getHours();
-            min_end = end.getMinutes();
-            sec_end = end.getSeconds();
-
-            var minute;
-            var sec;
-            if (hr_end !== hr_start) {
-                minute = 60 - min_start + min_end;
-            } else {
-                minute = min_end - min_start;
-            }
-            if (min_end !== min_start) {
-                sec = 60 - sec_start + sec_end;
-                minute = minute - 1;
-            } else {
-                sec = sec_end - sec_start;
-            }
-            $("#timing-result").text(minute + ":" + sec)
-                .fadeIn();
-        };
-
-        // Visual feedback function for errors.
-        var flashError = function () {
-            $("#content-to-type").removeClass("content-normal")
-                .addClass("content-error");
-            
-            // Restore the white background after 100 milliseconds.
-            setTimeout(function () {
-                $("#content-to-type").removeClass("content-error")
-                    .addClass("content-normal");
-            }, 100);
-        };
-
-        // Set up the event handlers.
-        $("div.key span").mousedown(function (event) {
-            $(event.currentTarget.parentNode).removeClass("inactive")
-                .addClass("active");
-            
-            // If this is the first key since starting, then we record
-            // the start time.
-            if (!ticking) {
-                var start = new Date();
-                hr_start = start.getHours();
-                min_start = start.getMinutes();
-                sec_start = start.getSeconds();
-                ticking = true;
-            }
-        })
-
-        .mouseup(function (event) {
-            $(event.currentTarget.parentNode).removeClass("active")
-                .addClass("inactive");
-            
-            // Is the hit "key" correct?
-            if (($(event.currentTarget).text().toLowerCase() ===
-                    $(".current-text").text()) ||
-                    ((event.currentTarget.id === "space-bar") &&
-                    $(".current-text").text() === " ")) {
-                advanceText();
-                
-                // Are we done?
-                if ($(".typed-text").text() === targetText) {
-                    endTimingSession();
-                }
-            } else {
-                flashError();
-            }
-        });
-
         // All done; move to the first character.
         advanceText();
     };
 
-    // Set up top-level event handlers.
+    // The function for "advancing" the character one at a time.
+    var advanceText = function () {
+        var typedText = $('.typed-text'),
+            currentText = $('.current-text'),
+            textToType = $('.text-to-type'),
+            textToTypeVal = textToType.text();
+        
+        // Append the current text to the typed area.
+        typedText.text(typedText.text() + currentText.text());
+        
+        // Set the new current text.
+        currentText.text(textToTypeVal.charAt(0));
+        
+        // Remove character from area to type.
+        textToType.text((textToTypeVal.slice(1)));
+    };
+    
+    // The function for ending the timing session.
+    var endTimingSession = function () {
+        var end = new Date();
+        hr_end = end.getHours();
+        min_end = end.getMinutes();
+        sec_end = end.getSeconds();
+
+        var minute;
+        var sec;
+        if (hr_end !== hr_start) {
+            minute = 60 - min_start + min_end;
+        } else {
+            minute = min_end - min_start;
+        }
+        if (min_end !== min_start) {
+            sec = 60 - sec_start + sec_end;
+            minute = minute - 1;
+        } else {
+            sec = sec_end - sec_start;
+        }
+        $("#timing-result").text(minute + ":" + sec)
+            .fadeIn();
+    };
+
+    // Visual feedback function for errors.
+    var flashError = function () {
+        $("#content-to-type").removeClass("content-normal")
+            .addClass("content-error");
+        
+        // Restore the white background after 100 milliseconds.
+        setTimeout(function () {
+            $("#content-to-type").removeClass("content-error")
+                .addClass("content-normal");
+        }, 100);
+    };
+
+    // Set up the event handlers.
+    $("div.key span").mousedown(function (event) {
+        $(event.currentTarget.parentNode).removeClass("inactive")
+            .addClass("active");
+        
+        // If this is the first key since starting, then we record
+        // the start time.
+        if (!ticking) {
+            var start = new Date();
+            hr_start = start.getHours();
+            min_start = start.getMinutes();
+            sec_start = start.getSeconds();
+            ticking = true;
+        }
+    })
+
+    .mouseup(function (event) {
+        $(event.currentTarget.parentNode).removeClass("active")
+            .addClass("inactive");
+        
+        // Is the hit "key" correct?
+        if (($(event.currentTarget).text().toLowerCase() ===
+                $(".current-text").text()) ||
+                ((event.currentTarget.id === "space-bar") &&
+                $(".current-text").text() === " ")) {
+            advanceText();
+            
+            // Are we done?
+            if ($(".typed-text").text() === targetText) {
+                endTimingSession();
+            }
+        } else {
+            flashError();
+        }
+    });
+
     $("#start-button").click(startTimingSession);
 
     $("#keyboard-checkbox").click(function () {
