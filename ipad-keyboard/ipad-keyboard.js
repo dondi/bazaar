@@ -16,43 +16,43 @@ $(function () {
          * Created by: Brian Handy & Andrew Garrard
          */
         var letterSizes = {
-            "a": 8.167,
-            "b": 1.492,
-            "c": 2.782,
-            "d": 4.253,
-            "e": 12.702,
-            "f": 2.228,
-            "g": 2.015,
-            "h": 6.094,
-            "i": 6.966,
-            "j": 0.153,
-            "k": 0.772,
-            "l": 4.025,
-            "m": 2.406,
-            "n": 6.749,
-            "o": 7.507,
-            "p": 1.929,
-            "q": 0.095,
-            "r": 5.987,
-            "s": 6.327,
-            "t": 9.056,
-            "u": 2.758,
-            "v": 0.978,
-            "w": 2.360,
-            "x": 0.150,
-            "y": 1.974,
-            "z": 0.074
-        };
+                "a": 8.167,
+                "b": 1.492,
+                "c": 2.782,
+                "d": 4.253,
+                "e": 12.702,
+                "f": 2.228,
+                "g": 2.015,
+                "h": 6.094,
+                "i": 6.966,
+                "j": 0.153,
+                "k": 0.772,
+                "l": 4.025,
+                "m": 2.406,
+                "n": 6.749,
+                "o": 7.507,
+                "p": 1.929,
+                "q": 0.095,
+                "r": 5.987,
+                "s": 6.327,
+                "t": 9.056,
+                "u": 2.758,
+                "v": 0.978,
+                "w": 2.360,
+                "x": 0.150,
+                "y": 1.974,
+                "z": 0.074
+            },
 
-        var enhancedKeys = true;
-        var minWidth = 77;
-        var minHeight = 48;
-        var normalWidth = 79;
-        var normalHeight = 50;
-        var maxWidth = 90;
-        var maxHeight = 61;
-        var maxUsage = letterSizes["e"];
-        var spanMargin = 2;
+            enhancedKeys = true,
+            minWidth = 77,
+            minHeight = 48,
+            normalWidth = 79,
+            normalHeight = 50,
+            maxWidth = 90,
+            maxHeight = 61,
+            maxUsage = letterSizes["e"],
+            spanMargin = 2;
 
         // Function for making keys the right size.
         var changeSize = function (id, size) {
@@ -103,56 +103,129 @@ $(function () {
         });
     };
     
+    // State variables ("model").
+    var ticking,
+        hr_start,
+        min_start,
+        sec_start,
+        hr_end,
+        min_start,
+        sec_start,
+        targetText;
+
     // Timing run setup function: reset things so that the web page is
     // ready to accept "keypresses," track progress, and time the whole
     // thing.
     var startTimingSession = function () {
-        // State variables ("model").
-        var currentIndex;
-
-        // Choose a string at random and stick in text-to-type.
-        $(".text-to-type").html(stringLibrary[Math.floor((Math.random() *
-                stringLibrary.length))]);
+        // Choose a string at random and stick it in text-to-type; blank
+        // out the other spans.
+        targetText = stringLibrary[Math.floor((Math.random() *
+            stringLibrary.length))];
+        $(".typed-text").text("");
+        $(".current-text").text("");
+        $(".text-to-type").text(targetText);
         
         // Hide the timing result element.
-        $("#timing-result").hide();
+        $("#timing-result").fadeOut();
         
-        // Initialize state.
-        currentIndex = 0;
+        // We don't start the timer until the user hits a key.
+        ticking = false;
+
+        // The function for "advancing" the character one at a time.
+        var advanceText = function () {
+            var typedText = $('.typed-text'),
+                currentText = $('.current-text'),
+                textToType = $('.text-to-type'),
+                textToTypeVal = textToType.text();
+            
+            // Append the current text to the typed area.
+            typedText.text(typedText.text() + currentText.text());
+            
+            // Set the new current text.
+            currentText.text(textToTypeVal.charAt(0));
+            
+            // Remove character from area to type.
+            textToType.text((textToTypeVal.slice(1)));
+        };
         
-        // Set up the current text.
-        var textToTypeVal = $(".text-to-type").text();
-        $(".typed-text").text("");
-        $(".current-text").text(textToTypeVal.charAt(0));
-        $(".text-to-type").text(textToTypeVal.slice(1));
-        
-        // Set up event handlers.
+        // The function for ending the timing session.
+        var endTimingSession = function () {
+            var end = new Date();
+            hr_end = end.getHours();
+            min_end = end.getMinutes();
+            sec_end = end.getSeconds();
+
+            var minute;
+            var sec;
+            if (hr_end !== hr_start) {
+                minute = 60 - min_start + min_end;
+            } else {
+                minute = min_end - min_start;
+            }
+            if (min_end !== min_start) {
+                sec = 60 - sec_start + sec_end;
+                minute = minute - 1;
+            } else {
+                sec = sec_end - sec_start;
+            }
+            $("#timing-result").text(minute + ":" + sec)
+                .fadeIn();
+        };
+
+        // Visual feedback function for errors.
+        var flashError = function () {
+            $("#content-to-type").removeClass("content-normal")
+                .addClass("content-error");
+            
+            // Restore the white background after 100 milliseconds.
+            setTimeout(function () {
+                $("#content-to-type").removeClass("content-error")
+                    .addClass("content-normal");
+            }, 100);
+        };
+
+        // Set up the event handlers.
+        $("div.key span").mousedown(function (event) {
+            $(event.currentTarget.parentNode).removeClass("inactive")
+                .addClass("active");
+            
+            // If this is the first key since starting, then we record
+            // the start time.
+            if (!ticking) {
+                var start = new Date();
+                hr_start = start.getHours();
+                min_start = start.getMinutes();
+                sec_start = start.getSeconds();
+                ticking = true;
+            }
+        })
+
+        .mouseup(function (event) {
+            $(event.currentTarget.parentNode).removeClass("active")
+                .addClass("inactive");
+            
+            // Is the hit "key" correct?
+            if (($(event.currentTarget).text().toLowerCase() ===
+                    $(".current-text").text()) ||
+                    ((event.currentTarget.id === "space-bar") &&
+                    $(".current-text").text() === " ")) {
+                advanceText();
+                
+                // Are we done?
+                if ($(".typed-text").text() === targetText) {
+                    endTimingSession();
+                }
+            } else {
+                flashError();
+            }
+        });
+
+        // All done; move to the first character.
+        advanceText();
     };
 
-    // Set up the event handlers.
-    $("div.key span").mousedown(function (event) {
-        $(event.currentTarget.parentNode).removeClass("inactive");
-        $(event.currentTarget.parentNode).addClass("active");
-    })
-
-    .mouseup(function (event) {
-        $(event.currentTarget.parentNode).removeClass("active");
-        $(event.currentTarget.parentNode).addClass("inactive");
-        
-        var typedText = $('.typed-text'),
-            currentText = $('.current-text');
-            textToType = $('.text-to-type'),
-            textToTypeVal = textToType.text();
-        
-        // Append the current text to the typed area.
-        typedText.append(currentText.text());
-        
-        // Set the new current text.
-        currentText.text(textToTypeVal.charAt(0));
-        
-        // Remove character from area to type.
-        textToType.text((textToTypeVal.slice(1)));
-    });
+    // Set up top-level event handlers.
+    $("#start-button").click(startTimingSession);
 
     $("#keyboard-checkbox").click(function () {
         setupExperimentalKeyboard();
@@ -160,75 +233,12 @@ $(function () {
         $("#keyboard-checkbox-label")
             .html($("#keyboard-checkbox-label").html() +
                 " (reload the page to get the standard keyboard back)");
+        
+        // Restart things after a keyboard change.
+        startTimingSession();
     });
 
     // Finish off with a timing session.
     startTimingSession();
 
 });
-
-// Set up the timer recording.
-var TimerControl = {
-
-    setupEnd : function (endButton) {
-
-        return function () {
-
-            var hr_start,
-                min_start,
-                sec_start,
-                hr_end,
-                min_start,
-                sec_start,
-                running = false;
-
-            var startTimer = function () {
-                var start = new Date();
-                hr_start = start.getHours();
-                min_start = start.getMinutes();
-                sec_start = start.getSeconds();
-                running = true;
-                $("#timing-result").hide();
-            };
-
-            var endTimer = function () {
-                var end = new Date();
-                hr_end = end.getHours();
-                min_end = end.getMinutes();
-                sec_end = end.getSeconds();
-            };
-
-            var calcTime = function () {
-                var minute;
-                var sec;
-                if (hr_end !== hr_start) {
-                    minute = 60 - min_start + min_end;
-                } else {
-                    minute = min_end - min_start;
-                }
-                if (min_end !== min_start) {
-                    sec = 60 - sec_start + sec_end;
-                    minute = minute - 1;
-                } else {
-                    sec = sec_end - sec_start;
-                }
-                $("#timing-result").html(minute + ":" + sec)
-                    .fadeIn();
-            };
-
-            $('html').live("click", function () {
-                if (!running) {
-                    startTimer();
-                }
-            });
-
-            $(endButton).click(function () {
-                $(endButton).css("color", "red");
-                running = false;
-                endTimer();
-                calcTime();
-                event.stopPropagation();
-            });
-        };
-    }
-};

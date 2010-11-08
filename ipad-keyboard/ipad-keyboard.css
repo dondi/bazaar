@@ -14,13 +14,22 @@ body {
 }
 
 #content-to-type {
-    background-color: white;
     color: black;
+    font-family: monospace;
+    font-size: 16px;
     margin: 10px;
     padding: 10px;
     width: 984px;
 }
 
+.content-normal {
+    background-color: white;
+}
+
+.content-error {
+    background-color: #ffa;
+}
+ 
 div.keyboard, div.key {
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -59,9 +68,9 @@ div.key span {
     font-family: Helvetica Neue Bold, Helvetica, Arial, sans-serif;
     font-size: 25px;
     padding-top: 24px;
+    text-align: center;
     width: 79px;
     height: 50px;
-    text-align: center;
 }
 
 .inactive {
@@ -116,7 +125,7 @@ div.keyboard-row.home {
     width: 90px;
 }
 
-#space-bar-hit {
+#space-bar-hit, #space-bar {
     width: 439px;
 }
 
@@ -128,10 +137,6 @@ div.keyboard-row.home {
     border-bottom: solid black 2px;
 }
 
-.error {
-    background-color: #f00;
-}
- 
 .done {
     background-color: #0bdc00;
 }
