@@ -46,60 +46,48 @@ $(function () {
 
             enhancedKeys = true,
             minWidth = 57,
-            minHeight = 28,
+            minHeight = 39,
             normalWidth = 59,
-            normalHeight = 30,
+            normalHeight = 41,
             maxWidth = 70,
-            maxHeight = 41,
+            maxHeight = 52,
             maxUsage = letterSizes["e"],
-            spanMargin = 1;
+            spanMargin = 1,
+            spanPadding = 18;
 
         // Function for making keys the right size.
         var changeSize = function (id, size) {
-            // Change the key size
+            // Change the key size.
             if (enhancedKeys) {
-                $(id).css({
-                    "width" : ""
-                            + (minWidth + ((maxWidth - minWidth) * (size / maxUsage)))
-                            + "px",
-                    "height" : ""
-                            + (minHeight + ((maxHeight - minHeight) * (size / maxUsage)))
-                            + "px"
-                });
+                var diffWidth = (maxWidth - minWidth) * (size / maxUsage),
+                    diffHeight = (maxHeight - minHeight) * (size / maxUsage),
+                    marginWidth = Math.floor(spanMargin - (diffWidth / 2)),
+                    marginHeight = Math.floor(spanMargin - (diffHeight / 2));
 
-                // Change the margin size - we attempted to have it so that the keys
-                // would not move. It did not work
-                $(id).css("margin-top",
-                    ""
-                    + spanMargin
-                    - ((maxHeight - minHeight) * (size / maxUsage))
-                    / 2 + "px");
-                $(id).css("margin-bottom",
-                    ""
-                    + spanMargin
-                    - ((maxHeight - minHeight) * (size / maxUsage))
-                    / 2 + "px");
-                $(id).css("margin-left",
-                    ""
-                    + spanMargin
-                    - ((maxWidth - minWidth) * (size / maxUsage))
-                    / 2 + "px");
-                $(id).css("margin-right",
-                    ""
-                    + spanMargin
-                    - ((maxWidth - minWidth) * (size / maxUsage))
-                    / 2 + "px");
+                $(id).css({
+                    "width" : (minWidth + diffWidth) + "px",
+                    "height" : (minHeight + diffHeight) + "px"
+                })
+
+                // Change the margin size to keep the hit area centered.
+                .css("margin-top", marginHeight + "px")
+                .css("margin-bottom", marginHeight + "px")
+                .css("margin-left", marginWidth + "px")
+                .css("margin-right", marginWidth + "px")
+                
+                // Adjust the padding to compensate for this shift.
+                .css("padding-top", (spanPadding - marginHeight) + "px");
             } else {
                 // Or reset key size
                 $(id).css({
-                    "width" : "" + normalWidth + "px",
-                    "height" : "" + normalHeight + "px"
+                    "width" : normalWidth + "px",
+                    "height" : normalHeight + "px"
                 });
             }
         };
 
         $.each(letterSizes, function (index, value) {
-            changeSize("#" + index + "-key", value);
+            changeSize("#" + index + "-key-hit", value);
         });
     };
     
@@ -211,7 +199,7 @@ $(function () {
         // Is the hit "key" correct?
         if (($(event.currentTarget).text().toLowerCase() ===
                 $(".current-text").text()) ||
-                ((event.currentTarget.id === "space-bar") &&
+                ((event.currentTarget.id === "space-bar-hit") &&
                 $(".current-text").text() === " ")) {
             advanceText();
             

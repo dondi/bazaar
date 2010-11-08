@@ -52,9 +52,9 @@ div.key, div.key span {
 div.key {
     border: 1px solid black;
     display: inline-block;
-    margin: 1px 2px;
+    margin: 2px 2px;
     width: 59px;
-    height: 59px;
+    height: 58px;
     -moz-box-shadow: 0px 1px 2px #666666;
     -webkit-box-shadow: 0px 1px 2px #666666;
     text-align: center;
@@ -70,7 +70,7 @@ div.key span {
     padding-top: 18px;
     text-align: center;
     width: 59px;
-    height: 30px;
+    height: 41px;
 }
 
 .inactive {
@@ -106,26 +106,26 @@ div.keyboard-row {
 }
 
 div.keyboard-row.home {
-    margin-left: 25px;
+    margin-left: 35px;
 }
 
-#backspace-key-hit {
+#backspace-key {
     width: 63px;
 }
 
-#return-key-hit {
-    width: 108px;
+#return-key {
+    width: 98px;
 }
 
-#left-shift-key-hit {
+#left-shift-key {
     width: 58px;
 }
 
-#right-shift-key-hit {
+#right-shift-key {
     width: 64px;
 }
 
-#space-bar-hit, #space-bar {
+#space-bar, #space-bar-hit {
     width: 335px;
 }
 
