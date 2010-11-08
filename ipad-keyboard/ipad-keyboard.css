@@ -14,11 +14,14 @@ body {
     width: 768px;
 }
 
+#hud, #content-to-type {
+    margin: 10px;
+}
+
 #content-to-type {
     color: black;
     font-family: monospace;
     font-size: 16px;
-    margin: 10px;
     padding: 10px;
 }
 
@@ -62,7 +65,6 @@ div.key {
 }
 
 div.key span {
-    /*border-top: 1px solid white;*/
     color: black;
     display: inline-block;
     font-family: Helvetica Neue Bold, Helvetica, Arial, sans-serif;
