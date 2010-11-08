@@ -11,6 +11,7 @@ body {
         rgb(67, 68, 75) 100%
     );
     margin: 0;
+    width: 768px;
 }
 
 #content-to-type {
@@ -19,7 +20,6 @@ body {
     font-size: 16px;
     margin: 10px;
     padding: 10px;
-    width: 984px;
 }
 
 .content-normal {
@@ -36,13 +36,11 @@ div.keyboard, div.key {
 }
 
 div.keyboard {
-    /* Removed for now so that key rows don't spill over. */
-    /* width: 1024px; */
     margin: 0 3px;
 }
 
 div.keyboard-row:last-child {
-    margin-left: 276px;
+    margin-left: 207px;
 }
 
 div.key, div.key span {
@@ -52,9 +50,9 @@ div.key, div.key span {
 div.key {
     border: 1px solid black;
     display: inline-block;
-    margin: 1px;
-    width: 79px;
-    height: 75px;
+    margin: 1px 2px;
+    width: 59px;
+    height: 59px;
     -moz-box-shadow: 0px 1px 2px #666666;
     -webkit-box-shadow: 0px 1px 2px #666666;
     text-align: center;
@@ -66,11 +64,11 @@ div.key span {
     color: black;
     display: inline-block;
     font-family: Helvetica Neue Bold, Helvetica, Arial, sans-serif;
-    font-size: 25px;
-    padding-top: 24px;
+    font-size: 21px;
+    padding-top: 18px;
     text-align: center;
-    width: 79px;
-    height: 50px;
+    width: 59px;
+    height: 30px;
 }
 
 .inactive {
@@ -106,27 +104,27 @@ div.keyboard-row {
 }
 
 div.keyboard-row.home {
-    margin-left: 38px;
+    margin-left: 25px;
 }
 
 #backspace-key-hit {
-    width: 80px;
+    width: 63px;
 }
 
 #return-key-hit {
-    width: 144px;
+    width: 108px;
 }
 
 #left-shift-key-hit {
-    width: 78px;
+    width: 58px;
 }
 
 #right-shift-key-hit {
-    width: 90px;
+    width: 64px;
 }
 
 #space-bar-hit, #space-bar {
-    width: 439px;
+    width: 335px;
 }
 
 .typed-text {
