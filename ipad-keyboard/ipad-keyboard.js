@@ -189,11 +189,6 @@ $(function () {
             $("#content-to-type").removeClass("content-error")
                 .addClass("content-normal");
         }, 200);
-    },
-    
-    // Utility function for hiding the Mobile Safari location bar.
-    hideLocationBar = function () {
-        window.scrollTo(0, 1);
     };
 
     // Initialize all keys as inactive.
@@ -253,9 +248,5 @@ $(function () {
 
     // Finish off with a timing session.
     startTimingSession();
-
-    // Hide the location bar.
-    hideLocationBar();
-    document.body.onorientationchange = hideLocationBar;
 
 });
