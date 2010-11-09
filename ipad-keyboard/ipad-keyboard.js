@@ -216,4 +216,20 @@ $(function () {
         event.preventDefault();
     };
 
+    // Tile resizing setup.  Adapted from:
+    //   http://stackoverflow.com/questions/325273/make-iframe-to-fit-100-of-containers-remaining-height
+    var pageY = function (elem) {
+        return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
+    };
+
+    var buffer = 10; // Space to leave at the bottom.
+    var resizeBody = function () {
+        var height = document.documentElement.clientHeight;
+        height -= pageY($("body")[0])+ buffer;
+        height = (height < 0) ? 0 : height;
+        $("body").css("height", height + "px");
+    }
+
+    $(window).resize(resizeBody);
+    resizeBody();
 });
