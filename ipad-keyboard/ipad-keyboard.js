@@ -107,14 +107,8 @@ $(function () {
     
     // State variables ("model").
     ticking,
-    hr_start,
-    min_start,
-    sec_start,
-    hr_end,
-    min_end,
-    sec_end,
+    tick_start,
     targetText,
-
 
     // The function for "advancing" the character one at a time.
     advanceText = function () {
@@ -157,25 +151,9 @@ $(function () {
     
     // The function for ending the timing session.
     endTimingSession = function () {
-        var end = new Date(), minute, sec;
-        hr_end = end.getHours();
-        min_end = end.getMinutes();
-        sec_end = end.getSeconds();
+        var tick_end = new Date();
 
-        if (hr_end !== hr_start) {
-            minute = 60 - min_start + min_end;
-        } else {
-            minute = min_end - min_start;
-        }
-
-        if (min_end !== min_start) {
-            sec = 60 - sec_start + sec_end;
-            minute = minute - 1;
-        } else {
-            sec = sec_end - sec_start;
-        }
-
-        $("#timing-result").text(minute + ":" + sec)
+        $("#timing-result").text((tick_end - tick_start) / 1000)
             .fadeIn();
     },
 
@@ -202,10 +180,7 @@ $(function () {
         // If this is the first key since starting, then we record
         // the start time.
         if (!ticking) {
-            var start = new Date();
-            hr_start = start.getHours();
-            min_start = start.getMinutes();
-            sec_start = start.getSeconds();
+            tick_start = new Date();
             ticking = true;
         }
     })
@@ -240,7 +215,7 @@ $(function () {
         $("#keyboard-checkbox").attr("disabled", "true");
         $("#keyboard-checkbox-label")
             .html($("#keyboard-checkbox-label").html() +
-                " (reload the page to get the standard keyboard back)");
+                " (reload to get the standard keyboard back)");
         
         // Restart things after a keyboard change.
         startTimingSession();
