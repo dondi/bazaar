@@ -173,34 +173,19 @@ $(function () {
     $("div.key").addClass("inactive");
 
     // Set up the event handlers.
-    $("div.key span").mousedown(function (event) {
-        /*
-        $(event.currentTarget.parentNode).removeClass("inactive")
-            .addClass("active");
-        */
-        
+    $("div.key span").click(function (event) {
         // If this is the first key since starting, then we record
         // the start time.
         if (!ticking) {
             tick_start = new Date();
             ticking = true;
         }
-    })
-
-    .mouseup(function (event) {
-        /*
-        // Allow a little delay before the highlight goes away.
-        setTimeout(function () {
-            $(event.currentTarget.parentNode).removeClass("active")
-                .addClass("inactive");
-        }, 200);
-        */
         
         // Is the hit "key" correct?
-        if (($(event.currentTarget).text().toLowerCase() ===
-                $(".current-text").text()) ||
+        var currentText = $(".current-text").text();
+        if (($(event.currentTarget).text().toLowerCase() === currentText) ||
                 ((event.currentTarget.id === "space-bar-hit") &&
-                $(".current-text").text() === " ")) {
+                (currentText === " "))) {
             advanceText();
             
             // Are we done?
