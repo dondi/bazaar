@@ -211,4 +211,10 @@ $(function () {
     // Finish off with a timing session.
     startTimingSession();
 
+    // (Experimental) Eliminate scrolling on iOS browsers.
+    document.body.ontouchmove = function (event) {
+        event.preventDefault();
+    };
+    document.body.ontouchstart = document.body.ontouchmove;
+
 });
