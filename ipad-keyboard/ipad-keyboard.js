@@ -4,7 +4,7 @@ $(function () {
         "the quick brown fox jumps over the lazy dog",
         "seventy six trombones led the big parade",
         "four score and seven years ago",
-        "ask not what this country can do for you",
+        "ask not what your country can do for you",
         "we the people of the united states",
         "when in the course of human events",
         "mary mary quite contrary, how does your garden grow",
@@ -15,7 +15,7 @@ $(function () {
         "romeo, romeo, wherefore art thou romeo",
         "he has eaten me out of house and home",
         "play it once, sam, for old times sake",
-        "no, mr. bond, i want you to die",
+        "no, mr. bond, i expect you to die",
         "nobody thinks in terms of human beings",
         "everybody ought to go careful in a city like this",
         "i have the advantage of knowing your habits",
@@ -133,8 +133,9 @@ $(function () {
     startTimingSession = function () {
         // Choose a string at random and stick it in text-to-type; blank
         // out the other spans.
-        targetText = stringLibrary[Math.floor((Math.random() *
-            stringLibrary.length))];
+        var targetIndex = Math.floor((Math.random() * stringLibrary.length));
+        targetText = stringLibrary[targetIndex];
+        $("#message").text(targetIndex);
         $(".typed-text").text("");
         $(".current-text").text("");
         $(".text-to-type").text(targetText);
@@ -202,9 +203,6 @@ $(function () {
     $("#keyboard-checkbox").click(function () {
         setupExperimentalKeyboard();
         $("#keyboard-checkbox").attr("disabled", "true");
-        $("#keyboard-checkbox-label")
-            .html($("#keyboard-checkbox-label").html() +
-                " (reload to get the standard keyboard back)");
         
         // Restart things after a keyboard change.
         startTimingSession();

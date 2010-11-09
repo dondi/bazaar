@@ -143,10 +143,17 @@ div.keyboard-row.home {
     background-color: #0bdc00;
 }
 
-#timing-result {
+#timing-result, #message {
     background-color: white;
     border-style: inset;
     border-width: 1px;
-    float: right;
     padding: 0 1ex;
+}
+
+#timing-result {
+    float: right;
+}
+
+#message-label {
+    margin-left: 5em;
 }
