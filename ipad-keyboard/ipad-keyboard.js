@@ -215,6 +215,5 @@ $(function () {
     document.body.ontouchmove = function (event) {
         event.preventDefault();
     };
-    document.body.ontouchstart = document.body.ontouchmove;
 
 });
