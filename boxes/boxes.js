@@ -64,7 +64,6 @@ var Boxes = {
         if (this.current) {
             // Finalize things by setting the box's behavior.
             this.current
-                .mouseover(Boxes.highlight)
                 .mousemove(Boxes.highlight)
                 .mouseleave(Boxes.unhighlight)
                 .mousedown(Boxes.startMove);
@@ -112,9 +111,11 @@ var Boxes = {
                 .offset(jThis.offset())
                 .mousemove(Boxes.move)
                 .mouseup(Boxes.endMove)
-                .mouseleave(Boxes.endMove);
+                
+                // We do move on mouseleave also, so that we don't
+                // "lose" the box being moved.
+                .mouseleave(Boxes.move);
 
-            // Move this obje
             // Eat up the event so that the drawing area does not
             // deal with it.
             event.stopPropagation();
