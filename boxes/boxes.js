@@ -12,11 +12,11 @@ var Boxes = {
             .addClass("drawing-area")
             // "this" is Boxes.
             .mousedown(this.startDraw)
-            .mousemove(this.rubberbandCurrent)
+            .mousemove(this.trackDrag)
             
             // We conclude drawing on either a mouseup or a mouseleave.
-            .mouseup(this.endDraw)
-            .mouseleave(this.endDraw);
+            .mouseup(this.endDrag)
+            .mouseleave(this.endDrag);
     },
 
     /**
@@ -30,19 +30,19 @@ var Boxes = {
             // ("this" as standardized by jQuery).
             this.anchorX = event.pageX;
             this.anchorY = event.pageY;
-            this.current = $("<div></div>")
-                .appendTo(event.currentTarget)
+            this.drawingBox = $("<div></div>")
+                .appendTo(this)
                 .addClass("box")
                 .offset({ left: this.anchorX, top: this.anchorY });
         }
     },
 
     /**
-     * Tracks a box as it is rubberbanded across the drawing area.
+     * Tracks a box as it is rubberbanded or moved across the drawing area.
      */
-    rubberbandCurrent: function (event) {
+    trackDrag: function (event) {
         // Don't bother if we aren't tracking anything.
-        if (this.current) {
+        if (this.drawingBox) {
             // Calculate the new box location and dimensions.  Note how
             // this might require a "corner switch."
             var newOffset = {
@@ -50,26 +50,42 @@ var Boxes = {
                 top: (this.anchorY < event.pageY) ? this.anchorY : event.pageY
             };
 
-            this.current
+            this.drawingBox
                 .offset(newOffset)
                 .width(Math.abs(event.pageX - this.anchorX))
                 .height(Math.abs(event.pageY - this.anchorY));
+        } else if (this.movingBox) {
+            // Reposition the object.
+            this.movingBox.offset({
+                left: event.pageX - this.deltaX,
+                top: event.pageY - this.deltaY
+            });
         }
     },
 
     /**
-     * Concludes a drawing sequence.
+     * Concludes a drawing or moving sequence.
      */
-    endDraw: function (event) {
-        if (this.current) {
+    endDrag: function (event) {
+        if (this.drawingBox) {
             // Finalize things by setting the box's behavior.
-            this.current
+            this.drawingBox
                 .mousemove(Boxes.highlight)
                 .mouseleave(Boxes.unhighlight)
                 .mousedown(Boxes.startMove);
             
             // All done.
-            this.current = null;
+            this.drawingBox = null;
+        } else if (this.movingBox) {
+            // Perform the actual move.
+            this.moveTarget
+                .width(this.movingBox.width())
+                .height(this.movingBox.height())
+                .offset(this.movingBox.offset());
+            
+            // Remove the temporary box from the page and drawing area.
+            this.movingBox.remove();
+            this.movingBox = null;
         }
     },
 
@@ -95,58 +111,33 @@ var Boxes = {
         if (event.which === Boxes.LEFT_BUTTON) {
             // Take note of the box's current (global) location.
             var jThis = $(this),
-                startOffset = jThis.offset();
+                startOffset = jThis.offset(),
 
-            // Feedback: create a temporary box during the move.
-            // This is the actual box that moves, until the end.
-            $("<div></div>")
-                // Record some state information about the move.
-                .data("targetBox", jThis)
-                .data("deltaX", event.pageX - startOffset.left)
-                .data("deltaY", event.pageY - startOffset.top)
-                .appendTo(jThis.parent())
-                .addClass("box-transient")
-                .width(jThis.width())
-                .height(jThis.height())
-                .offset(jThis.offset())
-                .mousemove(Boxes.move)
-                .mouseup(Boxes.endMove)
-                
-                // We do move on mouseleave also, so that we don't
-                // "lose" the box being moved.
-                .mouseleave(Boxes.move);
+                // Grab the drawing area (this element's parent).
+                // We want the actual element, and not the jQuery wrapper
+                // that usually comes with it.
+                parent = jThis.parent().get(0),
+
+                // Feedback: create a temporary box during the move.
+                // This is the actual box that moves, until the end.
+                movingBox = $("<div></div>")
+                    .appendTo(parent)
+                    .addClass("box-transient")
+                    .width(jThis.width())
+                    .height(jThis.height())
+                    .offset(jThis.offset());
+
+            // Set the drawing area's state to indicate that it is
+            // in the middle of a move.
+            parent.moveTarget = jThis;
+            parent.deltaX = event.pageX - startOffset.left;
+            parent.deltaY = event.pageY - startOffset.top;
+            parent.movingBox = movingBox;
 
             // Eat up the event so that the drawing area does not
             // deal with it.
             event.stopPropagation();
         }
-    },
-
-    /**
-     * "Tracks" an on-going move sequence.
-     */
-    move: function (event) {
-        // Reposition the object.
-        var jThis = $(this);
-        jThis.offset({
-            left: event.pageX - jThis.data("deltaX"),
-            top: event.pageY - jThis.data("deltaY")
-        });
-    },
-
-    /**
-     * Ends a move sequence via mouse up.
-     */
-    endMove: function (event) {
-        // Perform the actual move.
-        var jThis = $(this);
-        jThis.data("targetBox")
-            .width(jThis.width())
-            .height(jThis.height())
-            .offset(jThis.offset());
-        
-        // Remove the target from the page.
-        jThis.remove();
     }
 
 };
