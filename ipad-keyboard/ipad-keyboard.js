@@ -174,29 +174,38 @@ $(function () {
     $("div.key").addClass("inactive");
 
     // Set up the event handlers.
-    $("div.key span").click(function (event) {
-        // If this is the first key since starting, then we record
-        // the start time.
-        if (!ticking) {
-            tick_start = new Date();
-            ticking = true;
-        }
-        
-        // Is the hit "key" correct?
-        var currentText = $(".current-text").text();
-        if (($(event.currentTarget).text().toLowerCase() === currentText) ||
-                ((event.currentTarget.id === "space-bar-hit") &&
-                (currentText === " "))) {
-            advanceText();
-            
-            // Are we done?
-            if ($(".typed-text").text() === targetText) {
-                endTimingSession();
+    $("div.key span")
+        .bind("touchstart", function (event) {
+            $(this.parentNode).removeClass("inactive")
+                .addClass("active");
+        })
+
+        .bind("touchend", function (event) {
+            $(this.parentNode).removeClass("active")
+                .addClass("inactive");
+
+            // If this is the first key since starting, then we record
+            // the start time.
+            if (!ticking) {
+                tick_start = new Date();
+                ticking = true;
             }
-        } else {
-            flashError();
-        }
-    });
+            
+            // Is the hit "key" correct?
+            var currentText = $(".current-text").text();
+            if (($(event.currentTarget).text().toLowerCase() === currentText) ||
+                    ((event.currentTarget.id === "space-bar-hit") &&
+                    (currentText === " "))) {
+                advanceText();
+                
+                // Are we done?
+                if ($(".typed-text").text() === targetText) {
+                    endTimingSession();
+                }
+            } else {
+                flashError();
+            }
+        });
 
     $("#start-button").click(startTimingSession);
 
