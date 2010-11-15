@@ -1,0 +1,52 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <!-- Assorted iOS-related metadata. -->
+        <meta name="viewport" content="width=device-width" />
+
+        <title>Direct Manipulation on a Web Page: Touch Version</title>
+        <link rel="stylesheet" type="text/css" href="boxes-touch.css"/>
+
+        <!-- Load up jQuery first. -->
+        <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+
+        <!-- Load up the controller code. -->
+        <script src="boxes-touch.js"></script>
+
+        <!-- Styles that are totally specific to this page. -->
+        <style>
+            #drawing-area {
+                border: 1px solid black;
+                width: 512px;
+                height: 512px;
+            }
+        </style>
+        
+        <!-- Code that is totally specific to this page. -->
+        <script>
+            $(function () {
+                BoxesTouch.setDrawingArea($("#drawing-area"));
+            });
+        </script>
+    </head>
+    
+    <body>
+        <!-- "Pre-load" the drawing area with a couple of boxes.
+             Inline style attributes are OK here since they are
+             manually set when done in code anyway. -->
+        <div id="drawing-area">
+            <div class="box"
+                style="width: 60px; height: 60px; left: 50px; top: 50px">
+            </div>
+            <div class="box"
+                style="width: 80px; height: 50px; left: 384px; top: 256px">
+            </div>
+            <div class="box"
+                style="width: 70px; height: 90px; left: 120px; top: 384px">
+            </div>
+        </div>
+    </body>
+</html>
