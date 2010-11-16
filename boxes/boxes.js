@@ -77,15 +77,15 @@ var Boxes = {
             // All done.
             this.drawingBox = null;
         } else if (this.movingBox) {
-            // Perform the actual move.
-            this.moveTarget
-                .width(this.movingBox.width())
-                .height(this.movingBox.height())
-                .offset(this.movingBox.offset());
-            
-            // Remove the temporary box from the page and drawing area.
-            this.movingBox.remove();
+            // Change state to "not-moving-anything" by clearing out
+            // this.movingBox.
             this.movingBox = null;
+            
+            // Restore the highlight behavior that was temporarily
+            // removed while the move was happening.
+            $(".drawing-area .box")
+                .mousemove(Boxes.highlight)
+                .mouseleave(Boxes.unhighlight);
         }
     },
 
@@ -116,23 +116,19 @@ var Boxes = {
                 // Grab the drawing area (this element's parent).
                 // We want the actual element, and not the jQuery wrapper
                 // that usually comes with it.
-                parent = jThis.parent().get(0),
-
-                // Feedback: create a temporary box during the move.
-                // This is the actual box that moves, until the end.
-                movingBox = $("<div></div>")
-                    .appendTo(parent)
-                    .addClass("box-transient")
-                    .width(jThis.width())
-                    .height(jThis.height())
-                    .offset(jThis.offset());
+                parent = jThis.parent().get(0);
 
             // Set the drawing area's state to indicate that it is
             // in the middle of a move.
-            parent.moveTarget = jThis;
+            parent.movingBox = jThis;
             parent.deltaX = event.pageX - startOffset.left;
             parent.deltaY = event.pageY - startOffset.top;
-            parent.movingBox = movingBox;
+
+            // Take away the highlight behavior while the move is
+            // happening.
+            $(".drawing-area .box")
+                .unbind("mousemove")
+                .unbind("mouseleave");
 
             // Eat up the event so that the drawing area does not
             // deal with it.
