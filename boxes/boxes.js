@@ -20,6 +20,16 @@ var Boxes = {
     },
 
     /**
+     * Utility function for disabling certain behaviors when the drawing
+     * area is in certain states.
+     */
+    setupDragState: function () {
+        $(".drawing-area .box")
+            .unbind("mousemove")
+            .unbind("mouseleave");
+    },
+
+    /**
      * Begins a box draw sequence.
      */
     startDraw: function (event) {
@@ -34,6 +44,10 @@ var Boxes = {
                 .appendTo(this)
                 .addClass("box")
                 .offset({ left: this.anchorX, top: this.anchorY });
+
+            // Take away the highlight behavior while the draw is
+            // happening.
+            Boxes.setupDragState();
         }
     },
 
@@ -80,13 +94,14 @@ var Boxes = {
             // Change state to "not-moving-anything" by clearing out
             // this.movingBox.
             this.movingBox = null;
-            
-            // Restore the highlight behavior that was temporarily
-            // removed while the move was happening.
-            $(".drawing-area .box")
-                .mousemove(Boxes.highlight)
-                .mouseleave(Boxes.unhighlight);
         }
+
+        // In either case, restore the highlight behavior that was
+        // temporarily removed while the drag was happening.
+        $(".drawing-area .box")
+            .removeClass("box-highlight")
+            .mousemove(Boxes.highlight)
+            .mouseleave(Boxes.unhighlight);
     },
 
     /**
@@ -126,9 +141,7 @@ var Boxes = {
 
             // Take away the highlight behavior while the move is
             // happening.
-            $(".drawing-area .box")
-                .unbind("mousemove")
-                .unbind("mouseleave");
+            Boxes.setupDragState();
 
             // Eat up the event so that the drawing area does not
             // deal with it.
