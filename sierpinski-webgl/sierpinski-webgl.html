@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>WebGL Case Study: The Sierpinski Tetrahedron</title>
+    <script src="matrix4x4.js"></script>
+    <script src="sierpinski-webgl.js"></script>
+    <script>
+      // No jQuery this time.
+      window.onload = function () {
+        // All of the action is in the startSierpinski function.
+        startSierpinski(document.getElementById("sierpinski"));
+      };
+    </script>
+  </head>
+  <body>
+    <h1>The Sierpinski Tetrahedron</h1>
+
+    <p>Drag the mouse to rotate the tetrahedron.</p>
+
+    <!-- Some HTML/CSS trickery to put the tetrahedron on top of the
+         Wikipedia page about it. -->    
+    <div style="position: relative; width: 100%">
+      <iframe src="http://en.wikipedia.org/wiki/Sierpinski_triangle"
+        style="position: absolute; width: 100%; height: 600px;">
+      </iframe>
+      <div style="position: absolute; width: 100%; top: 5em; text-align: center;">
+        <canvas id="sierpinski" width="512" height="512">
+        </canvas>
+      </div>
+    </div>
+  </body>
+</html>
