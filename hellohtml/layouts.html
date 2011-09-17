@@ -9,10 +9,27 @@
         <style>
             /* Overall styles for box visibility and other common
                formatting. */
+            body {
+                margin: 16px;
+            }
+
             div, span {
                 border: solid black 1px;
             }
             
+            h1 {
+                margin-left: 1em;
+            }
+
+            h1::before {
+                content: "— ";
+            }
+
+            h1::after {
+                content: " —";
+            }
+            
+            /* Style for code-like text. */
             .code {
                 border: none;
                 font-family: monospace;

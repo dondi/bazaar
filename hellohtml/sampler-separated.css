@@ -1,3 +1,19 @@
+/* The simplest styles: selection by element. */
+body {
+    margin: 32px;
+}
+
+h1 {
+    border-bottom: dotted 1px #444;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+p {
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
 /* These styles show how, in HTML5, anything can be made to
    behave like a table without using table tags. */
 .grid { display: table; border-spacing: 10px; }

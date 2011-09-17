@@ -11,7 +11,23 @@
              Almost every other time, this is in one or more
              .css files. -->
         <style>
-            /* These styles show how, in HTML5, anything can be made to
+            /* The simplest styles: selection by element. */
+            body {
+                margin: 32px;
+            }
+
+            h1 {
+                border-bottom: dotted 1px #444;
+                padding-bottom: 5px;
+                text-align: center;
+            }
+
+            p {
+                margin-left: 5em;
+                margin-right: 5em;
+            }
+            
+            /* These styles show how anything can be made to
                behave like a table without using table tags. */
             .grid { display: table; border-spacing: 10px; }
             .grid div { display: table-row; }
@@ -20,7 +36,7 @@
                 padding: 1em;
             }
             
-            /* These styles show proper absolute positioning in HTML5. */
+            /* These styles show proper absolute positioning. */
             .freestyle { position: relative; }
             .freestyle div { position: absolute; }
             
