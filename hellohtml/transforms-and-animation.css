@@ -1,0 +1,94 @@
+/* Companion styles for the transforms and animation sample code. */
+ul {
+    margin: 1em 10em;
+    transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+
+#scale-demo, #combo-demo {
+    text-align: center;
+}
+
+#scale-demo {
+    transform: scale(5, 2);
+    -moz-transform: scale(5, 2);
+    -webkit-transform: scale(5, 2);
+}
+
+#combo-demo {
+    transform: scale(0.75, 3) rotate(-2deg);
+    -moz-transform: scale(0.75, 3) rotate(-2deg);
+    -webkit-transform: scale(0.75, 3) rotate(-2deg);
+}
+
+#origin-demo {
+    margin: 5em 0;
+    text-align: center;
+}
+
+#origin-demo > img {
+    margin: 0 3em;
+    transform: rotate(25deg);
+    -moz-transform: rotate(25deg);
+    -webkit-transform: rotate(25deg);
+}
+
+#origin-demo > img:nth-child(2) {
+    transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+#origin-demo > img:nth-child(3) {
+    transform-origin: 100% 0;
+    -moz-transform-origin: 100% 0;
+    -webkit-transform-origin: 100% 0;
+}
+
+#transformed-box {
+    background-color: rgb(220, 220, 250);
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px darkblue inset;
+    display: inline-block;
+    font-family: sans-serif;
+    margin: 3em auto;
+    padding: 1em;
+    text-align: center;
+    text-shadow: 2px 2px 4px red;
+    transform: translate(500px, -30px) rotate(-10deg) scale(4, 2);
+    -moz-transform: translate(500px, -30px) rotate(-10deg) scale(4, 2);
+    -webkit-transform: translate(500px, -30px) rotate(-10deg) scale(4, 2);
+}
+
+a:link {
+    color: rgb(80, 0, 0);
+    font-weight: bold;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+}
+
+a:hover {
+    margin: 1em;
+    text-shadow: 0px 0px 8px green;
+    -moz-transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+}
+
+#transform-transition-demo {
+    border: 3px red outset;
+    margin: 2em 10em;
+    padding: 4ex;
+    text-align: center;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+}
+
+#transform-transition-demo:active {
+    border: 10px blue inset;
+    text-align: center;
+    -moz-transform: scale(5, 5) rotate(180deg);
+    -webkit-transform: scale(5, 5) rotate(180deg);
+    -moz-transition: all 2s ease-in-out;
+    -webkit-transition: all 2s ease-in-out;
+}

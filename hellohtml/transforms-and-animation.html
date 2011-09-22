@@ -1,0 +1,93 @@
+<!doctype html>
+
+<!-- This file demonstrates CSS3 transforms and animations,
+     perhaps the most visually striking CSS3 features available. -->
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>CSS3 Transforms and Animations</title>
+        <link rel="stylesheet" href="transforms-and-animation.css"
+              type="text/css" />
+    </head>
+    
+    <body>
+        <h1>CSS3 Transforms and Animations</h1>
+        
+        <p>Some of the most powerful features of the latest version
+            of CSS can be found in its ability to <em>transform</em>
+            and <em>animate</em> elements with very little code.
+            You just state what you want, and an up-to-date,
+            standards-compliant web browser will do the rest.</p>
+        
+        <h2>Transforms, Part 1</h2>
+        
+        <p>Simply put, you can rotate, scale, or translate (move)
+            your elements with an immense degree of flexibility.</p>
+        
+        <ul>
+            <li>For example,</li>
+            <li>all of this page&rsquo;s <em>ul</em> elements</li>
+            <li>are rotated by a full 180 degrees</li>
+            <li>(with a little margin to inset them a bit)</li>
+        </ul>
+        
+        <p>Just remember that these features are still very much
+            bleeding edge, so their properties will need to be
+            prefixed with <em>&ndash;moz&ndash;</em> and
+            <em>&ndash;webkit&ndash;</em>.</p>
+        
+        <p id="scale-demo">You can also scale elements.</p>
+        
+        <p id="combo-demo">And you can combine different
+            transforms, too.</p>
+
+        <p>Just make sure to mind your positions and sizes:
+            elements occupy their <em>untransformed</em>
+            areas on the page (note how the rotated element
+            above this one is spilling over a bit).</p>
+        
+        <p>You will also need to mind the <em>transformation
+            origin</em>, or the reference point for the
+            transformations.  This defaults to the center of
+            the element, but sometimes you will want to change
+            it.  Look at how it affects the same rotation on
+            these images (yes, transforms will apply to them
+            too, just like any other element):</p>
+        
+        <div id="origin-demo">
+            <img src="tictactoe.png" alt="A tic-tac-toe snapshot." />
+            <img src="tictactoe.png" alt="A tic-tac-toe snapshot." />
+            <img src="tictactoe.png" alt="A tic-tac-toe snapshot." />
+        </div>
+        
+        <p>As you might expect, you can mix and match other styles:</p>
+        
+        <div id="transformed-box">Imagine the possibilities!</div>
+        
+        <h2>Animations, Part 1: Transitions</h2>
+        
+        <p>When an element&rsquo;s style changes from one to another,
+            some style changes can be made smoothly.</p>
+        
+        <p>Imagine if
+            <a href="http://www.w3.org/TR/css3-2d-transforms">all your
+            links</a> behaved
+            <a href="http://www.w3.org/TR/css3-transitions">like this</a>.</p>
+
+        <p>Effective transitions require some planning: you need to
+            choose &ldquo;start&rdquo; and &ldquo;stop&rdquo; styles
+            that go from one to the other in an appealing way (or not,
+            if that is what you are after).</p>
+
+        <p id="transform-transition-demo">And yes, transitions do work
+            with transformations (hold the mouse button over this
+            paragraph).</p>
+
+        <p>Refer to the
+            <a href="http://www.w3.org/TR/css3-transitions">transition
+            specification</a> to see the full range of properties that
+            can have animated transitions, plus additional options for
+            customizing your transition effects.</p>
+    </body>
+</html>
