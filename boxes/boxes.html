@@ -6,12 +6,6 @@
         <title>Direct Manipulation on a Web Page</title>
         <link rel="stylesheet" type="text/css" href="boxes.css"/>
 
-        <!-- Load up jQuery first. -->
-        <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-
-        <!-- Load up the controller code. -->
-        <script src="boxes.js"></script>
-
         <!-- Styles that are totally specific to this page. -->
         <style>
             #drawing-area {
@@ -20,16 +14,22 @@
                 height: 512px;
             }
         </style>
-        
-        <!-- Code that is totally specific to this page. -->
-        <script>
-            $(function () {
-                Boxes.setDrawingArea($("#drawing-area"));
-            });
-        </script>
     </head>
     
     <body>
         <div id="drawing-area"></div>
+        
+        <!-- Load up jQuery first. -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        
+        <!-- Load up the controller code. -->
+        <script src="boxes.js"></script>
+        
+        <!-- Code that is totally specific to this page. -->
+        <script>
+            $(function () {
+              Boxes.setDrawingArea($("#drawing-area"));
+              });
+        </script>
     </body>
 </html>
