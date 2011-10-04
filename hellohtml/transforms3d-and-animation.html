@@ -96,6 +96,74 @@
             properties for them to work in all of the major
             standards-compliant web browsers.</p>
         
+        <h2>Transforms, Part 2</h2>
         
+        <p>We end our survey of transforms and animation by adding
+            a dimension to the web page — the third dimension!
+            Yes, you can transform elements <em>in 3D space</em>.</p>
+        
+        <p>The trick?  Less tricky than you might think: there turn
+            out to be additional transforms that you can specify
+            in the <code>transform</code> which automatically
+            occur in 3D space.  Typically, these are a matter of
+            adding an axis (i.e., X, Y, or Z) to the transforms
+            that you have already seen:</p>
+        
+        <div class="transform-3d-area">
+            <span class="demo-3d-x">As</span>
+            <span class="demo-3d-y">simple</span>
+            <span class="demo-3d-xy">as</span>
+            <span class="demo-3d-z">this.</span>
+        </div>
+        
+        <p>But wait...that doesn’t look like 3D.  In fact, it is
+            — by default, you have <em>isometric</em> 3D, i.e.,
+            3D without perspective.  Think
+            <a href="http://us.blizzard.com/_images/games/legacy/d12.jpg">Diablo 1</a>
+            or <a href="http://us.blizzard.com/en-us/games/d2/">2</a>, or, if
+            you’re the nostalgic type,
+            <a href="http://www.youtube.com/watch?v=toSxQ3QHaTc">Zaxxon</a>.</p>
+        
+        <p>What if you <em>do</em> want perspective?  Simple:
+            just add the <code>perspective</code> property.</p>
+        
+        <div class="transform-3d-area perspective-container">
+            <span class="demo-3d-x">As</span>
+            <span class="demo-3d-y">simple</span>
+            <span class="demo-3d-xy">as</span>
+            <span class="demo-3d-z">this.</span>
+        </div>
+        
+        <h3>One big caveat:</h3>
+        
+        <p>At the moment, 3D transforms are available on WebKit
+            browsers only: that means Chrome and Safari,
+            mostly.  Firefox?  <a
+                href="http://www.screenr.com/JeRs">They’re
+                working on it.</a></p>
+
+        <p>But, I hope you’ll agree, this capability is just too
+            much fun to wait on, so here we are.</p>
+        
+        <h3>And Finally...</h3>
+
+        <p>As you might have already guessed, you can mix and
+            match these CSS properties with anything else.
+            Considering what has been discussed in this page,
+            you just <em>know</em> what’s coming next.</p>
+        
+        <div class="antispoiler">(one huge spacer so as not to spoil
+            the surprise)</div>
+        
+        <div class="transform-3d-area perspective-container space">
+            <div>
+                <h1>&nbsp;</h1> <!-- Trick to make it appear to scroll in smoothly. -->
+                <h1>Episode IV</h1>
+                <h1>A NEW HOPE</h1>
+                <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet. Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…</p>
+                <!-- Copyright Lucasfilm, of course. -->
+            </div>
+        </div>
+
     </body>
 </html>
