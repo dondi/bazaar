@@ -1,0 +1,101 @@
+<!doctype html>
+
+<!-- This file demonstrates further CSS3 transforms and animations,
+     perhaps the most visually striking CSS3 features available. -->
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>CSS3 3D Transforms and Animation</title>
+        <link rel="stylesheet" href="transforms3d-and-animation.css"
+              type="text/css" />
+    </head>
+    
+    <body>
+        <h1>Advanced CSS3 Transforms and Animation</h1>
+        
+        <h2>Animations, Part 2: <em>Defined</em> Animations</h2>
+        
+        <p>Where transitions are <em>implicit</em>, meaning that they
+            take place automatically when an element changes from one
+            transitioned style to another, defined animations are
+            <em>explicit</em>, meaning that you must state the
+            animation steps that you would like to occur.</p>
+        
+        <p>This animation approach affords you more flexibility, but
+            as with many technologies, flexibility comes in exchange
+            for additional complexity or planning.</p>
+        
+        <p>To properly execute a defined animation, you must:</p>
+        
+        <ol>
+            <li>Plan your animation out beforehand.</li>
+            <li>Determine the <em>keyframes</em> of the animation.</li>
+            <li>Define these keyframes in CSS.</li>
+            <li>Give that particular sequence a unique name.</li>
+            <li>Finally, state whether some element is supposed to
+                use a particular animation.</li>
+        </ol>
+        
+        <p>The <a href="transforms3d-and-animation.css">CSS file</a>
+            that is associated with sample page includes an animation
+            called <code>'zigzag'</code>.  Take a quick look at it,
+            then see if you can see how it corresponds to the box
+            below:</p>
+        
+        <div class="defined-animation-area">
+            <div class="zigzagger">Whee!</div>
+        </div>
+
+        <p>The mechanics of defined animations consist of:</p>
+        
+        <ul>
+            <li>A <code>@keyframes</code> block that describes the
+                “stops” in your animation.  Each stop is defined by
+                another <code>{ }</code> block within the
+                <code>@keyframes</code> block, prefixed the a
+                percent value to indicate how far into the animation
+                that stop should “take.”  The <code>@keyframes</code>
+                block itself must have a name, between single quotes
+                <code>' '</code>.</li>
+            
+            <li>Once this animation sequence is defined, you can
+                then apply it to any CSS selector using the
+                <code>animation-name</code> property.  Supply the
+                desired <code>@keyframes</code> identifier and
+                you’re done.</li>
+            
+            <li>The specific application of the animation can then
+                be customized through properties such as
+                <code>animation-duration</code>,
+                <code>animation-iteration-count</code>,
+                and a few others.  As usual, consult <a
+                href="http://www.w3.org/TR/css3-animations">the
+                [draft] specification</a> for more options.</li>
+        </ul>
+        
+        <p>Note how powerful that last bullet is: <em>you can apply
+            the animation to any CSS selector</em>.  You can see
+            this at work below: look at the HTML and CSS to see
+            how this one done...without repeating the
+            <code>@keyframes</code> block!</p>
+        
+        <div class="defined-animation-area">
+            <img class="zigzagger" src="ex.png" alt="X" />
+        </div>
+        
+        <div class="defined-animation-area">
+            <a class="zigzagger"
+                href="http://www.w3.org/TR/css3-animations">Click<br/>
+                me!</a>
+        </div>
+        
+        <p>Just remember the usual caveat for a non-yet-final
+            feature: you still need separate <code>-moz-</code>
+            and <code>-webkit-</code> versions of these CSS
+            properties for them to work in all of the major
+            standards-compliant web browsers.</p>
+        
+        
+    </body>
+</html>
