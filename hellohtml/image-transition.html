@@ -1,0 +1,26 @@
+<!doctype html>
+
+<!-- A quick demonstration of smooth image transitions. -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Image Fade Demo</title>
+        <link rel="stylesheet" href="image-transition.css"/>
+    </head>
+    <body>
+        <p>Mouse over the image to see the transition.
+            These ingredients accomplish this effect:</p>
+        <ul>
+            <li>Absolute positioning makes the two images
+                occupy the same space on the page.</li>
+            <li>The <code>hover</code> pseudoclass allows
+                for fadeout of the occluding image.</li>
+            <li>The <code>transition</code> property keeps
+                things smooth.</li>
+        </ul>
+        <div>
+            <img src="images/rhino.jpg" alt="rhino" />
+            <img id="gorilla" src="images/gorilla.jpg" alt="gorilla" />
+        </div>
+    </body>
+</html>

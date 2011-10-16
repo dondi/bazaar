@@ -1,0 +1,26 @@
+div {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    position: absolute;
+    left: 80px;
+}
+
+/* We can move the transition property to just #gorilla
+   because it applies to all situations pertaining to
+   that element. */
+#gorilla {
+    opacity: 1;
+    transition: all 2s;
+    -moz-transition: all 2s;
+    -webkit-transition: all 2s;
+}
+
+#gorilla:hover {
+    opacity: 0;
+}
