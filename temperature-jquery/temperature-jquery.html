@@ -1,23 +1,27 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8"/>
-    <title>JavaScript Temperature Converter (jQuery)</title>
-
-    <!-- Load up jQuery first. -->
-    <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
-    <script src="temperature-jquery.js"></script>
-  </head>
-  <body>
-    <h1>Temperature Conversion</h1>
-
-    <p>
-      <input type="text" id="temperature" />
-      <input type="button" id="f_to_c" value="F to C" />
-      <input type="button" id="c_to_f" value="C to F" />
-    </p>
-
-    <!-- Computation result will go here. -->
-    <p id="result"></p>
-  </body>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>JavaScript Temperature Converter (jQuery)</title>
+        
+        <!-- No CSS for now, to keep the focus on JavaScript. -->
+    </head>
+    <body>
+        <h1>Temperature Conversion</h1>
+        
+        <p>
+            <input type="text" id="temperature" />
+            <input type="button" id="f_to_c" value="F to C" />
+            <input type="button" id="c_to_f" value="C to F" />
+        </p>
+        
+        <!-- Computation result will go here. -->
+        <p id="result"></p>
+        
+        <!-- Load up jQuery first. -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        
+        <!-- Now do our thing. -->
+        <script src="temperature-jquery.js"></script>
+    </body>
 </html>
