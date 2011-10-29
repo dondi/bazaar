@@ -1,0 +1,22 @@
+/* Companion CSS to the HTML/CSS-only arrows sample. */
+.arrow, .arrow > div {
+    border-top: 1px solid black;
+    position: absolute;
+    text-align: center;
+}
+
+.arrow > div {
+    width: 20px;
+    -moz-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+.arrow > div:first-child {
+    -moz-transform: rotate(25deg) translate(0, -1px);
+    -webkit-transform: rotate(25deg) translate(0, -1px);
+}
+
+.arrow > div:last-child {
+    -moz-transform: rotate(-25deg) translate(0, -1px);
+    -webkit-transform: rotate(-25deg) translate(0, -1px);
+}

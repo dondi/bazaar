@@ -1,0 +1,37 @@
+/* This CSS file gives specific properties for a particular diagram. */
+body {
+    background-color: rgb(240, 240, 240);
+}
+
+#diagram {
+    background-color: white;
+    box-shadow: inset 0px 2px 12px gray;
+    margin: 2em auto 2em auto;
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+#horizontal-arrow {
+    top: 300px;
+    left: 50px;
+    width: 200px;
+}
+
+#vertical-arrow {
+    top: 40px;
+    left: 50px;
+    width: 175px;
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+#diagonal-arrow {
+    top: 150px;
+    left: 80px;
+    width: 300px;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
