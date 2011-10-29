@@ -1,0 +1,44 @@
+<!doctype html>
+
+<!-- A sample that implements arrows using a custom
+     jQuery plugin.  This results in less HTML markup
+     because the JavaScript code automates a few more
+     things that CSS cannot (like creation of the
+     arrowhead divs). -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Arrows by JavaScript!</title>
+
+        <!-- We still have the CSS: no need to reinvent
+             this part of the wheel, and it keeps our
+             concerns nicely separated. -->
+        <link rel="stylesheet" href="arrows.css" />
+        <link rel="stylesheet" href="individual-arrows.css" />
+    </head>
+    
+    <body>
+        <p>The arrows below are built with JavaScript code.
+           This allows for less HTML up front.</p>
+
+        <div id="diagram">
+            <div id="horizontal-arrow"></div>
+
+            <div id="vertical-arrow"></div>
+
+            <div id="diagonal-arrow">Still with labels!</div>
+        </div>
+        
+        <!-- We wrap up by loading up jQuery, then our
+             plugin, then finally we actually *use* the
+             plugin on our diagram. -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="arrowfy.js"></script>
+        <script>
+            // We can do this because everything in our diagram
+            // is an arrow.  If our diagram has more variety,
+            // we will want to use individualized selectors.
+            $("#diagram > div").arrowfy();
+        </script>
+    </body>
+</html>
