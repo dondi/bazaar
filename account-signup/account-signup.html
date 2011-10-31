@@ -1,0 +1,66 @@
+<!doctype html>
+
+<!-- A form/dialog-based sample page demonstrating a
+     hypothetical account signup sheet. -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+	    <title>Register</title>
+        <link rel="stylesheet" href="account-signup.css" />
+	</head>
+
+    <body>
+        <h1>Register</h1>
+        
+        <div id="main">
+            <div class="simple-form">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" />
+                    <span id="username-prompt" class="requirement">Please
+                        enter a username.</span>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" />
+                    <span id="password-prompt" class="requirement">Please
+                        enter a password.</span>
+                </div>
+                <div>
+                    <span></span> <!-- Placeholder for first column. -->
+                    <input type="password" id="password-repeat" />
+                    <span id="password-match" class="requirement"></span>
+                </div>
+            </div>
+
+            <div class="simple-form">
+                <div>
+                    <span>
+                        <input type="radio" name="sex" value="male" id="maleradio" />
+                        <label for="maleradio">Male</label>
+                        <input type="radio" name="sex" value="female" id="femaleradio" />
+                        <label for="femaleradio">Female</label>
+                    </span>
+                </div>
+                <div>
+                    <p id="email">Would you like to be sent email notifications?</p>
+                </div>
+                <div>
+                    <span>
+                        <input type="checkbox" id="emailnotifications" /> 
+                        <label for="emailnotifications">Yes, please bug me via email!</label>
+                    </span>
+                </div>
+                <div>
+                    <span class="button-row">
+                        <button id="cancel">Cancel</button>
+                        <button id="submit" disabled="disabled">Submit</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="account-signup.js"></script>
+    </body>
+</html>
