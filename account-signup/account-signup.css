@@ -41,8 +41,8 @@ label {
 /* Here comes your standard CSS table pattern. */
 .simple-form {
     display: table;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .simple-form > div {
@@ -55,7 +55,7 @@ label {
 }
 
 .simple-form > div > span {
-    padding-left: 0.5ex;
+    padding-left: 1ex;
 }
 
 .button-row {
@@ -75,9 +75,11 @@ label {
 
 /* Keeps things smooth. */
 .requirement, .approval {
+    -moz-transition: all 1s;
     -webkit-transition: all 1s;
 }
 
-#email, #emailnotificationslabel {
-    font-size: 16px;
+/* Other individual settings. */
+#password-match {
+    opacity: 0;
 }
