@@ -1,0 +1,22 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Cwitter</title>
+    </head>
+
+    <body>
+        <input type="text" id="status-field" />
+        <button id="post-button">Post</button>
+
+        <!-- We can pre-fill this part because we know that the
+             status-field will be empty when the page loads. -->
+        <p>You have typed <span id="countdown">zero</span> characters.</p>
+
+        <p id="fortune"></p>
+
+        <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+        <script src="character-countdown.js"></script>
+    </body>
+</html>
