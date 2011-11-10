@@ -19,10 +19,35 @@ $(function () {
     // When the status field changes, I want to:
     //   (a) report the number of characters
     //   (b) enable/disable the Post button
-    $("#status-field").keyup(function () {
+    $("#status-field").bind("input", function () {
 
-        $("#countdown").text($("#status-field").val().length);
+        var statusFieldLength = $("#status-field").val().length;
 
+        // Check whether the Post button should be enabled.
+        // It should be enabled if the status field contains
+        // 1 to 140 characters.
+        if ((statusFieldLength > 0) && (statusFieldLength <= 140)) {
+            // Enable the Post button.
+            $("#post-button").removeAttr("disabled");
+        } else {
+            // Disable the Post button.
+            $("#post-button").attr("disabled", "disabled");
+        }
+
+        // Updates the status countdown.
+        if (statusFieldLength === 0) {
+            $("#countdown").text("zero");
+        } else {
+            $("#countdown").text(statusFieldLength);
+        }
+
+        // If there is only one character, we want to ditch
+        // the "s" in "characters."
+        if (statusFieldLength === 1) {
+            $("#plural").hide();
+        } else {
+            $("#plural").show();
+        }
     });
 
 });
