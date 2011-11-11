@@ -90,7 +90,7 @@ $(function () {
         // If validateSignup does its job, we can go right into
         // assuming that everything is OK when we get here.
         $("body").append($("<p>Name: " + $("#username").val() + "</p>" +
-                "Gender: " + $("input[name=sex]:checked").val() + "</p>" +
+                "<p>Gender: " + $("input[name=sex]:checked").val() + "</p>" +
                 ($("input[type=checkbox]:checked").val() ?
                         "<p>" + "You have chosen to receive emails." + "</p>" :
                         "<p>" + "You have chosen not to receive emails." + "</p>")));
