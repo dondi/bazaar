@@ -41,25 +41,8 @@ var startSierpinski = function (canvas) {
         xDragStart, yDragStart, xRotationStart, yRotationStart,
 
         // Utility function for rotating the camera.
-        cameraRotate;
+        cameraRotate,
 
-    // Grab the WebGL rendering context.
-    gl = canvas.getContext("experimental-webgl");
-    if (!gl) {
-        alert("No WebGL context found...sorry.");
-
-        // No WebGL, no use going on...
-        return;
-    }
-
-    // Set up everything that is needed for the scene.
-    gl.enable(gl.DEPTH_TEST);
-    gl.clearColor(0.0, 0.0, 0.0, 0.0);
-    gl.viewport(0, 0, canvas.width, canvas.height);
-
-    // Build the tetrahedrons within the gasket.  We have a "starter" tetrahedron
-    // which then gets divided to the degree that we require.  Doing this right
-    // requires a few supporting functions, which we define first.
     /*
      * This function returns the midpoint of two 3D points.
      */
@@ -67,14 +50,14 @@ var startSierpinski = function (canvas) {
         return [(point1[0] + point2[0]) / 2,
             (point1[1] + point2[1]) / 2,
             (point1[2] + point2[2]) / 2];
-    };
+    },
 
     /*
      * This function returns the vector from the first 3D point to the second.
      */
     vector = function (point1, point2) {
         return [ point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2] ];
-    };
+    },
 
     /*
      * This function takes three 3D points and returns the cross product of the
@@ -86,7 +69,7 @@ var startSierpinski = function (canvas) {
         return [ ((vector1[1] * vector2[2]) - (vector2[1] * vector1[2])),
             ((vector1[2] * vector2[0]) - (vector2[2] * vector1[0])),
             ((vector1[0] * vector2[1]) - (vector2[0] * vector1[1])) ];
-    };
+    },
 
     /*
      * This function normalizes a 3D vector.
@@ -95,7 +78,7 @@ var startSierpinski = function (canvas) {
         var length = Math.sqrt((vector[0] * vector[0]) +
             (vector[1] * vector[1]) + (vector[2] * vector[2]));
         return [ vector[0] / length, vector[1] / length, vector[2] / length ];
-    };
+    },
 
     /*
      * This function adds the given vertices to the overall gasket, then
@@ -144,26 +127,8 @@ var startSierpinski = function (canvas) {
                 normals.push(normalCoordinatesToAdd[i]);
             }
         }
-    };
-    
-    vertices = [];
-    normals = [];
-    divideTetrahedron(vertices, normals,
-        [ 0.0, 3.0 * Math.sqrt(6), 0.0 ],
-        [ -2.0 * Math.sqrt(3), -Math.sqrt(6), -6.0],
-        [ -2.0 * Math.sqrt(3), -Math.sqrt(6), 6.0 ],
-        [ 4.0 * Math.sqrt(3), -Math.sqrt(6), 0.0 ],
-        5);
+    },
 
-    // Pass the calculated vertices and normals to WebGL.
-    vertexBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-    
-    normalBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
-    
     // Set up shaders: we're inlining the source here for simplicity.  Shaders
     // are otherwise kept separate for easier maintenance.
     vertexShaderSource =
@@ -185,7 +150,7 @@ var startSierpinski = function (canvas) {
         "    gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);" +
         "    vec4 transformedNormal = normalMatrix * vec4(normalVector, 1.0);" +
         "    dotProduct = max(dot(transformedNormal.xyz, lightDirection), 0.0);" +
-        "}";
+        "}",
 
     // The fragment shader performs the standard normalization calculation,
     // plus a little reduction based on the distance from the viewer.
@@ -200,7 +165,7 @@ var startSierpinski = function (canvas) {
         "    vec4 color = vec4(1.0, 0.0, 0.0, 1.0);" +
         "    float attenuation = 1.0 - gl_FragCoord.z;" +
         "    gl_FragColor = vec4(color.xyz * dotProduct * attenuation, color.a);" +
-        "}";
+        "}",
 
     // We will do this twice, so we put it in a function.
     setupShader = function (gl, shaderSource, shaderType) {
@@ -215,8 +180,85 @@ var startSierpinski = function (canvas) {
         } else {
             return shader;
         }
-    };
+    },
 
+    /*
+     * Displays the scene.
+     */
+    drawScene = function () {
+        // Clear the display.
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        // Set up the viewing volume.
+        projectionMatrix.loadIdentity();
+        projectionMatrix.perspective(45, canvas.width / canvas.height, 11.0, 100.0);
+        
+        // Set up the model-view matrix.
+        modelViewMatrix.loadIdentity();
+        modelViewMatrix.translate(-viewerLocation.x, -viewerLocation.y, -viewerLocation.z);
+        modelViewMatrix.rotate(rotationAroundX, 1.0, 0.0, 0.0);
+        modelViewMatrix.rotate(rotationAroundY, 0.0, 1.0, 0.0);
+
+        // Set up the normal matrix.
+        var normalMatrix = modelViewMatrix.copy();
+        normalMatrix.invert();
+        normalMatrix.transpose();
+        gl.uniformMatrix4fv(normalMatrixLocation, gl.FALSE, new Float32Array(normalMatrix.elements));
+        
+        // Display the gasket.
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+        gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
+        gl.uniformMatrix4fv(modelViewMatrixLocation, gl.FALSE, new Float32Array(modelViewMatrix.elements));
+        gl.uniformMatrix4fv(projectionMatrixLocation, gl.FALSE, new Float32Array(projectionMatrix.elements));
+        gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 3);
+
+        // All done.
+        gl.flush();
+    },
+
+    cameraRotate = function (event) {
+        rotationAroundX = xRotationStart + yDragStart - event.clientY;
+        rotationAroundY = yRotationStart + xDragStart - event.clientX;
+        drawScene();
+    };
+    
+    // Grab the WebGL rendering context.
+    gl = canvas.getContext("experimental-webgl");
+    if (!gl) {
+        alert("No WebGL context found...sorry.");
+
+        // No WebGL, no use going on...
+        return;
+    }
+
+    // Set up everything that is needed for the scene.
+    gl.enable(gl.DEPTH_TEST);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+
+    // Build the tetrahedrons within the gasket.  We have a "starter" tetrahedron
+    // which then gets divided to the degree that we require.  Doing this right
+    // requires a few supporting functions, which we define first.
+    vertices = [];
+    normals = [];
+    divideTetrahedron(vertices, normals,
+        [ 0.0, 3.0 * Math.sqrt(6), 0.0 ],
+        [ -2.0 * Math.sqrt(3), -Math.sqrt(6), -6.0],
+        [ -2.0 * Math.sqrt(3), -Math.sqrt(6), 6.0 ],
+        [ 4.0 * Math.sqrt(3), -Math.sqrt(6), 0.0 ],
+        5);
+
+    // Pass the calculated vertices and normals to WebGL.
+    vertexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    
+    normalBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+    
     // OK, so now we REALLY set up the shaders.
     vertexShader = setupShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
     fragmentShader = setupShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
@@ -259,50 +301,8 @@ var startSierpinski = function (canvas) {
     viewerLocation = { x: 0.0, y: 0, z: 20.0 };
     rotationAroundX = 0.0;
     rotationAroundY = -90.0;
-    
-    /*
-     * Displays the scene.
-     */
-    drawScene = function () {
-        // Clear the display.
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        // Set up the viewing volume.
-        projectionMatrix.loadIdentity();
-        projectionMatrix.perspective(45, canvas.width / canvas.height, 11.0, 100.0);
-        
-        // Set up the model-view matrix.
-        modelViewMatrix.loadIdentity();
-        modelViewMatrix.translate(-viewerLocation.x, -viewerLocation.y, -viewerLocation.z);
-        modelViewMatrix.rotate(rotationAroundX, 1.0, 0.0, 0.0);
-        modelViewMatrix.rotate(rotationAroundY, 0.0, 1.0, 0.0);
-
-        // Set up the normal matrix.
-        var normalMatrix = modelViewMatrix.copy();
-        normalMatrix.invert();
-        normalMatrix.transpose();
-        gl.uniformMatrix4fv(normalMatrixLocation, gl.FALSE, new Float32Array(normalMatrix.elements));
-        
-        // Display the gasket.
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-        gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-        gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
-        gl.uniformMatrix4fv(modelViewMatrixLocation, gl.FALSE, new Float32Array(modelViewMatrix.elements));
-        gl.uniformMatrix4fv(projectionMatrixLocation, gl.FALSE, new Float32Array(projectionMatrix.elements));
-        gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 3);
-
-        // All done.
-        gl.flush();
-    };
 
     // Set up event handlers: we want a drag-to-rotate.
-    cameraRotate = function (event) {
-        rotationAroundX = xRotationStart + yDragStart - event.clientY;
-        rotationAroundY = yRotationStart + xDragStart - event.clientX;
-        drawScene();
-    };
-    
     canvas.onmousedown = function (event) {
         xDragStart = event.clientX;
         yDragStart = event.clientY;
