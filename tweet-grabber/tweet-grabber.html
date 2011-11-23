@@ -1,0 +1,25 @@
+<!doctype html>
+
+<!-- This web page demonstrates a very simple Twitter
+     client.  It requests a Twitter screen name and
+     retrieves the last five tweets made by that account. -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>A (Really) Simple Tweet Grabber</title>
+        <link rel="stylesheet" href="tweet-grabber.css" />
+    </head>
+    
+    <body>
+        <!-- A very simple user interface. -->
+        <label for="screenname">Screen name:</label>
+        <input id="screenname" />
+        <button id="get-button">Get</button>
+
+        <!-- Retrieved tweets will go here. -->
+        <div id="tweet-container"></div>
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="tweet-grabber.js"></script>
+    </body>
+</html>
