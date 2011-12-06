@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Event Calendar</title>
+        
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/eggplant/jquery-ui.css" />
+        <link rel="stylesheet" href="calendar-retriever-jqueryui.css" />
+    </head>
+
+    <body>
+        <!-- The user interface for the calendar retriever. -->
+        <div>
+            <label for="datepicker">Please provide a date:</label>
+            <input type="text" id="datepicker">
+        </div>
+        
+        <!-- The events will go here. -->
+        <div id="retrieved-events"></div>
+        
+        <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <script src="calendar-retriever-jqueryui.js"></script>
+    </body>
+</html>
