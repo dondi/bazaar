@@ -70,7 +70,7 @@ $(function () {
             // And, the user cannot submit.
             $("#submit").attr({ disabled: "disabled" });
         }
-    }
+    };
 
     /* 
      * HTML5 alert!  "input" is so new jQuery does not have it yet.
