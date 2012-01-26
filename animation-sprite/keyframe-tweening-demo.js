@@ -3,16 +3,18 @@
  * engine is used.
  */
 (function () {
-    var
+    var canvas = document.getElementById("canvas"),
 
         // First, a selection of "drawing functions" from which we
         // can choose.  Their common trait: they all accept a single
         // renderingContext argument.
         square = function (renderingContext) {
+            renderingContext.fillStyle = "blue";
             renderingContext.fillRect(-20, -20, 40, 40);
         },
 
         circle = function (renderingContext) {
+            renderingContext.strokeStyle = "red";
             renderingContext.beginPath();
             renderingContext.arc(0, 0, 50, 0, Math.PI * 2);
             renderingContext.stroke();
@@ -29,8 +31,8 @@
                 keyframes: [
                     {
                         frame: 0,
-                        tx: 5,
-                        ty: 5,
+                        tx: 20,
+                        ty: 20,
                         ease: KeyframeTweener.linear
                     },
 
@@ -38,7 +40,7 @@
                         frame: 30,
                         tx: 100,
                         ty: 50,
-                        ease: KeyframeTweener.quadEaseIn
+                        ease: KeyframeTweener.quadEaseInOut
                     },
 
                     // The last keyframe does not need an easing function.
@@ -46,7 +48,7 @@
                         frame: 80,
                         tx: 80,
                         ty: 500,
-                        rotate: 60
+                        rotate: 60 // Keyframe.rotate uses degrees.
                     }
                 ]
             },
@@ -57,7 +59,7 @@
                     {
                         frame: 50,
                         tx: 300,
-                        ty: 200,
+                        ty: 600,
                         sx: 0.5,
                         sy: 0.5,
                         ease: KeyframeTweener.quadEaseOut
@@ -68,7 +70,16 @@
                         tx: 300,
                         ty: 0,
                         sx: 3,
-                        sy: 0.1
+                        sy: 0.25,
+                        ease: KeyframeTweener.quadEaseOut
+                    },
+
+                    {
+                        frame: 150,
+                        tx: 300,
+                        ty: 600,
+                        sx: 0.5,
+                        sy: 0.5
                     }
                 ]
             }
@@ -78,7 +89,9 @@
     // to know the rendering context to use.  And the animations
     // to display, of course.
     KeyframeTweener.initialize({
-        renderingContext: document.getElementById("canvas").getContext("2d"),
+        renderingContext: canvas.getContext("2d"),
+        width: canvas.width,
+        height: canvas.height,
         sprites: sprites
     });
 }());
