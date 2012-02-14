@@ -16,8 +16,8 @@ var Primitives = {
     },
 
     /*
-     * The easy case.  We take advantage of JavaScript's "optional"
-     * parameter mechanism to keep things at a single method.
+     * The easy fill case: rectangles.  We take advantage of JavaScript's
+     * "optional" parameter mechanism to keep things at a single method.
      */
     fillRect: function (context, x, y, w, h, c1, c2, c3, c4) {
         var module = this,
@@ -135,5 +135,129 @@ var Primitives = {
                       (c4[2] - c2[2]) / h];
             fillRectFourColors();
         }
+    },
+
+    /*
+     * Here come our line-drawing primitives.  Note, for simplicity, that
+     * we code for a specific case of a diagonal line going up.  Other cases
+     * either switch directions or have specific optimizations (e.g., strictly
+     * horizontal and vertical lines).
+     */
+
+    // Our digital-differential analyzer (DDA) version.
+    lineDDA: function (context, x1, y1, x2, y2, color) {
+        var steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)),
+            dx = (x2 - x1) / steps,
+            dy = (y2 - y1) / steps,
+            x = x1,
+            y = y1,
+            color = color || [0, 0, 0],
+            i;
+
+        for (i = 0; i <= steps; i += 1) {
+            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            x += dx; y += dy;
+        }
+    },
+
+    // Bresenham algorithm version 1.
+    lineBres1: function (context, x1, y1, x2, y2, color) {
+        var x = x1,
+            y = y1,
+            dx = x2 - x1,
+            dy = y1 - y2,
+            err = 0,
+            color = color || [0, 0, 0];
+
+        while (true) {
+            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            if (x === x2) {
+                return;
+            }
+
+            x += 1;
+            err += dy / dx;
+            if (err >= 0.5) {
+                y -= 1;
+                err -= 1;
+            }
+        }
+    },
+
+    // Bresenham algorithm version 2.
+    lineBres2: function (context, x1, y1, x2, y2, color) {
+        var x = x1,
+            y = y1,
+            dx = x2 - x1,
+            dy = y1 - y2,
+            err = 0,
+            color = color || [0, 0, 0];
+
+        while (true) {
+            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            if (x === x2) {
+                return;
+            }
+
+            x += 1;
+            err += (2 * dy);
+            if (err >= dx) {
+                y -= 1;
+                err -= (2 * dx);
+            }
+        }
+    },
+
+    // Bresenham algorithm version 3.
+    lineBres3: function (context, x1, y1, x2, y2, color) {
+        var x = x1,
+            y = y1,
+            dx = x2 - x1,
+            dy = y1 - y2,
+            err = 0,
+            color = color || [0, 0, 0];
+
+        while (true) {
+            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            if (x === x2) {
+                return;
+            }
+
+            x += 1;
+            if (err >= dx - 2 * dy) {
+                y -= 1;
+                err += (2 * dy - 2 * dx);
+            } else {
+                err += (2 * dy);
+            }
+        }
+    },
+
+    // The final, optimized Bresenham algorithm
+    lineBresenham: function (context, x1, y1, x2, y2, color) {
+        var x = x1,
+            y = y1,
+            dx = x2 - x1,
+            dy = y1 - y2,
+            k1 = dy << 1,
+            err = k1 - dx,
+            k2 = (dy - dx) << 1,
+            color = color || [0, 0, 0];
+
+        while (true) {
+            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            if (x === x2) {
+                return;
+            }
+
+            x += 1;
+            if (err < 0) {
+                err += k1;
+            } else {
+                y -= 1;
+                err += k2;
+            }
+        }
     }
+
 };

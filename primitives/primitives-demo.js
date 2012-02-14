@@ -17,6 +17,12 @@
             [255, 0, 0], [255, 255, 0], [0, 200, 0], [0, 0, 100]);
 
     // Some line segments.
+    Primitives.lineDDA(renderingContext, 5, 210, 204, 110);
+    Primitives.lineBres1(renderingContext, 210, 210, 409, 110);
+    Primitives.lineBres2(renderingContext, 415, 210, 614, 110);
+    Primitives.lineBres3(renderingContext, 620, 210, 819, 110);
+    Primitives.lineBresenham(renderingContext, 825, 210, 1024, 110);
+
     // A few circles.
     // And finally...polygon fills!
 }());
