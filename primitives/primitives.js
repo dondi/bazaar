@@ -151,12 +151,13 @@ var Primitives = {
             dy = (y2 - y1) / steps,
             x = x1,
             y = y1,
-            color = color || [0, 0, 0],
             i;
 
+        color = color || [0, 0, 0];
         for (i = 0; i <= steps; i += 1) {
             this.setPixel(context, x, y, color[0], color[1], color[2]);
-            x += dx; y += dy;
+            x += dx;
+            y += dy;
         }
     },
 
@@ -166,9 +167,9 @@ var Primitives = {
             y = y1,
             dx = x2 - x1,
             dy = y1 - y2,
-            err = 0,
-            color = color || [0, 0, 0];
+            err = 0;
 
+        color = color || [0, 0, 0];
         while (true) {
             this.setPixel(context, x, y, color[0], color[1], color[2]);
             if (x === x2) {
@@ -190,9 +191,9 @@ var Primitives = {
             y = y1,
             dx = x2 - x1,
             dy = y1 - y2,
-            err = 0,
-            color = color || [0, 0, 0];
+            err = 0;
 
+        color = color || [0, 0, 0];
         while (true) {
             this.setPixel(context, x, y, color[0], color[1], color[2]);
             if (x === x2) {
@@ -216,9 +217,9 @@ var Primitives = {
             y = y1,
             dx = x2 - x1,
             dy = y1 - y2,
-            err = 0,
-            color = color || [0, 0, 0];
+            err = 0;
 
+        color = color || [0, 0, 0];
         while (true) {
             this.setPixel(context, x, y, color[0], color[1], color[2]);
             if (x === x2) {
@@ -246,9 +247,9 @@ var Primitives = {
             dy = y1 - y2,
             k1 = dy << 1, // dy divided by 2.
             err = k1 - dx,
-            k2 = (dy - dx) << 1, // dy - dx divided by 2.
-            color = color || [0, 0, 0];
+            k2 = (dy - dx) << 1; // dy - dx divided by 2.
 
+        color = color || [0, 0, 0];
         while (true) {
             this.setPixel(context, x, y, color[0], color[1], color[2]);
             if (x === x2) {
@@ -263,6 +264,118 @@ var Primitives = {
                 err += k2;
             }
         }
-    }
+    },
 
+    /*
+     * Time for the circles.  First, we observe that it is sufficient
+     * to compute one-eighth of a circle: the other seven portions are
+     * permutations of that eighth's coordinates.  So we define a helper
+     * function that all of the circle implementations will use...
+     */
+    plotCirclePoints: function (context, xc, yc, x, y, color) {
+        color = color || [0, 0, 0];
+        this.setPixel(context, xc + x, yc + y, color[0], color[1], color[2]);
+        this.setPixel(context, xc + x, yc - y, color[0], color[1], color[2]);
+        this.setPixel(context, xc + y, yc + x, color[0], color[1], color[2]);
+        this.setPixel(context, xc + y, yc - x, color[0], color[1], color[2]);
+        this.setPixel(context, xc - x, yc + y, color[0], color[1], color[2]);
+        this.setPixel(context, xc - x, yc - y, color[0], color[1], color[2]);
+        this.setPixel(context, xc - y, yc + x, color[0], color[1], color[2]);
+        this.setPixel(context, xc - y, yc - x, color[0], color[1], color[2]);
+    },
+
+    // First, the most naive possible implementation: circle by trigonometry.
+    circleTrig: function (context, xc, yc, r, color) {
+        var theta = 1 / r,
+
+            // At the very least, we compute our sine and cosine just once.
+            s = Math.sin(theta),
+            c = Math.cos(theta),
+
+            // We compute the first octant, from zero to pi/4.
+            x = r,
+            y = 0;
+
+        while (x >= y) {
+            this.plotCirclePoints(context, xc, yc, x, y, color);
+            x = x * c - y * s;
+            y = x * s + y * c;
+        }
+    },
+
+    // Now DDA.
+    circleDDA: function (context, xc, yc, r, color) {
+        var epsilon = 1 / r,
+            x = r,
+            y = 0;
+
+        while (x >= y) {
+            this.plotCirclePoints(context, xc, yc, x, y, color);
+            x = x - (epsilon * y);
+            y = y + (epsilon * x);
+        }
+    },
+
+    // One of three Bresenham-like approaches.
+    circleBres1: function (context, xc, yc, r, color) {
+        var p = 3 - 2 * r,
+            x = 0,
+            y = r;
+
+        while (x < y) {
+            this.plotCirclePoints(context, xc, yc, x, y, color);
+            if (p < 0) {
+                p = p + 4 * x + 6;
+            } else {
+                p = p + 4 * (x - y) + 10;
+                y -= 1;
+            }
+            x += 1;
+        }
+        if (x === y) {
+            this.plotCirclePoints(context, xc, yc, x, y, color);
+        }
+    },
+
+    // And another...
+    circleBres2: function (context, xc, yc, r, color) {
+        var x = 0,
+            y = r,
+            e = 1 - r,
+            u = 1,
+            v = e - r;
+
+        while (x <= y) {
+            this.plotCirclePoints(context, xc, yc, x, y, color);
+            if (e < 0) {
+                x += 1;
+                u += 2;
+                v += 2;
+                e += u;
+            } else {
+                x += 1;
+                y -= 1;
+                u += 2;
+                v += 4;
+                e += v;
+            }
+        }
+    },
+
+    // Last but not least...
+    circleBres3: function (context, xc, yc, r, color) {
+        var x = r,
+            y = 0,
+            e = 0;
+
+        while (y <= x) {
+            this.plotCirclePoints(context, xc, yc, x, y, color);
+            y += 1;
+            e += (2 * y - 1);
+            if (e > x) {
+                x -= 1;
+                e -= (2 * x + 1);
+            }
+        }
+    }
 };
