@@ -25,10 +25,64 @@
 
     // A few circles.
     Primitives.circleTrig(renderingContext, 105, 315, 100);
-    Primitives.circleDDA(renderingContext, 315, 315, 100);
-    Primitives.circleBres1(renderingContext, 520, 315, 100);
-    Primitives.circleBres2(renderingContext, 725, 315, 100);
-    Primitives.circleBres3(renderingContext, 930, 315, 100);
+    Primitives.circleDDA(renderingContext, 310, 315, 100);
+    Primitives.circleBres1(renderingContext, 515, 315, 100);
+    Primitives.circleBres2(renderingContext, 720, 315, 100);
+    Primitives.circleBres3(renderingContext, 925, 315, 100);
 
     // And finally...polygon fills!
+    renderingContext.save();
+    renderingContext.translate(5, 420);
+    Primitives.fillPolygon(renderingContext, [
+        { x: 50, y: 50 },
+        { x: 50, y: 80 },
+        { x: 80, y: 100 },
+        { x: 140, y: 50 },
+        { x: 140, y: 80 },
+        { x: 110, y: 50 }
+    ]);
+    renderingContext.restore();
+
+    renderingContext.save();
+    renderingContext.translate(210, 420);
+    Primitives.fillPolygon(renderingContext, [
+        { x: 50, y: 5 },
+        { x: 100, y: 80 },
+        { x: 120, y: 40 }
+    ]);
+    renderingContext.restore();
+
+    renderingContext.save();
+    renderingContext.translate(415, 420);
+    Primitives.fillPolygon(renderingContext, [
+        { x: 30, y: 40 },
+        { x: 100, y: 40 },
+        { x: 100, y: 100 },
+        { x: 30, y: 100 }
+    ]);
+    renderingContext.restore();
+
+    renderingContext.save();
+    renderingContext.translate(620, 420);
+    Primitives.fillPolygon(renderingContext, [
+        { x: 20, y: 20 },
+        { x: 50, y: 25 },
+        { x: 100, y: 90 },
+        { x: 50, y: 100 },
+        { x: 15, y: 80 },
+        { x: 10, y: 50 }
+    ]);
+    renderingContext.restore();
+
+    renderingContext.save();
+    renderingContext.translate(825, 420);
+    Primitives.fillPolygon(renderingContext, [
+        { x: 100, y: 10 },
+        { x: 150, y: 100 },
+        { x: 20, y: 40 },
+        { x: 180, y: 40 },
+        { x: 50, y: 100 }
+    ]);
+    renderingContext.restore();
+
 }());

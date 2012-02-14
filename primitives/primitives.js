@@ -377,5 +377,174 @@ var Primitives = {
                 e -= (2 * x + 1);
             }
         }
+    },
+
+    /*
+     * Now, the big one: a general polygon-filling algorithm.
+     * We expect the polygon to be an array of objects with x
+     * and y properties.
+     */
+
+    // For starters, we need an Edge helper object.
+    Edge: function (p1, p2) {
+        this.maxY = Math.max(p1.y, p2.y);
+        this.minY = Math.min(p1.y, p2.y);
+        this.horizontal = (p1.y === p2.y);
+        if (!this.horizontal) {
+            this.inverseSlope = (p2.x - p1.x) / (p2.y - p1.y);
+        }
+
+        // The initial x coordinate is the x coordinate of the
+        // point with the lower y value.
+        this.currentX = (p1.y === this.minY) ? p1.x : p2.x;
+    },
+
+    // Now to the function itself.
+    fillPolygon: function (context, polygon, color) {
+        var Edge = this.Edge, // An alias for convenience.
+
+            /*
+             * A useful helper function: this "snaps" a given y coordinate
+             * to its nearest scan line.
+             */
+            toScanLine = function (y) {
+                return Math.ceil(y);
+            },
+
+            /*
+             * We will need to sort edges by x coordinate.
+             */
+            xComparator = function (edge1, edge2) {
+                return (edge1.currentX - edge2.currentX);
+            },
+
+            /*
+             * We will need to do "array difference:" return an array whose
+             * elements are in the first array but not in the second.
+             */
+            arrayDifference = function (array1, array2) {
+                return array1.filter(function (element) {
+                    return array2.indexOf(element) < 0;
+                });
+            },
+
+            /*
+             * An important helper function: this moves the edges whose
+             * minimum y match the given scan line from the source
+             * list to the destination. We assume that the source list
+             * is sorted by minimum y.
+             */
+            moveMatchingMinYs = function (src, dest, targetY) {
+                var i;
+                for (i = 0; i < src.length; i += 1) {
+                    if (toScanLine(src[i].minY) === targetY) {
+                        dest.push(src[i]);
+                    } else if (toScanLine(src[i].minY) > targetY) {
+                        // We can bail immediately because the global edge list is sorted.
+                        break;
+                    }
+                }
+
+                // Eliminate the moved edges from the source array; this is
+                // the function's result.
+                return arrayDifference(src, dest);
+            },
+
+            globalEdgeList = [], // List of all edges.
+            activeEdgeList = [], // List of all edges currently being scanned.
+            i,                   // Reusable index variable.
+            anEdge,              // Temporary edge holder.
+            currentScanLine,     // The scan line that is being drawn.
+            drawPixel,           // Whether we are supposed to plot something.
+            fromX,               // The starting x coordinate of the current scan line.
+            toX,                 // The ending x coordinate of the current scan line.
+            x,                   // Another reusable index variable, for drawing.
+            edgesToRemove;       // For use when, well, removing edges from a list.
+
+        // The usual color guard.
+        color = color || [0, 0, 0];
+
+        // Create the global edge list.
+        for (i = 0; i < polygon.length; i += 1) {
+            // If we are at the last vertex, we go back to the first one.
+            anEdge = new Edge(polygon[i], polygon[(i + 1) % polygon.length]);
+
+            // We skip horizontal edges; they get drawn "automatically."
+            if (!anEdge.horizontal) {
+                globalEdgeList.push(anEdge);
+            }
+        }
+
+        // Sort the list from top to bottom.
+        globalEdgeList.sort(function (edge1, edge2) {
+            if (edge1.minY !== edge2.minY) {
+                return (edge1.minY - edge2.minY);
+            } else {
+                // If the minimum y's are the same, then the edge with the
+                // smaller x value goes first.
+                return (edge1.currentX - edge2.currentX);
+            }
+        });
+
+        // We start at the lowest y coordinate.
+        currentScanLine = toScanLine(globalEdgeList[0].minY);
+
+        // Initialize the active edge list.
+        globalEdgeList = moveMatchingMinYs(globalEdgeList, activeEdgeList, currentScanLine);
+
+        // Start scanning!
+        drawPixel = false;
+        while (activeEdgeList.length) {
+            fromX = Number.MAX_VALUE;
+            for (i = 0; i < activeEdgeList.length; i += 1) {
+                // If we're drawing pixels, we draw until we reach the x
+                // coordinate of this edge. Otherwise, we just remember where we
+                // are then move on.
+                if (drawPixel) {
+                    toX = toScanLine(activeEdgeList[i].currentX);
+
+                    // No cheating here --- draw each pixel, one by one.
+                    for (x = fromX; x <= toX; x += 1) {
+                        this.setPixel(context, x, currentScanLine,
+                                color[0], color[1], color[2]);
+                    }
+                } else {
+                    fromX = toScanLine(activeEdgeList[i].currentX);
+                }
+                drawPixel = !drawPixel;
+            }
+
+            // If we get out of this loop and drawPixel is true, then we
+            // encountered an odd number of edges, and need to draw a single
+            // pixel.
+            if (drawPixel) {
+                this.setPixel(context, fromX, currentScanLine, color);
+                drawPixel = !drawPixel;
+            }
+
+            // Go to the next scan line.
+            currentScanLine += 1;
+
+            // Remove edges for which we have reached the maximum y.
+            edgesToRemove = [];
+            for (i = 0; i < activeEdgeList.length; i += 1) {
+                if (toScanLine(activeEdgeList[i].maxY) === currentScanLine) {
+                    edgesToRemove.push(activeEdgeList[i]);
+                }
+            }
+            activeEdgeList = arrayDifference(activeEdgeList, edgesToRemove);
+
+            // Add edges for which we have reached the minimum y.
+            globalEdgeList = moveMatchingMinYs(globalEdgeList, activeEdgeList, currentScanLine);
+
+            // Update the x coordinates of the active edges.
+            for (i = 0; i < activeEdgeList.length; i += 1) {
+                activeEdgeList[i].currentX += activeEdgeList[i].inverseSlope;
+            }
+
+            // Re-sort the edge list.
+            activeEdgeList.sort(xComparator);
+        }
     }
+
 };
