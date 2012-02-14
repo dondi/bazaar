@@ -200,6 +200,8 @@ var Primitives = {
             }
 
             x += 1;
+            // Note how this is "multiplying 2 * dx to both sides" when
+            // compared to Bresenham 1.
             err += (2 * dy);
             if (err >= dx) {
                 y -= 1;
@@ -224,6 +226,8 @@ var Primitives = {
             }
 
             x += 1;
+            // This one does the comparison first, then adjusts err
+            // based on that comparison.
             if (err >= dx - 2 * dy) {
                 y -= 1;
                 err += (2 * dy - 2 * dx);
@@ -233,15 +237,16 @@ var Primitives = {
         }
     },
 
-    // The final, optimized Bresenham algorithm
+    // The final, optimized Bresenham algorithm: here, we presave
+    // most values, and adjust them to compare only to zero.
     lineBresenham: function (context, x1, y1, x2, y2, color) {
         var x = x1,
             y = y1,
             dx = x2 - x1,
             dy = y1 - y2,
-            k1 = dy << 1,
+            k1 = dy << 1, // dy divided by 2.
             err = k1 - dx,
-            k2 = (dy - dx) << 1,
+            k2 = (dy - dx) << 1, // dy - dx divided by 2.
             color = color || [0, 0, 0];
 
         while (true) {
