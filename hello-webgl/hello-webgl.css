@@ -1,4 +1,5 @@
 canvas {
+    border: solid 1px rgb(200, 200, 255);
     display: block;
     margin-left: auto;
     margin-right: auto;
