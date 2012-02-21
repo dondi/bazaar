@@ -18,7 +18,12 @@
             the <code>canvas</code> element, either.
         </canvas>
 
+        <!-- jQuery makes some things more convenient. -->
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- GLSLUtilities is a starting point for holding functionality that
+             is common to many WebGL programs. -->
+        <script src="glsl-utilities.js"></script>
 
         <!-- Set up shaders: we've placed the source in script elements for
             simplicity.  Shaders are ideally kept in separate files for easier
@@ -51,6 +56,7 @@
             }
         </script>
 
+        <!-- This script sets up the specific scene for this page. -->
         <script src="hello-webgl.js"></script>
   </body>
 </html>

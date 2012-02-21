@@ -9,22 +9,14 @@
     // are used.
     var gl, // The WebGL context.
 
-        // These variables store 3D model information.
-        triangle,
-        rectangle,
+        // This variable stores 3D model information.
+        objectsToDraw,
 
-        // These variables will hold the GLSL shader code.  Hardcoded for
-        // illustrative purposes only; they are typically linked to or
-        // loaded dynamically.
-        vertexShaderSource,
-        fragmentShaderSource,
-
-        // More shader variables, this time for the actual shader-related
-        // functions or objects.
-        setupShader,
+        // The shader program to use.
         shaderProgram,
-        vertexShader,
-        fragmentShader,
+
+        // Utility variable indicating whether some fatal has occurred.
+        abort = false,
 
         // Important state variables.
         vertexPosition,
@@ -33,10 +25,14 @@
         drawObject,
 
         // The big "draw scene" function.
-        drawScene;
+        drawScene,
+
+        // Reusable loop variables.
+        i,
+        max;
 
     // Grab the WebGL rendering context.
-    gl = canvas.getContext("experimental-webgl");
+    gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
         alert("No WebGL context found...sorry.");
 
@@ -44,80 +40,66 @@
         return;
     }
 
-    // Set up everything that is needed for the scene.
+    // Set up settings that will not change.  This is not "canned" into a
+    // utility function because these settings really can vary from program
+    // to program.
     gl.enable(gl.DEPTH_TEST);
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.
-    triangle = {
-        color: { r: 255, g: 0, b: 0 },
-        vertices: [].concat(
-            [ 0.0, 0.0, 0.0 ],
-            [ 0.5, 0.0, 0.5 ],
-            [ 0.0, 0.5, 0.0 ]
-        ),
-        mode: gl.TRIANGLES
-    };
+    objectsToDraw = [
+        {
+            color: { r: 255, g: 0, b: 0 },
+            vertices: [].concat(
+                [ 0.0, 0.0, 0.0 ],
+                [ 0.5, 0.0, 0.5 ],
+                [ 0.0, 0.5, 0.0 ]
+            ),
+            mode: gl.TRIANGLES
+        },
 
-    rectangle = {
-        color: { r: 0, g: 0, b: 255 },
-        vertices: [].concat(
-            [ -1.0, -1.0, 0.75 ],
-            [ -1.0, -0.1, -1.0 ],
-            [ -0.1, -0.1, -1.0 ],
-            [ -0.1, -1.0, 0.75 ]
-        ),
-        mode: gl.LINE_LOOP
-    };
+        {
+            color: { r: 0, g: 0, b: 255 },
+            vertices: [].concat(
+                [ -1.0, -1.0, 0.75 ],
+                [ -1.0, -0.1, -1.0 ],
+                [ -0.1, -0.1, -1.0 ],
+                [ -0.1, -1.0, 0.75 ]
+            ),
+            mode: gl.LINE_LOOP
+        }
+    ];
 
     // Pass the vertices to WebGL.
-    triangle.buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, triangle.buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangle.vertices), gl.STATIC_DRAW);
-
-    rectangle.buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, rectangle.buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rectangle.vertices), gl.STATIC_DRAW);
-
-    // Load the vertex shader code.
-    vertexShaderSource = $("#vertex-shader").text();
-
-    // Load the fragment shader code.
-    fragmentShaderSource = $("#fragment-shader").text();
-
-    // We will do this twice, so we put it in a function.
-    setupShader = function (gl, shaderSource, shaderType) {
-        var shader = gl.createShader(shaderType);
-        gl.shaderSource(shader, shaderSource);
-        gl.compileShader(shader);
-
-        // Very cursory error-checking here...
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            alert("Shader problem: " + gl.getShaderInfoLog(shader));
-            return null;
-        } else {
-            return shader;
-        }
-    };
-
-    // OK, so now we REALLY set up the shaders.
-    vertexShader = setupShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
-    fragmentShader = setupShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
-    if (!vertexShader || !fragmentShader) {
-        // Another fatal issue.
-        alert("Could not initialize shaders...sorry.");
-        return;
+    for (i = 0, max = objectsToDraw.length; i < max; i += 1) {
+        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
+                objectsToDraw[i].vertices);
     }
 
-    shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
+    // Initialize the shaders.
+    shaderProgram = GLSLUtilities.initSimpleShaderProgram(
+        gl,
+        $("#vertex-shader").text(),
+        $("#fragment-shader").text(),
 
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-        // Another fatal issue.
-        alert("Could not link shaders...sorry.");
+        // Very cursory error-checking here...
+        function (shader) {
+            abort = true;
+            alert("Shader problem: " + gl.getShaderInfoLog(shader));
+        },
+
+        // Another simplistic error check: we don't even access the faulty
+        // shader program.
+        function (shaderProgram) {
+            abort = true;
+            alert("Could not link shaders...sorry.");
+        }
+    );
+
+    // If the abort variable is true here, we can't continue.
+    if (abort) {
+        alert("Fatal errors encountered; we cannot continue.");
         return;
     }
 
@@ -147,8 +129,9 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Display the objects.
-        drawObject(triangle);
-        drawObject(rectangle);
+        for (i = 0, max = objectsToDraw.length; i < max; i += 1) {
+            drawObject(objectsToDraw[i]);
+        }
 
         // All done.
         gl.flush();
