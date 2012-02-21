@@ -18,6 +18,37 @@
             the <code>canvas</code> element, either.
         </canvas>
 
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- Set up shaders: we've placed the source in script elements for
+            simplicity.  Shaders are ideally kept in separate files for easier
+            maintenance, but in that situation, additional code and security
+            constraints are involved. -->
+
+        <!-- The vertex shader is a complete pass-through. -->
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            attribute vec3 vertexPosition;
+
+            void main(void) {
+                gl_Position = vec4(vertexPosition, 1.0);
+            }
+        </script>
+
+        <!-- The fragment shader produces a single unconditional color. -->
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            void main(void) {
+                gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+            }
+        </script>
+
         <script src="hello-webgl.js"></script>
   </body>
 </html>

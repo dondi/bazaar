@@ -71,28 +71,11 @@
     gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rectangle), gl.STATIC_DRAW);
 
-    // Set up shaders: we're inlining the source here for simplicity.  Shaders
-    // are otherwise kept separate for easier maintenance.
-    vertexShaderSource =
-        "#ifdef GL_ES\n" +
-        "precision highp float;\n" +
-        "#endif\n" +
+    // Load the vertex shader code.
+    vertexShaderSource = $("#vertex-shader").text();
 
-        "attribute vec3 vertexPosition;" +
-
-        "void main(void) {" +
-        "    gl_Position = vec4(vertexPosition, 1.0);" +
-        "}";
-
-    // The fragment shader produces a single unconditional color.
-    fragmentShaderSource =
-        "#ifdef GL_ES\n" +
-        "precision highp float;\n" +
-        "#endif\n" +
-
-        "void main(void) {" +
-        "    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);" +
-        "}";
+    // Load the fragment shader code.
+    fragmentShaderSource = $("#fragment-shader").text();
 
     // We will do this twice, so we put it in a function.
     setupShader = function (gl, shaderSource, shaderType) {
@@ -146,7 +129,7 @@
         // Display the objects.
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
-        gl.drawArrays(gl.LINE_LOOP, 0, triangle.length / 3);
+        gl.drawArrays(gl.TRIANGLES, 0, triangle.length / 3);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
