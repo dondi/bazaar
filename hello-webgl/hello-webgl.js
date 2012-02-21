@@ -68,6 +68,12 @@
                 [ -0.1, -1.0, 0.75 ]
             ),
             mode: gl.LINE_LOOP
+        },
+
+        {
+            color: {r: 0, g: 128, b: 0 },
+            vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
+            mode: gl.LINES
         }
     ];
 
