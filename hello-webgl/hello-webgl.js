@@ -12,8 +12,6 @@
         // These variables store 3D model information.
         triangle,
         rectangle,
-        triangleBuffer,
-        rectangleBuffer,
 
         // These variables will hold the GLSL shader code.  Hardcoded for
         // illustrative purposes only; they are typically linked to or
@@ -30,6 +28,9 @@
 
         // Important state variables.
         vertexPosition,
+
+        // An individual "draw object" function.
+        drawObject,
 
         // The big "draw scene" function.
         drawScene;
@@ -49,27 +50,35 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.
-    triangle = [].concat(
-        [ 0.0, 0.0, 0.0 ],
-        [ 0.5, 0.0, 0.5 ],
-        [ 0.0, 0.5, 0.0 ]
-    );
+    triangle = {
+        color: { r: 255, g: 0, b: 0 },
+        vertices: [].concat(
+            [ 0.0, 0.0, 0.0 ],
+            [ 0.5, 0.0, 0.5 ],
+            [ 0.0, 0.5, 0.0 ]
+        ),
+        mode: gl.TRIANGLES
+    };
 
-    rectangle = [].concat(
-        [ -1.0, -1.0, 0.75 ],
-        [ -1.0, -0.1, -1.0 ],
-        [ -0.1, -0.1, -1.0 ],
-        [ -0.1, -1.0, 0.75 ]
-    );
+    rectangle = {
+        color: { r: 0, g: 0, b: 255 },
+        vertices: [].concat(
+            [ -1.0, -1.0, 0.75 ],
+            [ -1.0, -0.1, -1.0 ],
+            [ -0.1, -0.1, -1.0 ],
+            [ -0.1, -1.0, 0.75 ]
+        ),
+        mode: gl.LINE_LOOP
+    };
 
     // Pass the vertices to WebGL.
-    triangleBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangle), gl.STATIC_DRAW);
+    triangle.buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, triangle.buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangle.vertices), gl.STATIC_DRAW);
 
-    rectangleBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rectangle), gl.STATIC_DRAW);
+    rectangle.buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, rectangle.buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rectangle.vertices), gl.STATIC_DRAW);
 
     // Load the vertex shader code.
     vertexShaderSource = $("#vertex-shader").text();
@@ -120,6 +129,17 @@
     gl.enableVertexAttribArray(vertexPosition);
 
     /*
+     * Displays an individual object.
+     */
+    drawObject = function (object) {
+        gl.uniform3f(gl.getUniformLocation(shaderProgram, "color"),
+            object.color.r, object.color.g, object.color.b);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
+        gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.drawArrays(object.mode, 0, object.vertices.length / 3);
+    };
+
+    /*
      * Displays the scene.
      */
     drawScene = function () {
@@ -127,13 +147,8 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Display the objects.
-        gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
-        gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
-        gl.drawArrays(gl.TRIANGLES, 0, triangle.length / 3);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
-        gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
-        gl.drawArrays(gl.LINE_LOOP, 0, rectangle.length / 3);
+        drawObject(triangle);
+        drawObject(rectangle);
 
         // All done.
         gl.flush();
