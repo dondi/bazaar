@@ -71,7 +71,7 @@
         },
 
         {
-            color: {r: 0, g: 128, b: 0 },
+            color: { r: 0, g: 128, b: 0 },
             vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
             mode: gl.LINES
         }
