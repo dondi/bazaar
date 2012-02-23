@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Hello WebGL (again)</title>
+        <link rel="stylesheet" href="hello-webgl-again.css" />
+    </head>
+    <body>
+        <h1>Hello WebGL (again)!</h1>
+
+        <p>You’ll need a WebGL-capable web browser to see anything here;
+            instructions can be found in this
+            <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">official
+            WebGL wiki page</a>.</p>
+
+        <p>This page adds a few more fundamental features, showing how
+            further functionality can be added to the software stack.</p>
+
+        <canvas id="hello-webgl" width="256" height="256">
+            Sorry, your web browser does not appear to support
+            the <code>canvas</code> element, either.
+        </canvas>
+
+        <!-- jQuery makes some things more convenient. -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- GLSLUtilities is a starting point for holding functionality that
+             is common to many WebGL programs. -->
+        <script src="glsl-utilities.js"></script>
+
+        <!-- Shapes is a library that generates "canned" shapes. -->
+        <script src="shapes.js"></script>
+
+        <!-- Set up shaders: we've placed the source in script elements for
+            simplicity.  Shaders are ideally kept in separate files for easier
+            maintenance, but in that situation, additional code and security
+            constraints are involved. -->
+
+        <!-- The vertex shader is a complete pass-through. -->
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            attribute vec3 vertexPosition;
+
+            // Note this new additional output.
+            attribute vec3 vertexColor;
+            varying vec4 finalVertexColor;
+
+            void main(void) {
+                gl_Position = vec4(vertexPosition, 1.0);
+                finalVertexColor = vec4(vertexColor, 1.0);
+            }
+        </script>
+
+        <!-- The fragment shader produces a single unconditional color. -->
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            varying vec4 finalVertexColor;
+
+            void main(void) {
+                gl_FragColor = finalVertexColor;
+            }
+        </script>
+
+        <!-- This script sets up the specific scene for this page. -->
+        <script src="hello-webgl-again.js"></script>
+  </body>
+</html>
