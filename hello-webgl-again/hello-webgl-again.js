@@ -260,6 +260,9 @@
             currentInterval = setInterval(function () {
                 currentRotation += 1.0;
                 drawScene();
+                if (currentRotation >= 360.0) {
+                    currentRotation -= 360.0;
+                }
             }, 30);
         }
     });
