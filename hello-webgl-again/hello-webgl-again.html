@@ -66,9 +66,9 @@
 
             void main(void) {
                 // We vary the color based on the fragment's z coordinate,
-                // which, at this point, ranges from 0 (back) to 1 (front).
+                // which, at this point, ranges from 0 (near) to 1 (far).
                 // Note the ".rgb" subselector.
-                gl_FragColor = vec4(gl_FragCoord.z * finalVertexColor.rgb, 1.0);
+                gl_FragColor = vec4((1.0 - gl_FragCoord.z) * finalVertexColor.rgb, 1.0);
             }
         </script>
 
