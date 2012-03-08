@@ -47,10 +47,9 @@
          *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
          */
         getRotationMatrix = function (angle, x, y, z) {
-            // In production code, this should be a matrix
-            // object with associated functions.
-            var result = [],
-                axisLength = Math.sqrt((x * x) + (y * y) + (z * z)),
+            // In production code, this function should be associated
+            // with a matrix object with associated functions.
+            var axisLength = Math.sqrt((x * x) + (y * y) + (z * z)),
                 s = Math.sin(angle * Math.PI / 180.0),
                 c = Math.cos(angle * Math.PI / 180.0),
                 oneMinusC = 1.0 - c,
@@ -84,27 +83,27 @@
             zs = z * s;
 
             // We go row-major.
-            result[0] = (x2 * oneMinusC) + c;
-            result[1] = (xy * oneMinusC) - zs;
-            result[2] = (xz * oneMinusC) + ys;
-            result[3] = 0.0;
+            return [
+                (x2 * oneMinusC) + c,
+                (xy * oneMinusC) - zs,
+                (xz * oneMinusC) + ys,
+                0.0,
 
-            result[4] = (xy * oneMinusC) + zs;
-            result[5] = (y2 * oneMinusC) + c;
-            result[6] = (yz * oneMinusC) - xs;
-            result[7] = 0.0;
+                (xy * oneMinusC) + zs,
+                (y2 * oneMinusC) + c,
+                (yz * oneMinusC) - xs,
+                0.0,
 
-            result[8] = (xz * oneMinusC) - ys;
-            result[9] = (yz * oneMinusC) + xs;
-            result[10] = (z2 * oneMinusC) + c;
-            result[11] = 0.0;
+                (xz * oneMinusC) - ys,
+                (yz * oneMinusC) + xs,
+                (z2 * oneMinusC) + c,
+                0.0,
 
-            result[12] = 0.0;
-            result[13] = 0.0;
-            result[14] = 0.0;
-            result[15] = 1.0;
-
-            return result;
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ];
         };
 
     // Grab the WebGL rendering context.

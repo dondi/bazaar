@@ -50,7 +50,7 @@
     // Build the objects to display.
     objectsToDraw = [
         {
-            color: { r: 255, g: 0, b: 0 },
+            color: { r: 1.0, g: 0, b: 0 },
             vertices: [].concat(
                 [ 0.0, 0.0, 0.0 ],
                 [ 0.5, 0.0, 0.5 ],
@@ -60,7 +60,7 @@
         },
 
         {
-            color: { r: 0, g: 0, b: 255 },
+            color: { r: 0, g: 0, b: 1.0 },
             vertices: [].concat(
                 [ -1.0, -1.0, 0.75 ],
                 [ -1.0, -0.1, -1.0 ],
@@ -71,7 +71,7 @@
         },
 
         {
-            color: { r: 0, g: 128, b: 0 },
+            color: { r: 0, g: 0.5, b: 0 },
             vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
             mode: gl.LINES
         }
