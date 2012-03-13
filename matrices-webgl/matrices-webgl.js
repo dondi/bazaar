@@ -160,19 +160,39 @@
     // Build the objects to display.  Note how each object may come with a
     // rotation axis now.
     objectsToDraw = [
-        // We move our original triangle a bit to accommodate a new addition
+        // We move our original triangles a bit to accommodate a new addition
         // to the scene (yes, a translation will also do the trick, if it
         // where implemented in this program).
         {
             vertices: [].concat(
                 [ -2.0, 0.0, 0.0 ],
-                [ -1.5, 0.0, 0.5 ],
+                [ -1.5, 0.0, -0.75 ],
                 [ -2.0, 0.5, 0.0 ]
             ),
             colors: [].concat(
                 [ 1.0, 0.0, 0.0 ],
                 [ 0.0, 1.0, 0.0 ],
                 [ 0.0, 0.0, 1.0 ]
+            ),
+            mode: gl.TRIANGLES
+        },
+
+        {
+            color: { r: 0.0, g: 1.0, b: 0 },
+            vertices: [].concat(
+                [ -1.75, 0.0, -0.5 ],
+                [ -1.25, 0.0, -0.5 ],
+                [ -1.75, 0.5, -0.5 ]
+            ),
+            mode: gl.TRIANGLES
+        },
+
+        {
+            color: { r: 0.0, g: 0.0, b: 1.0 },
+            vertices: [].concat(
+                [ -2.25, 0.0, 0.5 ],
+                [ -1.75, 0.0, 0.5 ],
+                [ -2.25, 0.5, 0.5 ]
             ),
             mode: gl.TRIANGLES
         },
