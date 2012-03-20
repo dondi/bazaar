@@ -12,7 +12,7 @@
 
 void consume(int consumeBound) {
     buffer_item item;
-    while(1) {
+    while (1) {
         sem_wait(full);
         pthread_mutex_lock(&mutex);
         if (remove_item(&item)) {

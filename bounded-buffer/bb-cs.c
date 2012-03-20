@@ -18,17 +18,27 @@ void display_buffer(const char *preface, int in, int out) {
     int i;
     for (i = 0; i < BUFFER_SIZE; i++) {
         sprintf(buffer_content, "%d", buffer[i]);
-        if (i == in) strcat(display, "+>");
+
+        if (i == in) {
+            strcat(display, "+>");
+        }
         strcat(display, buffer_content);
-        if (i == out) strcat(display, "->");
+
+        if (i == out) {
+            strcat(display, "->");
+        }
         strcat(display, " ");
     }
     strcat(display, "]\n");
-    printf(display);
+    printf("%s", display);
 }
 
 int insert_item(buffer_item item) {
-    if (((in + 1) % BUFFER_SIZE) == out) return -1;
+    // Critical section sanity check.
+    if (((in + 1) % BUFFER_SIZE) == out) {
+        printf("*** CRITICAL SECTION VIOLATION ***\n");
+        return -1;
+    }
 
     buffer[in] = item;
     in = (in + 1) % BUFFER_SIZE;
@@ -37,7 +47,11 @@ int insert_item(buffer_item item) {
 }
 
 int remove_item(buffer_item *item) {
-    if (in == out) return -1;
+    // Critical section sanity check.
+    if (in == out) {
+        printf("*** CRITICAL SECTION VIOLATION ***\n");
+        return -1;
+    }
 
     *item = buffer[out];
     out = (out + 1) % BUFFER_SIZE;

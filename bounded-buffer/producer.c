@@ -13,12 +13,12 @@
 
 void produce(int produceBound) {
     buffer_item item;
-    while(1) {
+    while (1) {
         // Simulate a non-trivial produce.
         randomwait(produceBound);
         item = rand() % ITEM_BOUND;
         printf("Produced %d.\n", item);
-        
+
         sem_wait(empty);
         pthread_mutex_lock(&mutex);
         if (insert_item(item)) {
