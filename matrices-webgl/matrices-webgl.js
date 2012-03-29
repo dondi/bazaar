@@ -122,21 +122,21 @@
                 2.0 / width,
                 0.0,
                 0.0,
-                -(right + left) / width,
+                0.0,
 
                 0.0,
                 2.0 / height,
                 0.0,
-                -(top + bottom) / height,
+                0.0,
 
                 0.0,
                 0.0,
                 -2.0 / depth,
-                -(zFar + zNear) / depth,
+                0.0,
 
-                0.0,
-                0.0,
-                0.0,
+                -(right + left) / width,
+                -(top + bottom) / height,
+                -(zFar + zNear) / depth,
                 1.0
             ];
         };
