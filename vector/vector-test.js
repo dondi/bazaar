@@ -60,6 +60,7 @@ $(function () {
         // Check for errors.
         v1 = new Vector(5, 8, 10, 2);
         v2 = new Vector(1, 2, 2);
+
         // We can actually check for a *specific* exception, but
         // we won't go that far for now.
         raises(
@@ -71,12 +72,81 @@ $(function () {
     });
 
     test("Scalar Multiplication and Division", function () {
+        var v = new Vector(8, 2, 3),
+            vresult = v.multiply(2);
+
+        equal(vresult.x(), 16, "Vector scalar multiplication first element");
+        equal(vresult.y(), 4, "Vector scalar multiplication second element");
+        equal(vresult.z(), 6, "Vector scalar multiplication third element");
+
+        vresult = vresult.divide(4);
+
+        equal(vresult.x(), 4, "Vector scalar division first element");
+        equal(vresult.y(), 1, "Vector scalar division second element");
+        equal(vresult.z(), 1.5, "Vector scalar division third element");
     });
 
     test("Dot Product", function () {
+        var v1 = new Vector(-5, -2),
+            v2 = new Vector(-3, 4);
+
+        equal(v1.dot(v2), 7, "2D dot product");
+
+        // Try for a perpendicular.
+        v1 = new Vector(Math.sqrt(2) / 2, Math.sqrt(2) / 2);
+        v2 = new Vector(-Math.sqrt(2) / 2, Math.sqrt(2) / 2);
+        equal(v1.dot(v2), 0, "Perpendicular 2D dot product");
+
+        // Try 3D.
+        v1 = new Vector(3, 2, 5);
+        v2 = new Vector(4, -1, 3);
+        equal(v1.dot(v2), 25, "3D dot product");
+
+        // Check for errors.
+        v1 = new Vector(4, 2);
+        v2 = new Vector(3, 9, 1);
+
+        // We can actually check for a *specific* exception, but
+        // we won't go that far for now.
+        raises(
+            function () {
+                return v1.dot(v2);
+            },
+            "Check for vectors of different sizes"
+        );
     });
 
     test("Cross Product", function () {
+        var v1 = new Vector(3, 4),
+            v2 = new Vector(1, 2),
+            vresult;
+
+        // The cross product is restricted to 3D, so we start
+        // with an error check.
+        raises(
+            function () {
+                return v1.cross(v2);
+            },
+            "Check for non-3D vectors"
+        );
+
+        // Yeah, this is a bit of a trivial case.  But it at least
+        // establishes the right-handedness of a cross-product.
+        v1 = new Vector(1, 0, 0);
+        v2 = new Vector(0, 1, 0);
+        vresult = v1.cross(v2);
+
+        equal(vresult.x(), 0, "Cross product first element");
+        equal(vresult.y(), 0, "Cross product second element");
+        equal(vresult.z(), 1, "Cross product third element");
+
+        // This one shows that switching vector order produces
+        // the opposite-pointing normal.
+        vresult = v2.cross(v1);
+
+        equal(vresult.x(), 0, "Cross product first element");
+        equal(vresult.y(), 0, "Cross product second element");
+        equal(vresult.z(), -1, "Cross product third element");
     });
 
     test("Length and Normalization", function () {
