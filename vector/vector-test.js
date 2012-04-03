@@ -149,14 +149,14 @@ $(function () {
         equal(vresult.z(), -1, "Cross product third element");
     });
 
-    test("Length and Unit Vectors", function () {
+    test("Magnitude and Unit Vectors", function () {
         var v = new Vector(3, 4);
 
         // The classic example.
         equal(v.magnitude(), 5, "2D magnitude check");
 
         // Kind of a cheat, but still tests the third dimension.
-        v = new Vector(7, 0, 12);
+        v = new Vector(5, 0, 12);
         equal(v.magnitude(), 13, "3D magnitude check");
 
         // Now for unit vectors.
@@ -171,7 +171,7 @@ $(function () {
         equal(v.magnitude(), 1, "3D unit vector check");
         equal(v.x(), 0, "3D unit vector first element");
         equal(v.y(), -7 / 25, "3D unit vector second element");
-        equal(v.z(), -24 / 25, "3D unit vector third element");
+        equal(v.z(), 24 / 25, "3D unit vector third element");
     });
 
     test("Projection", function () {

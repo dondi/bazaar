@@ -133,5 +133,16 @@ var Vector = (function () {
         );
     };
 
+    // Magnitude and unit vector.
+    vector.prototype.magnitude = function () {
+        // Make use of the dot product.
+        return Math.sqrt(this.dot(this));
+    };
+
+    vector.prototype.unit = function () {
+        // At this point, we can leverage our more "primitive" methods.
+        return this.divide(this.magnitude());
+    };
+
     return vector;
 })();
