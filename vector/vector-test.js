@@ -175,6 +175,22 @@ $(function () {
     });
 
     test("Projection", function () {
+        var v = new Vector(3, 3, 0),
+            vresult = v.projection(new Vector(5, 0, 0));
+
+        equal(v.magnitude(), 3, "3D vector projection magnitude check");
+        equal(v.x(), 3, "3D vector projection first element");
+        equal(v.y(), 0, "3D vector projection second element");
+        equal(v.z(), 0, "3D vector projection third element");
+
+        // Error check: projection only applies to vectors with the same
+        // number of dimensions.
+        raises(
+            function () {
+                (new Vector(5, 2)).projection(new Vector(9, 8, 1));
+            },
+            "Ensure that projection applies only to vectors with the same number of dimensions"
+        );
     });
 
 });
