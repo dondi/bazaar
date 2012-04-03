@@ -29,7 +29,7 @@ $(function () {
         equal(v.elements[0], 3, "First element by index");
         equal(v.elements[1], 2, "Second element by index");
         equal(v.elements[2], 1, "Third element by index");
-        equal(v.elements[4], 2, "Fourth element by index");
+        equal(v.elements[3], 2, "Fourth element by index");
         equal(v.x(), 3, "First element by coordinate");
         equal(v.y(), 2, "Second element by coordinate");
         equal(v.z(), 1, "Third element by coordinate");
