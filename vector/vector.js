@@ -144,5 +144,19 @@ var Vector = (function () {
         return this.divide(this.magnitude());
     };
 
+    // Projection.
+    vector.prototype.projection = function (v) {
+        var unitv;
+
+        // Dimensionality check.
+        checkDimensions(this, v);
+
+        // Plug and chug :)
+        // The projection of u onto v is u dot the unit vector of v
+        // times the unit vector of v.
+        unitv = v.unit();
+        return unitv.multiply(this.dot(unitv));
+    };
+
     return vector;
 })();
