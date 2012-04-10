@@ -70,10 +70,8 @@
                 // Figure out the color of the light that lands on the vertex.
                 vec3 diffuseProduct = vertexColor * lightDiffuse;
 
-                // Figure out our key lighting vectors.  Built-in vector math FTW.
+                // Figure out our light direction vector.
                 vec3 l = normalize(lightPosition - eyePosition);
-                vec3 e = normalize(-eyePosition);
-                vec3 h = normalize(l + e);
 
                 // We need to transform our normal vector, too.  We don't care about
                 // translation so we pad a 0.0 rather than a 1.0.
