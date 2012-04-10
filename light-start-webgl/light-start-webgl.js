@@ -28,6 +28,11 @@
         rotationAroundX = 0.0,
         rotationAroundY = 0.0,
 
+        // For emphasis, we separate the variables that involve lighting.
+        normalVector,
+        lightPosition,
+        lightDiffuse,
+
         // An individual "draw object" function.
         drawObject,
 
@@ -208,8 +213,53 @@
                 [ 0.0, 1.0, 1.0 ],
                 [ 0.0, 1.0, 1.0 ]
             ),
-            mode: gl.TRIANGLES,
-            axis: { x: 1.0, y: 1.0, z: 1.0 }
+            // Like colors, one normal per vertex.  This can be simplified
+            // with helper functions, of course.
+            normals: [].concat(
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+
+                [ 0.0, 0.0, -1.0 ],
+                [ 0.0, 0.0, -1.0 ],
+                [ 0.0, 0.0, -1.0 ],
+                [ 0.0, 0.0, -1.0 ],
+                [ 0.0, 0.0, -1.0 ],
+                [ 0.0, 0.0, -1.0 ],
+
+                [ -1.0, 0.0, 0.0 ],
+                [ -1.0, 0.0, 0.0 ],
+                [ -1.0, 0.0, 0.0 ],
+                [ -1.0, 0.0, 0.0 ],
+                [ -1.0, 0.0, 0.0 ],
+                [ -1.0, 0.0, 0.0 ],
+
+                [ 0.0, -1.0, 0.0 ],
+                [ 0.0, -1.0, 0.0 ],
+                [ 0.0, -1.0, 0.0 ],
+                [ 0.0, -1.0, 0.0 ],
+                [ 0.0, -1.0, 0.0 ],
+                [ 0.0, -1.0, 0.0 ]
+            ),
+
+            mode: gl.TRIANGLES
         }
     ];
 
@@ -233,6 +283,10 @@
         }
         objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].colors);
+
+        // One more buffer: normals.
+        objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectsToDraw[i].normals);
     }
 
     // Initialize the shaders.
@@ -269,6 +323,8 @@
     gl.enableVertexAttribArray(vertexPosition);
     vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
+    normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
+    gl.enableVertexAttribArray(normalVector);
 
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
@@ -276,6 +332,10 @@
     xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
     yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
+
+    // Note the additional variables.
+    lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
+    lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
 
     /*
      * Displays an individual object, including a transformation that now varies
@@ -296,6 +356,10 @@
                  0, 0, 1, 0,
                  0, 0, 0, 1]
             ));
+
+        // Set the varying normal vectors.
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
+        gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
 
         // Set the varying vertex coordinates.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
@@ -350,6 +414,10 @@
         -10,
         10
     )));
+
+    // Set up our one light source and color.  Note the uniform3fv function.
+    gl.uniform3fv(lightPosition, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
 
     // Instead of animation, we do interaction: let the mouse control rotation.
     $(canvas).mousedown(function (event) {
