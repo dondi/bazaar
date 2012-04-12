@@ -186,6 +186,7 @@
 
             // We make the specular reflection be white.
             specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 16,
 
             // Like colors, one normal per vertex.  This can be simplified
             // with helper functions, of course.
@@ -302,9 +303,8 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, object.specularBuffer);
         gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
 
-        // Shininess is hardcoded here.  Of course it shouldn't be: this should be
-        // encoded per face or per object (depending on your level of detail).
-        gl.uniform1f(shininess, 50);
+        // Set the shininess.
+        gl.uniform1f(shininess, object.shininess);
 
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.

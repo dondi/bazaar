@@ -119,7 +119,8 @@
                 vec3 n = normalize(fragmentNormal);
                 vec3 e = normalize(fragmentEye);
                 vec3 l = normalize(fragmentLight);
-                vec3 h = normalize(l + e);
+                // Use h = normalize(l + e) for the Blinn-Phong approximation.
+                vec3 r = 2.0 * dot(l, n) * n - l;
 
                 // Figure out the color of the diffuse light that lands on the vertex.
                 vec3 diffuseProduct = fragmentDiffuseColor * lightDiffuse;
@@ -131,8 +132,9 @@
                 // Figure out the color of the specular light that lands on the vertex.
                 vec3 specularProduct = fragmentSpecularColor * lightSpecular;
 
-                // Calculate the amount of diffuse light that hits the vertex.
-                float ks = pow(max(dot(n, h), 0.0), shininess);
+                // Calculate the amount of specular light that hits the vertex.
+                // Use dot(n, h) for the Blinn-Phong approximation.
+                float ks = pow(max(dot(r, e), 0.0), shininess);
                 vec3 finalSpecular = ks * specularProduct;
                 if (dot(l, n) < 0.0) {
                     finalSpecular = vec3(0.0, 0.0, 0.0);
