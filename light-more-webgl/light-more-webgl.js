@@ -21,13 +21,15 @@
         // The raw meshes from which we will derive our objects.
         mesh = Shapes.icosahedron(),
 
-        // Important state variables.
+        // Important state variables.  Yep, they are growing!
         modelViewMatrix,
         xRotationMatrix,
         yRotationMatrix,
         projectionMatrix,
         vertexPosition,
-        vertexColor,
+        vertexDiffuseColor,
+        vertexSpecularColor,
+        shininess,
         rotationAroundX = 0.0,
         rotationAroundY = 0.0,
 
@@ -35,6 +37,7 @@
         normalVector,
         lightPosition,
         lightDiffuse,
+        lightSpecular,
 
         // An individual "draw object" function.
         drawObject,
@@ -181,6 +184,9 @@
             // 12 triangles in all.
             color: { r: 1.0, g: 0.0, b: 0.0 },
 
+            // We make the specular reflection be white.
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+
             // Like colors, one normal per vertex.  This can be simplified
             // with helper functions, of course.
             normals: Shapes.toNormalArray(mesh),
@@ -209,6 +215,23 @@
         }
         objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].colors);
+
+        // Same trick with specular colors.
+        if (!objectsToDraw[i].specularColors) {
+            // Future refactor: helper function to convert a single value or
+            // array into an array of copies of itself.
+            objectsToDraw[i].specularColors = [];
+            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
+                    j < maxj; j += 1) {
+                objectsToDraw[i].specularColors = objectsToDraw[i].specularColors.concat(
+                    objectsToDraw[i].specularColor.r,
+                    objectsToDraw[i].specularColor.g,
+                    objectsToDraw[i].specularColor.b
+                );
+            }
+        }
+        objectsToDraw[i].specularBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectsToDraw[i].specularColors);
 
         // One more buffer: normals.
         objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
@@ -247,8 +270,10 @@
     // Hold on to the important variables within the shaders.
     vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
-    gl.enableVertexAttribArray(vertexColor);
+    vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
+    gl.enableVertexAttribArray(vertexDiffuseColor);
+    vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
+    gl.enableVertexAttribArray(vertexSpecularColor);
     normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
     gl.enableVertexAttribArray(normalVector);
 
@@ -262,6 +287,8 @@
     // Note the additional variables.
     lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
+    lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
+    shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
     /*
      * Displays an individual object, including a transformation that now varies
@@ -270,7 +297,14 @@
     drawObject = function (object) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
-        gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(vertexDiffuseColor, 3, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.specularBuffer);
+        gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
+
+        // Shininess is hardcoded here.  Of course it shouldn't be: this should be
+        // encoded per face or per object (depending on your level of detail).
+        gl.uniform1f(shininess, 50);
 
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.
@@ -341,9 +375,10 @@
         10
     )));
 
-    // Set up our one light source and color.  Note the uniform3fv function.
-    gl.uniform3fv(lightPosition, [500.0, 1000.0, 100.0]);
+    // Set up our one light source and its colors.
+    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
 
     // Instead of animation, we do interaction: let the mouse control rotation.
     $(canvas).mousedown(function (event) {
