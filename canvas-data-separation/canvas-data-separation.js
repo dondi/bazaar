@@ -6,9 +6,8 @@
  * if the curves' vertices need to be changed.
  */
 // Another minor change: we use jQuery here, just to illustrate how you can
-// get to the canvas element in that way.
-(function () {
-    // Ditto on using jQuery here.
+// encapsulate code and get to the canvas element in that way.
+$(function () {
     var canvas = $("#canvas")[0], // Note the array dereference.
         renderingContext = canvas.getContext("2d"),
 
@@ -45,4 +44,5 @@
     // curve-drawing code in a function, with the curve data declared as a
     // parameter to that function.  Styles may be parameterized also for
     // even better flexibility without unnecessarily duplicating code.
-}());
+});
+// ^Note how we don't call the function anymore; jQuery will.
