@@ -1,6 +1,6 @@
 /*
- * This demo script uses the Nanoshop module to apply a simple
- * filter on a canvas drawing.
+ * This demo script uses the NanoshopNeighborhood module to apply a
+ * "pixel neighborhood" filter on a canvas drawing.
  */
 (function () {
     var canvas = $("#picture")[0],
@@ -49,19 +49,16 @@
     renderingContext.fill();
     renderingContext.closePath();
 
-    // Display a quick alert that we are about to apply the filter.
-    alert("Here goes...");
-
-    // Filter time.
-    renderingContext.putImageData(
-        Nanoshop.applyFilter(
-            renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-            // This is a basic "darkener."
-            function (r, g, b, a) {
-                return [r / 2, g / 2, b / 2, a];
-            }
-        ),
-        0,
-        0
-    );
+    // Set a little event handler to apply the filter.
+    $("#apply-filter-button").click(function () {
+        // Filter time.
+        renderingContext.putImageData(
+            NanoshopNeighborhood.applyFilter(
+                renderingContext.getImageData(0, 0, canvas.width, canvas.height),
+                NanoshopNeighborhood.darkener
+                //NanoshopNeighborhood.averager // Convenience comment for easy switching.
+            ),
+            0, 0
+        );
+    });
 }());

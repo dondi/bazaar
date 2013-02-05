@@ -1,0 +1,25 @@
+<!doctype html>
+
+<!-- This page "hosts" a simple demonstration of "Nanoshop Neighborhood,"
+     a slightly less tiny image processing module. -->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Nanoshop Neighborhood Demo</title>
+    </head>
+    <body>
+        <!-- Where the action will happen. -->
+        <canvas id="picture" width="512" height="512">
+            All your <code>canvas</code> are belong to us!
+        </canvas>
+
+        <!-- A little UI to trigger the filter. -->
+        <button id="apply-filter-button">Apply</button>
+
+        <!-- To at least make the above a little easier, we
+             at least recruit jQuery's services. -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="nanoshop-neighborhood.js"></script>
+        <script src="nanoshop-neighborhood-demo.js"></script>
+    </body>
+</html>
