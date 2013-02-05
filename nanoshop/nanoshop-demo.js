@@ -49,19 +49,18 @@
     renderingContext.fill();
     renderingContext.closePath();
 
-    // Display a quick alert that we are about to apply the filter.
-    alert("Here goes...");
-
-    // Filter time.
-    renderingContext.putImageData(
-        Nanoshop.applyFilter(
-            renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-            // This is a basic "darkener."
-            function (r, g, b, a) {
-                return [r / 2, g / 2, b / 2, a];
-            }
-        ),
-        0,
-        0
-    );
+    // Set a little event handler to apply the filter.
+    $("#apply-filter-button").click(function () {
+        // Filter time.
+        renderingContext.putImageData(
+            Nanoshop.applyFilter(
+                renderingContext.getImageData(0, 0, canvas.width, canvas.height),
+                // This is a basic "darkener."
+                function (r, g, b, a) {
+                    return [r / 2, g / 2, b / 2, a];
+                }
+            ),
+            0, 0
+        );
+    });
 }());
