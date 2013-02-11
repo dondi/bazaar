@@ -12,7 +12,7 @@
     gradient.addColorStop(0, "rgb(255, 102, 102)");
     gradient.addColorStop(1, "red");
 
-    // Draw the sphere with a radial gradient
+    // Draw the sphere with a radial gradient.
     renderingContext.beginPath();
     renderingContext.fillStyle = gradient;
     renderingContext.arc(150, 150, 75, 0, 2 * Math.PI, true);
@@ -23,7 +23,7 @@
     renderingContext.fill();
     renderingContext.closePath();
 
-    // Draw the top of the cube
+    // Draw the top of the cube.
     renderingContext.beginPath();
     renderingContext.fillStyle = "rgb(140, 140, 140)";
     renderingContext.moveTo(300, 300);
@@ -34,11 +34,11 @@
     renderingContext.fill();
     renderingContext.closePath();
 
-    // Draw the face of the cube
+    // Draw the face of the cube.
     renderingContext.fillStyle = "rgb(110, 110, 110)";
     renderingContext.fillRect(300, 300, 100, 100);
 
-    // Draw the right side of the cube
+    // Draw the right side of the cube.
     renderingContext.beginPath();
     renderingContext.fillStyle = "rgb(79, 79, 79)";
     renderingContext.moveTo(435, 265);
@@ -48,6 +48,7 @@
     renderingContext.lineTo(435, 265);
     renderingContext.fill();
     renderingContext.closePath();
+    // (end of adapted code by Tyler Nichols)
 
     // Set a little event handler to apply the filter.
     $("#apply-filter-button").click(function () {
