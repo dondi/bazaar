@@ -45,23 +45,27 @@ var NanoshopNeighborhood = {
      * color as a 4-element array representing the new RGBA value
      * that should go in the center pixel.
      */
-    applyFilter: function (imageData, filter) {
+    applyFilter: function (renderingContext, imageData, filter) {
         // For every pixel, replace with something determined by the filter.
-        var i,
+        var result = renderingContext.createImageData(imageData.width, imageData.height),
+            i,
             j,
             max,
             iAbove,
             iBelow,
             pixel,
-            pixelArray = imageData.data,
+            pixelColumn,
+            rowWidth = imageData.width * 4,
+            sourceArray = imageData.data
+            destinationArray = result.data,
 
             // A convenience function for creating an rgba object.
             rgba = function (startIndex) {
                 return {
-                    r: pixelArray[startIndex],
-                    g: pixelArray[startIndex + 1],
-                    b: pixelArray[startIndex + 2],
-                    a: pixelArray[startIndex + 3]
+                    r: sourceArray[startIndex],
+                    g: sourceArray[startIndex + 1],
+                    b: sourceArray[startIndex + 2],
+                    a: sourceArray[startIndex + 3]
                 };
             };
 
@@ -69,44 +73,51 @@ var NanoshopNeighborhood = {
             // The 9-color array that we build must factor in image boundaries.
             // If a particular location is out of range, the color supplied is that
             // of the extant pixel that is adjacent to it.
-            iAbove = i - (imageData.width * 4);
-            iBelow = i + (imageData.width * 4);
+            iAbove = i - rowWidth;
+            iBelow = i + rowWidth;
+            pixelColumn = i % rowWidth;
 
             pixel = filter([
                 // The row of pixels above the current one.
-                pixelArray[iAbove - 4] ? rgba(iAbove - 4) :
-                    (pixelArray[i - 4] ? rgba(i - 4) : rgba(i)),
+                sourceArray[iAbove] ?
+                    // Current pixel is at row > 0.
+                    (pixelColumn ? rgba(iAbove - 4) : rgba(iAbove)) :
+                    // Current pixel is at row === 0.
+                    (pixelColumn ? rgba(i - 4) : rgba(i)),
 
-                pixelArray[iAbove] ? rgba(iAbove) : rgba(i),
+                sourceArray[iAbove] ? rgba(iAbove) : rgba(i),
 
-                pixelArray[iAbove + 4] ? rgba(iAbove + 4) :
-                    (pixelArray[i + 4] ? rgba(i + 4) : rgba(i)),
+                sourceArray[iAbove] ?
+                    // Current pixel is at row > 0.
+                    ((pixelColumn < rowWidth - 4) ? rgba(iAbove + 4) : rgba(iAbove)) :
+                    // Current pixel is at row === 0.
+                    ((pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i)),
 
                 // The current row of pixels.
-                pixelArray[i - 4] ? rgba(i - 4) : rgba(i),
+                pixelColumn ? rgba(i - 4) : rgba(i),
 
                 // The center pixel: the filter's returned color goes here
                 // (based on the loop, we are at least sure to have this).
                 rgba(i),
 
-                pixelArray[i + 4] ? rgba(i + 4) : rgba(i),
+                (pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i),
 
                 // The row of pixels below the current one.
-                pixelArray[iBelow - 4] ? rgba(iBelow - 4) :
-                    (pixelArray[i - 4] ? rgba(i - 4) : rgba(i)),
+                sourceArray[iBelow - 4] ? rgba(iBelow - 4) :
+                    (pixelColumn ? rgba(i - 4) : rgba(i)),
 
-                pixelArray[iBelow] ? rgba(iBelow) : rgba(i),
+                sourceArray[iBelow] ? rgba(iBelow) : rgba(i),
 
-                pixelArray[iBelow + 4] ? rgba(iBelow + 4) :
-                    (pixelArray[i + 4] ? rgba(i + 4) : rgba(i))
+                sourceArray[iBelow + 4] ? rgba(iBelow + 4) :
+                    ((pixelColumn < rowWidth - 4)  ? rgba(i + 4) : rgba(i))
             ]);
 
             // Apply the color that is returned by the filter.
             for (j = 0; j < 4; j += 1) {
-                pixelArray[i + j] = pixel[j];
+                destinationArray[i + j] = pixel[j];
             }
         }
 
-        return imageData;
+        return result;
     }
 };
