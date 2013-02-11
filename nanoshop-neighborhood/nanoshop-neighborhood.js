@@ -103,13 +103,19 @@ var NanoshopNeighborhood = {
                 (pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i),
 
                 // The row of pixels below the current one.
-                sourceArray[iBelow - 4] ? rgba(iBelow - 4) :
+                sourceArray[iBelow] ?
+                    // Current pixel is not on the last row.
+                    (pixelColumn ? rgba(iBelow - 4) : rgba(iBelow)) :
+                    // Current pixel is on the last row.
                     (pixelColumn ? rgba(i - 4) : rgba(i)),
 
                 sourceArray[iBelow] ? rgba(iBelow) : rgba(i),
 
-                sourceArray[iBelow + 4] ? rgba(iBelow + 4) :
-                    ((pixelColumn < rowWidth - 4)  ? rgba(i + 4) : rgba(i))
+                sourceArray[iBelow] ?
+                    // Current pixel is not on the last row.
+                    ((pixelColumn < rowWidth - 4) ? rgba(iBelow + 4) : rgba(iBelow)) :
+                    // Current pixel is on the last row.
+                    ((pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i))
             ]);
 
             // Apply the color that is returned by the filter.
