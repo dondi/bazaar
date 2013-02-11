@@ -55,8 +55,10 @@ var NanoshopNeighborhood = {
             iBelow,
             pixel,
             pixelColumn,
+            firstRow,
+            lastRow,
             rowWidth = imageData.width * 4,
-            sourceArray = imageData.data
+            sourceArray = imageData.data,
             destinationArray = result.data,
 
             // A convenience function for creating an rgba object.
@@ -76,22 +78,20 @@ var NanoshopNeighborhood = {
             iAbove = i - rowWidth;
             iBelow = i + rowWidth;
             pixelColumn = i % rowWidth;
+            firstRow = sourceArray[iAbove] === undefined;
+            lastRow = sourceArray[iBelow] === undefined;
 
             pixel = filter([
                 // The row of pixels above the current one.
-                sourceArray[iAbove] ?
-                    // Current pixel is at row > 0.
-                    (pixelColumn ? rgba(iAbove - 4) : rgba(iAbove)) :
-                    // Current pixel is at row === 0.
-                    (pixelColumn ? rgba(i - 4) : rgba(i)),
+                firstRow ?
+                    (pixelColumn ? rgba(i - 4) : rgba(i)) :
+                    (pixelColumn ? rgba(iAbove - 4) : rgba(iAbove)),
 
-                sourceArray[iAbove] ? rgba(iAbove) : rgba(i),
+                firstRow ? rgba(i) : rgba(iAbove),
 
-                sourceArray[iAbove] ?
-                    // Current pixel is at row > 0.
-                    ((pixelColumn < rowWidth - 4) ? rgba(iAbove + 4) : rgba(iAbove)) :
-                    // Current pixel is at row === 0.
-                    ((pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i)),
+                firstRow ?
+                    ((pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i)) :
+                    ((pixelColumn < rowWidth - 4) ? rgba(iAbove + 4) : rgba(iAbove)),
 
                 // The current row of pixels.
                 pixelColumn ? rgba(i - 4) : rgba(i),
@@ -103,19 +103,15 @@ var NanoshopNeighborhood = {
                 (pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i),
 
                 // The row of pixels below the current one.
-                sourceArray[iBelow] ?
-                    // Current pixel is not on the last row.
-                    (pixelColumn ? rgba(iBelow - 4) : rgba(iBelow)) :
-                    // Current pixel is on the last row.
-                    (pixelColumn ? rgba(i - 4) : rgba(i)),
+                lastRow ?
+                    (pixelColumn ? rgba(i - 4) : rgba(i)) :
+                    (pixelColumn ? rgba(iBelow - 4) : rgba(iBelow)),
 
-                sourceArray[iBelow] ? rgba(iBelow) : rgba(i),
+                lastRow ? rgba(i) : rgba(iBelow),
 
-                sourceArray[iBelow] ?
-                    // Current pixel is not on the last row.
-                    ((pixelColumn < rowWidth - 4) ? rgba(iBelow + 4) : rgba(iBelow)) :
-                    // Current pixel is on the last row.
-                    ((pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i))
+                lastRow ?
+                    ((pixelColumn < rowWidth - 4) ? rgba(i + 4) : rgba(i)) :
+                    ((pixelColumn < rowWidth - 4) ? rgba(iBelow + 4) : rgba(iBelow))
             ]);
 
             // Apply the color that is returned by the filter.
