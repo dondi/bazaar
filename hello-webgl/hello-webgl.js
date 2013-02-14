@@ -49,8 +49,49 @@
 
     // Build the objects to display.
     objectsToDraw = [
+        // Calibration: x, y, and z axis indicators.
         {
-            color: { r: 1.0, g: 0, b: 0 },
+            color: { r: 0.5, g: 0, b: 0 },
+            vertices: [
+                1.0, 0.0, 0.0,
+                0.9, 0.1, 0.0,
+                1.0, 0.0, 0.0,
+                0.9, -0.1, 0.0,
+                1.0, 0.0, 0.0,
+                -1.0, 0.0, 0.0
+            ],
+            mode: gl.LINES
+        },
+
+        {
+            color: { r: 0, g: 0.5, b: 0 },
+            vertices: [
+                0.0, 1.0, 0.0,
+                -0.1, 0.9, 0.0,
+                0.0, 1.0, 0.0,
+                0.1, 0.9, 0.0,
+                0.0, 1.0, 0.0,
+                0.0, -1.0, 0.0
+            ],
+            mode: gl.LINES
+        },
+
+        {
+            color: { r: 0, g: 0, b: 0.5 },
+            vertices: [
+                0.0, 0.0, 1.0,
+                0.0, 0.1, 0.9,
+                0.0, 0.0, 1.0,
+                0.0, -0.1, 0.9,
+                0.0, 0.0, 1.0,
+                0.0, 0.0, -1.0
+            ],
+            mode: gl.LINES
+        },
+
+        // Three solid triangles.
+        {
+            color: { r: 1.0, g: 0, b: 1.0 },
             vertices: [].concat(
                 [ 0.0, 0.0, 0.0 ],
                 [ 0.5, 0.0, -0.75 ],
@@ -60,7 +101,7 @@
         },
 
         {
-            color: { r: 0.0, g: 1.0, b: 0 },
+            color: { r: 1.0, g: 1.0, b: 0 },
             vertices: [].concat(
                 [ 0.25, 0.0, -0.5 ],
                 [ 0.75, 0.0, -0.5 ],
@@ -70,7 +111,7 @@
         },
 
         {
-            color: { r: 0.0, g: 0.0, b: 1.0 },
+            color: { r: 0.0, g: 1.0, b: 1.0 },
             vertices: [].concat(
                 [ -0.25, 0.0, 0.5 ],
                 [ 0.5, 0.0, 0.5 ],
@@ -79,8 +120,9 @@
             mode: gl.TRIANGLES
         },
 
+        // A quadrilateral.
         {
-            color: { r: 0, g: 0, b: 1.0 },
+            color: { r: 0.5, g: 0.5, b: 0.5 },
             vertices: [].concat(
                 [ -1.0, -1.0, 0.75 ],
                 [ -1.0, -0.1, -1.0 ],
@@ -90,8 +132,9 @@
             mode: gl.LINE_LOOP
         },
 
+        // Shape library demonstration.
         {
-            color: { r: 0, g: 0.5, b: 0 },
+            color: { r: 1, g: 0.5, b: 0 },
             vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
             mode: gl.LINES
         }
