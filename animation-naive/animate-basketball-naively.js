@@ -3,7 +3,7 @@
         renderingContext = canvas.getContext("2d"),
 
         // These variables represent how the ball is moving.
-        xStep = 5,
+        xStep = 4,
         yStep = -5,
 
         // Variables to represent the absolute position, rotation, and
