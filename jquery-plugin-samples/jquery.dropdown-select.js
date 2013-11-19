@@ -21,12 +21,13 @@
         //       For some assignments/exercises, you will not be allowed to
         //       make use of this, in which case the main purpose of this
         //       sample code is for jQuery plug-in functionality only.
-        $mainTemplate = $('<button class="btn dropdown-toggle" data-toggle="dropdown">' +
+        $mainTemplate = $('<button type="button" ' +
+            'class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
           '<span></span> ' +
           '<span class="caret"></span>' +
         '</button>'),
 
-        $dropdownTemplate = $('<ul class="dropdown-menu"></ul>'),
+        $dropdownTemplate = $('<ul class="dropdown-menu" role="menu"></ul>'),
         $itemTemplate = $('<li><a></a></li>'),
         $dividerTemplate = $('<li class="divider"></li>');
 
