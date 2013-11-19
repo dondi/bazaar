@@ -8,8 +8,13 @@
 
     <link rel="stylesheet"
           href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
     <!-- Sometimes, a plugin needs "companion" CSS.  That is fine. -->
     <link rel="stylesheet" href="jquery.in-place-editor.css">
+    <link rel="stylesheet" href="jquery.swivel.css">
+
+    <!-- And the page has its own styles. -->
+    <link rel="stylesheet" href="plugin-demo.css">
   </head>
     
   <body>
@@ -20,7 +25,7 @@
 
       <p class="edit-in-place">Mouse over and click on this to see it at work.</p>
 
-      <h2 class="edit-in-place">The plugin mimics the original element's font.</h2>
+      <h3 class="edit-in-place">The plugin mimics the original element's font.</h3>
 
       <p><em class="edit-in-place">Look at the console to see the callback in action.</em></p>
 
@@ -40,6 +45,16 @@
       <p>This plugin gives it a different look but similar functionality:</p>
 
       <div id="demo-select"></div>
+      <h1>“Swivel” Control</h1>
+
+      <p>This plugin demonstrates low-level mouse event handling.  We leave what it controls or
+      how it is used to your imagination.</p>
+
+      <p><div class="swivel-this">&nbsp;</div></p>
+
+      <p><div class="swivel-this">And it's just a <code>div</code></div></p>
+
+      <p><div class="swivel-this">So you can put text inside</div></p>
     </div>
 
     <!-- We wrap up by loading up jQuery, then Bootstrap, then our plugins,

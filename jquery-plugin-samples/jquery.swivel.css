@@ -1,0 +1,6 @@
+.swivel {
+    border: 1px solid black;
+    padding: 4px 6px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
