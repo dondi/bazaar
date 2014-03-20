@@ -63,7 +63,7 @@ $(function () {
 
         // We can actually check for a *specific* exception, but
         // we won't go that far for now.
-        raises(
+        throws(
             function () {
                 return v1.add(v2);
             },
@@ -102,13 +102,18 @@ $(function () {
         v2 = new Vector(4, -1, 3);
         equal(v1.dot(v2), 25, "3D dot product");
 
+        // And 4D.
+        v1 = new Vector(2, 2, 4, 8);
+        v2 = new Vector(-1, 7, 0, 20);
+        equal(v1.dot(v2), 172, "4D dot product");
+
         // Check for errors.
         v1 = new Vector(4, 2);
         v2 = new Vector(3, 9, 1);
 
         // We can actually check for a *specific* exception, but
         // we won't go that far for now.
-        raises(
+        throws(
             function () {
                 return v1.dot(v2);
             },
@@ -123,7 +128,7 @@ $(function () {
 
         // The cross product is restricted to 3D, so we start
         // with an error check.
-        raises(
+        throws(
             function () {
                 return v1.cross(v2);
             },
@@ -185,7 +190,7 @@ $(function () {
 
         // Error check: projection only applies to vectors with the same
         // number of dimensions.
-        raises(
+        throws(
             function () {
                 (new Vector(5, 2)).projection(new Vector(9, 8, 1));
             },
