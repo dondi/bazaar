@@ -7,7 +7,7 @@
 typedef int buffer_item;
 
 #define BUFFER_SIZE 5
-#define ITEM_BOUND 10
+#define ITEM_BOUND  9
 
 /**
  * Number of characters needed to display an item; it's essentially
