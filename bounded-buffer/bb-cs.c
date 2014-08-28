@@ -17,15 +17,17 @@ void display_buffer(const char *preface, int in, int out) {
     sprintf(display, "(%s) in: %d out: %d [ ", preface, in, out);
     int i;
     for (i = 0; i < BUFFER_SIZE; i++) {
-        sprintf(buffer_content, "%d", buffer[i]);
-
-        if (i == in) {
-            strcat(display, "+>");
-        }
+        sprintf(buffer_content, "%c", buffer[i]);
         strcat(display, buffer_content);
 
-        if (i == out) {
-            strcat(display, "->");
+        if (i == in) {
+            strcat(display, "..");
+        }
+        else if (i == out) {
+            strcat(display, "+ ");
+        }
+        else {
+            strcat(display, "  ");
         }
         strcat(display, " ");
     }

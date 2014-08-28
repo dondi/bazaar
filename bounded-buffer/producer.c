@@ -16,8 +16,8 @@ void produce(int produceBound) {
     while (1) {
         // Simulate a non-trivial produce.
         randomwait(produceBound);
-        item = rand() % ITEM_BOUND;
-        printf("Produced %d.\n", item);
+        item = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[rand() % 26];
+        printf("Produced %c.\n", item);
 
         sem_wait(empty);
         pthread_mutex_lock(&mutex);

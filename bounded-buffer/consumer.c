@@ -25,6 +25,6 @@ void consume(int consumeBound) {
 
         // Simulate a non-trivial consume.
         randomwait(consumeBound);
-        printf("Consumed %d.\n", item);
+        printf("Consumed %c.\n", item);
     }
 }

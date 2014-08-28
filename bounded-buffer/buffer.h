@@ -4,7 +4,7 @@
 #ifndef __BUFFER__
 #define __BUFFER__
 
-typedef int buffer_item;
+typedef unsigned char buffer_item;
 
 #define BUFFER_SIZE 5
 #define ITEM_BOUND 10
