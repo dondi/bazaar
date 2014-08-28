@@ -1,6 +1,6 @@
 /* Drawing area properties. */
 .drawing-area {
-    cursor: crosshair;
+    cursor: pointer;
     position: relative;
     -moz-user-select: none;
     -webkit-user-select: none;
