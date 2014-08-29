@@ -6,6 +6,17 @@
  * This program demonstrates the use of the fork() and exec()
  * functions.
  */
+ /**
+    
+      |||| 
+      ||||
+      \__/
+       ||
+       ||
+       ||
+       || - fork.exe
+
+ **/
 int main() {
     /* String to hold the command to run. */
     char command[256];
