@@ -1,3 +1,4 @@
+var Crates = 0;
 var Boxes = {
     /**
      * Constant for the left mouse button.
