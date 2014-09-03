@@ -13,6 +13,7 @@ public class Sum implements Runnable {
     /**
      * Initializes a Sum with the ending value.
      */
+
     public Sum(int max) {
         this.max = max;
         this.sum = 0;
