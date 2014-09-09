@@ -207,7 +207,7 @@ int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB);
     glutInitWindowSize(256, 256);
     glutInitWindowPosition(50, 50);
-    glutCreateWindow("Hello OpenGL");
+    glutCreateWindow("Hello, World!");
 
     // Setup.
     init();
