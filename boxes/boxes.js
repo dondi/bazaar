@@ -1,3 +1,5 @@
+console.log("Hello Dondi");
+
 var Boxes = {
     /**
      * Constant for the left mouse button.
