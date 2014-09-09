@@ -39,6 +39,10 @@ $(function () {
                 $("body").append($("<p></p>")
                     .text("No events were found for that date."));
             }
+        },
+        error: function() {
+            $("body").append($("<p></p>"))
+                .text("The program encountered an error.");
         }
     });
 
