@@ -43,7 +43,7 @@ public class Sum implements Runnable {
     }
 
     private int max;
-    private int sum;
+    private int sum = 0;
 
     /**
      * Test driver for Sum.
