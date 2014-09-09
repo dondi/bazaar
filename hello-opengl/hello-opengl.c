@@ -1,3 +1,4 @@
+/*A lil comment for ya*/
 /**
  * hello-opengl.c displays an icosahedron using bare-bones, shader-based OpenGL.
  */
