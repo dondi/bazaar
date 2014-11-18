@@ -10,12 +10,6 @@
         <title>Direct Manipulation on a Web Page: Touch Version</title>
         <link rel="stylesheet" type="text/css" href="boxes-touch.css"/>
 
-        <!-- Load up jQuery first. -->
-        <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-
-        <!-- Load up the controller code. -->
-        <script src="boxes-touch.js"></script>
-
         <!-- Styles that are totally specific to this page. -->
         <style>
             #drawing-area {
@@ -24,13 +18,6 @@
                 height: 512px;
             }
         </style>
-        
-        <!-- Code that is totally specific to this page. -->
-        <script>
-            $(function () {
-                BoxesTouch.setDrawingArea($("#drawing-area"));
-            });
-        </script>
     </head>
     
     <body>
@@ -48,5 +35,19 @@
                 style="width: 70px; height: 90px; left: 120px; top: 384px">
             </div>
         </div>
+
+
+        <!-- Load up jQuery first. -->
+        <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+
+        <!-- Load up the controller code. -->
+        <script src="boxes-touch.js"></script>
+        
+        <!-- Code that is totally specific to this page. -->
+        <script>
+            $(function () {
+                BoxesTouch.setDrawingArea($("#drawing-area"));
+            });
+        </script>
     </body>
 </html>

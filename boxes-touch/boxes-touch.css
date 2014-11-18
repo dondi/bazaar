@@ -1,8 +1,7 @@
 /* Drawing area properties. */
 .drawing-area {
     position: relative;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Box properties and their variants. */
@@ -13,6 +12,4 @@
 
 .box-highlight {
     box-shadow: 0px 0px 6px #88F;
-    -moz-box-shadow: 0px 0px 6px #88F;
-    -webkit-box-shadow: 0px 0px 6px #88F;
 }
