@@ -8,5 +8,7 @@ public class PrintArgumentLengths {
                 totalOdd += 1;
             }
         }
+
+        System.out.println("Of these, " + totalOdd + " have an odd number of characters.");
     }
 }
