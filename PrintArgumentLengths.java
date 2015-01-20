@@ -9,6 +9,7 @@ public class PrintArgumentLengths {
             }
         }
 
-        System.out.println("Of these, " + totalOdd + " have an odd number of characters.");
+        System.out.println("Of these, " + totalOdd + " " +
+            (totalOdd == 1 ? "has" : "have") + " an odd number of characters.");
     }
 }
