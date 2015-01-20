@@ -3,8 +3,8 @@
         renderingContext = canvas.getContext("2d"),
 
         // These variables represent how the ball is moving.
-        xVelocity = 5,
-        yVelocity = -5,
+        xVelocity = 150,
+        yVelocity = -150,
 
         // Variables to represent the absolute position, rotation, and
         // scaling of the ball.  We start the ball at the bottom-left
@@ -19,17 +19,24 @@
             // Initialize the timestamp.
             if (!previousTimestamp) {
                 previousTimestamp = timestamp;
+                window.requestAnimationFrame(nextFrame);
+                return;
             }
 
             // Calculate the new position, rotation, and scale.
-            // We're going for around 30 "steps" per second.
-            var timePassed = (timestamp - previousTimestamp) / 33,
-                xStep = xVelocity * timePassed,
-                yStep = yVelocity * timePassed;
+            var progress = (timestamp - previousTimestamp) / 1000;
+            if (progress < 0.015) {
+                // Do nothing if it's too soon.
+                window.requestAnimationFrame(nextFrame);
+                return;
+            }
+
+            var xStep = xVelocity * progress,
+                yStep = yVelocity * progress;
 
             x += xStep;
             y += yStep;
-            angle += (Math.PI / 180) * timePassed; // 1 degree per "step."
+            angle += (Math.PI / 6) * progress;
 
             // Quick check to see if the ball has hit an edge
             // This results in a "bounce."
