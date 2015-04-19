@@ -31,6 +31,10 @@
         // The big "draw scene" function.
         drawScene,
 
+        // State and function for performing animation.
+        previousTimestamp,
+        advanceScene,
+
         // Reusable loop variables.
         i,
         maxi,
@@ -265,12 +269,12 @@
 
         // All done.
         gl.flush();
-    },
+    };
 
     /*
      * Animates the scene.
      */
-    previousTimestamp = null,
+    previousTimestamp = null;
     advanceScene = function (timestamp) {
         // Check if the user has turned things off.
         if (!animationActive) {
