@@ -7,7 +7,7 @@ var GLSLUtilities = {
      * Returns the WebGL rendering context.
      */
     getGL: function (canvas) {
-        return canvas.getContext("experimental-webgl");
+        return canvas.getContext("webgl");
     },
 
     /*
