@@ -20,7 +20,7 @@
 
         // The raw meshes from which we will derive our objects.
         mesh = Shapes.icosahedron(),
-
+ 
         // Important state variables.  Yep, they are growing!
         modelViewMatrix,
         xRotationMatrix,
@@ -38,6 +38,10 @@
         lightPosition,
         lightDiffuse,
         lightSpecular,
+
+        // These variables pertain to texture mapping.
+        texture,
+        textureCoordinate,
 
         // An individual "draw object" function.
         drawObject,
@@ -176,6 +180,21 @@
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
 
+    // Set up the texture object.
+    texture = gl.createTexture();
+    var textureImage = new Image();
+    var textureIsReady = false;
+    textureImage.onload = function () {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureImage);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        textureIsReady = true;
+    };
+    textureImage.src = "mc-grass.jpg";
+
     // Build the objects to display.  We stay with a single cube here.
     objectsToDraw = [
         {
@@ -191,6 +210,17 @@
             // Like colors, one normal per vertex.  This can be simplified
             // with helper functions, of course.
             normals: Shapes.toNormalArray(mesh),
+
+            // One more array to associate with our vertices---texture coordinates!
+            // Here we generate them raw...some design thought may be needed in order
+            // to create/manage them in a more convenient way.
+            textureCoordinates: (function () {
+                var result = [];
+                for (var i = 0; i < 20; i += 1) {
+                    result.push(0.0, 0.0, 1.0, 0.0, 0.0, 1.0);
+                }
+                return result;
+            })(),
 
             mode: gl.TRIANGLES
         }
@@ -237,6 +267,10 @@
         // One more buffer: normals.
         objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].normals);
+ 
+        // And one more still: texture coordinates.
+        objectsToDraw[i].textureCoordinateBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectsToDraw[i].textureCoordinates);
     }
 
     // Initialize the shaders.
@@ -277,6 +311,8 @@
     gl.enableVertexAttribArray(vertexSpecularColor);
     normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
     gl.enableVertexAttribArray(normalVector);
+    textureCoordinate = gl.getAttribLocation(shaderProgram, "textureCoordinate");
+    gl.enableVertexAttribArray(textureCoordinate);
 
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
@@ -290,7 +326,7 @@
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
     shininess = gl.getUniformLocation(shaderProgram, "shininess");
-
+ 
     /*
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
@@ -320,6 +356,12 @@
         // Set the varying normal vectors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
         gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
+
+        // Set the texture varialbes.
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.textureCoordinateBuffer);
+        gl.vertexAttribPointer(textureCoordinate, 2, gl.FLOAT, false, 0, 0);
 
         // Set the varying vertex coordinates.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
@@ -376,9 +418,12 @@
     )));
 
     // Set up our one light source and its colors.
-    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
+    gl.uniform4fv(lightPosition, [-10.0, 10.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
     gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
+
+    // Set up our texture sampler.
+    gl.uniform1i(gl.getUniformLocation(shaderProgram, "sampler"), 0);
 
     // Instead of animation, we do interaction: let the mouse control rotation.
     $(canvas).mousedown(function (event) {
@@ -391,7 +436,12 @@
         $(canvas).unbind("mousemove");
     });
 
-    // Draw the initial scene.
-    drawScene();
+    // Draw the initial scene. But we will wait until the texture is ready.
+    var drawWhenReady = setInterval(function () {
+            if (textureIsReady) {
+                drawScene();
+                clearInterval(drawWhenReady);
+            }
+        }, 10);
 
 }(document.getElementById("light-more-webgl")));
