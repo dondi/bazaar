@@ -19,6 +19,7 @@
         abort = false,
 
         // Important state variables.
+        animationActive = false,
         currentRotation = 0.0,
         currentInterval,
         modelViewMatrix,
@@ -31,6 +32,10 @@
 
         // The big "draw scene" function.
         drawScene,
+
+        // State and function for performing animation.
+        previousTimestamp,
+        advanceScene,
 
         // Reusable loop variables.
         i,
@@ -397,22 +402,50 @@
         10
     )));
 
+    // Animation initialization/support.
+    previousTimestamp = null;
+    advanceScene = function (timestamp) {
+        // Check if the user has turned things off.
+        if (!animationActive) {
+            return;
+        }
+
+        // Initialize the timestamp.
+        if (!previousTimestamp) {
+            previousTimestamp = timestamp;
+            window.requestAnimationFrame(advanceScene);
+            return;
+        }
+
+        // Check if it's time to advance.
+        var progress = timestamp - previousTimestamp;
+        if (progress < 30) {
+            // Do nothing if it's too soon.
+            window.requestAnimationFrame(advanceScene);
+            return;
+        }
+
+        // All clear.
+        currentRotation += 0.033 * progress;
+        drawScene();
+        if (currentRotation >= 360.0) {
+            currentRotation -= 360.0;
+        }
+
+        // Request the next frame.
+        previousTimestamp = timestamp;
+        window.requestAnimationFrame(advanceScene);
+    };
+
     // Draw the initial scene.
     drawScene();
 
     // Set up the rotation toggle: clicking on the canvas does it.
     $(canvas).click(function () {
-        if (currentInterval) {
-            clearInterval(currentInterval);
-            currentInterval = null;
-        } else {
-            currentInterval = setInterval(function () {
-                currentRotation += 1.0;
-                drawScene();
-                if (currentRotation >= 360.0) {
-                    currentRotation -= 360.0;
-                }
-            }, 30);
+        animationActive = !animationActive;
+        if (animationActive) {
+            previousTimestamp = null;
+            window.requestAnimationFrame(advanceScene);
         }
     });
 
