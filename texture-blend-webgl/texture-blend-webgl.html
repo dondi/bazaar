@@ -127,6 +127,9 @@
             varying vec2 fragmentTextureCoordinate;
             uniform sampler2D sampler;
 
+            // And finally, blending!
+            uniform float alpha;
+
             void main(void) {
                 // Determine the texture color.
                 vec3 textureColor = vec3(texture2D(sampler, fragmentTextureCoordinate));
@@ -157,7 +160,7 @@
                 }
 
                 // .rgb suffix not really necessary, but included for emphasis.
-                gl_FragColor = vec4(finalDiffuse.rgb + finalSpecular.rgb, 1.0);
+                gl_FragColor = vec4(finalDiffuse.rgb + finalSpecular.rgb, alpha);
             }
         </script>
 

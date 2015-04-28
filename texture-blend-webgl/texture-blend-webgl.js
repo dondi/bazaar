@@ -41,6 +41,9 @@
         waterTexture,
         textureCoordinate,
 
+        // And the new addition: blending.
+        alpha,
+
         // An individual "draw object" function.
         drawObject,
 
@@ -183,24 +186,24 @@
     waterTexture = gl.createTexture();
 
     var readyTexture = 0;
-    var loadHandlerFor = function (texture, textureImage) {
+    var loadHandlerFor = function (texture, textureImage, textureId) {
             return function () {
+                gl.activeTexture(textureId);
                 gl.bindTexture(gl.TEXTURE_2D, texture);
                 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureImage);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
                 gl.generateMipmap(gl.TEXTURE_2D);
-                gl.bindTexture(gl.TEXTURE_2D, null);
                 readyTexture += 1;
             };
         };
 
     var goldImage = new Image();
-    goldImage.onload = loadHandlerFor(goldTexture, goldImage);
+    goldImage.onload = loadHandlerFor(goldTexture, goldImage, gl.TEXTURE0);
     goldImage.src = "gold.jpg";
 
     var waterImage = new Image();
-    waterImage.onload = loadHandlerFor(waterTexture, waterImage);
+    waterImage.onload = loadHandlerFor(waterTexture, waterImage, gl.TEXTURE1);
     waterImage.src = "water.jpg";
 
     // Build the objects to display. We do some mesh manipulation here to get
@@ -363,6 +366,8 @@
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
     shininess = gl.getUniformLocation(shaderProgram, "shininess");
+
+    alpha = gl.getUniformLocation(shaderProgram, "alpha");
  
     /*
      * Displays an individual object, including a transformation that now varies
@@ -420,9 +425,22 @@
         ));
 
         // Display the objects.
-        gl.activeTexture(gl.TEXTURE0);
         for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-            gl.bindTexture(gl.TEXTURE_2D, i % 2 ? goldTexture : waterTexture);
+            // We make the first half of our objects gold/opaque, and the next half
+            // water/translucent---translucent objects need to be drawn last because
+            // otherwise the blending will be incorrent.
+            var opaque = i < objectsToDraw.length / 2;
+            gl.uniform1i(gl.getUniformLocation(shaderProgram, "sampler"), opaque ? 0 : 1);
+            if (opaque) {
+                gl.enable(gl.DEPTH_TEST);
+                gl.disable(gl.BLEND);
+                gl.uniform1f(alpha, 1.0);
+            } else {
+                gl.disable(gl.DEPTH_TEST);
+                gl.enable(gl.BLEND);
+                gl.uniform1f(alpha, 0.5);
+            }
+
             drawObject(objectsToDraw[i]);
         }
 
@@ -459,9 +477,6 @@
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
     gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
 
-    // Set up our texture sampler.
-    gl.uniform1i(gl.getUniformLocation(shaderProgram, "sampler"), 0);
-
     // Instead of animation, we do interaction: let the mouse control rotation.
     $(canvas).mousedown(function (event) {
         xDragStart = event.clientX;
@@ -474,6 +489,7 @@
     });
 
     // Draw the initial scene. But we will wait until the texture is ready.
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     var drawWhenReady = setInterval(function () {
             if (readyTexture === 2) {
                 drawScene();
