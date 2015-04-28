@@ -195,7 +195,7 @@
     };
     textureImage.src = "mc-grass.jpg";
 
-    // Build the objects to display.  We stay with a single cube here.
+    // Build the objects to display.
     objectsToDraw = [
         {
             vertices: Shapes.toRawTriangleArray(mesh),

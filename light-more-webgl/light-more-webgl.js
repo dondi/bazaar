@@ -176,7 +176,7 @@
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
 
-    // Build the objects to display.  We stay with a single cube here.
+    // Build the objects to display.
     objectsToDraw = [
         {
             vertices: Shapes.toRawTriangleArray(mesh),
