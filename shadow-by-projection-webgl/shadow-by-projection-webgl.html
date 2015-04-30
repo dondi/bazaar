@@ -37,7 +37,6 @@
             maintenance, but in that situation, additional code and security
             constraints are involved. -->
 
-        <!-- The vertex shader is a complete pass-through. -->
         <script id="vertex-shader" type="x-shader/x-vertex">
             #ifdef GL_ES
             precision highp float;
@@ -57,7 +56,6 @@
             }
         </script>
 
-        <!-- The fragment shader produces a single unconditional color. -->
         <script id="fragment-shader" type="x-shader/x-fragment">
             #ifdef GL_ES
             precision highp float;
@@ -70,6 +68,34 @@
                 // which, at this point, ranges from 0 (near) to 1 (far).
                 // Note the ".rgb" subselector.
                 gl_FragColor = vec4((1.0 - gl_FragCoord.z) * finalVertexColor.rgb, 1.0);
+            }
+        </script>
+
+        <!-- The vertex shader for shadows. -->
+        <script id="shadow-vertex-shader" type="x-shader/x-vertex">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            attribute vec3 vertexPosition;
+
+            // Note this new additional output.
+            uniform mat4 projectionMatrix;
+            uniform mat4 modelViewMatrix;
+
+            void main(void) {
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPosition.x, vertexPosition.y - 1.0, vertexPosition.z, 1.0);
+            }
+        </script>
+
+        <!-- The fragment shader for shadows. -->
+        <script id="shadow-fragment-shader" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+
+            void main(void) {
+                gl_FragColor = vec4(0.5, 0.5, 0.5, 1.0);
             }
         </script>
 
