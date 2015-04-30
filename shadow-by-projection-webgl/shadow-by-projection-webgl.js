@@ -154,6 +154,7 @@
     gl.enable(gl.DEPTH_TEST);
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ZERO); // Actually no blend, but we put it here so we can play with it.
 
     // Build the objects to display.  Note how each object may come with a
     // rotation axis now.
@@ -172,7 +173,8 @@
                 [ 0.0, 1.0, 0.0 ],
                 [ 0.0, 0.0, 1.0 ]
             ),
-            mode: gl.TRIANGLES
+            mode: gl.TRIANGLES,
+            axis: { x: 0.0, y: 1.0, z: 0.0 }
         },
 
         {
@@ -182,7 +184,8 @@
                 [ -1.25, 0.0, -0.5 ],
                 [ -1.75, 0.5, -0.5 ]
             ),
-            mode: gl.TRIANGLES
+            mode: gl.TRIANGLES,
+            axis: { x: 0.0, y: -1.0, z: 0.0 }
         },
 
         {
@@ -192,53 +195,33 @@
                 [ -1.75, 0.0, 0.5 ],
                 [ -2.25, 0.5, 0.5 ]
             ),
-            mode: gl.TRIANGLES
+            mode: gl.TRIANGLES,
+            axis: { x: 0.1, y: 1.0, z: 0.0 }
         },
 
         {
             color: { r: 0.0, g: 0.0, b: 1.0 },
             vertices: [].concat(
-                [ -1.0, -1.0, 0.75 ],
-                [ -1.0, -0.1, -1.0 ],
-                [ -0.1, -0.1, -1.0 ],
-                [ -0.1, -1.0, 0.75 ]
+                [ 1.0, -1.0, 0.75 ],
+                [ 1.0, -0.1, -1.0 ],
+                [ 2.0, -0.1, -1.0 ],
+                [ 2.0, -1.0, 0.75 ]
             ),
             mode: gl.LINE_LOOP,
             axis: { x: 1.0, y: 0.0, z: 1.0 }
         },
 
-        // Reference rectangles for a "floor."
+        // Reference rectangle for a "floor."
         {
-            color: { r: 0.5, g: 0.5, b: 0.5 },
+            ground: true,
+            color: { r: 1.0, g: 1.0, b: 1.0 },
             vertices: [].concat(
-                [ -1.0, -2.0, 0.75 ],
-                [ -1.0, -2.0, -10.0 ],
-                [  1.0, -2.0, -10.0 ],
-                [  1.0, -2.0, 0.75 ]
+                [ -4.0, -2.01,  8.0 ],
+                [ -4.0, -2.01, -8.0 ],
+                [  4.0, -2.01, -8.0 ],
+                [  4.0, -2.01,  8.0 ]
             ),
-            mode: gl.LINE_LOOP
-        },
-
-        {
-            color: { r: 0.5, g: 0.5, b: 0.5 },
-            vertices: [].concat(
-                [ -3.0, -2.0, 0.75 ],
-                [ -3.0, -2.0, -10.0 ],
-                [ -1.0, -2.0, -10.0 ],
-                [ -1.0, -2.0, 0.75 ]
-            ),
-            mode: gl.LINE_LOOP
-        },
-
-        {
-            color: { r: 0.5, g: 0.5, b: 0.5 },
-            vertices: [].concat(
-                [  1.0, -2.0, 0.75 ],
-                [  1.0, -2.0, -10.0 ],
-                [  3.0, -2.0, -10.0 ],
-                [  3.0, -2.0, 0.75 ]
-            ),
-            mode: gl.LINE_LOOP
+            mode: gl.TRIANGLE_FAN
         },
 
         {
@@ -431,15 +414,20 @@
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        // Display the objects.
+        // Display the objects---twice! We need two loops because we want to ensure that all of
+        // the shadows are drawn last. Plus we will eliminate objects meant to be the "ground."
         gl.useProgram(shaderProgram);
+        gl.disable(gl.BLEND);
         for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
             drawObject(objectsToDraw[i], shaderProgram);
         }
 
         gl.useProgram(shadowProgram);
+        gl.enable(gl.BLEND);
         for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-            drawObject(objectsToDraw[i], shadowProgram);
+            if (!objectsToDraw[i].ground) {
+                drawObject(objectsToDraw[i], shadowProgram);
+            }
         }
 
         // All done.
@@ -457,7 +445,7 @@
             2 * (canvas.width / canvas.height),
             -2,
             2,
-            10,
+            12,
             10000
         ));
 
