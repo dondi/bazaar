@@ -2,6 +2,7 @@
  * Companion JavaScript for sample account signup page.
  *
  * Prerequisite: Load jQuery prior to loading this script.
+   The more things change, the more they stay the same.
  */
 $(function () {
     /*
