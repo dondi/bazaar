@@ -8,7 +8,7 @@
 
 /* Box properties and their variants. */
 .box {
-    border: thin solid black;
+    border: 1px dotted #FFFFFE; /* Janine - previously thin solid black */
     cursor: move;
     position: absolute;
 }
