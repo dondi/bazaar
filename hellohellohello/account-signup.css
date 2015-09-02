@@ -1,0 +1,85 @@
+/*
+ * Companion CSS for sample account signup page.
+ */
+body {
+    /* Specific fonts are fine, but be aware that not
+       all computers may have them. */
+    font-family: "American Typewriter", sans-serif;
+    font-size: 20px;
+    
+    /* Gradient code generation courtesy of:
+           http://gradients.glrzad.com */
+    background-image: linear-gradient(right bottom, rgb(255,255,255) 21%, rgb(209,215,240) 61%);
+    background-image: -o-linear-gradient(right bottom, rgb(255,255,255) 21%, rgb(209,215,240) 61%);
+    background-image: -moz-linear-gradient(right bottom, rgb(255,255,255) 21%, rgb(209,215,240) 61%);
+    background-image: -webkit-linear-gradient(right bottom, rgb(255,255,255) 21%, rgb(209,215,240) 61%);
+    background-image: -ms-linear-gradient(right bottom, rgb(255,255,255) 21%, rgb(209,215,240) 61%);
+}
+
+h1 {
+    text-align: center;
+    font-family: "Century Gothic", serif;
+}
+
+label {
+    padding-right: 1ex;
+}
+
+#main {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: inset 0 4px 12px gray;
+    padding: 24px;
+    width: 75%;
+}
+
+#main, #main > div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Here comes your standard CSS table pattern. */
+.simple-form {
+    display: table;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.simple-form > div {
+    display: table-row;
+}
+
+.simple-form > div > label, .simple-form > div > input,
+        .simple-form > div > span {
+    display: table-cell;
+}
+
+.simple-form > div > span {
+    padding-left: 1ex;
+}
+
+.button-row {
+    padding-top: 1em;
+    text-align: right;
+}
+
+/* Classes for prompt messages so that we do not have
+   to repeat CSS in our code. */
+.requirement {
+    color: red;
+}
+
+.approval {
+    color: green;
+}
+
+/* Keeps things smooth. */
+.requirement, .approval {
+    -moz-transition: all 1s;
+    -webkit-transition: all 1s;
+}
+
+/* Other individual settings. */
+#password-match {
+    opacity: 0;
+}
