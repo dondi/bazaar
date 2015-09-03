@@ -3,8 +3,8 @@
 #include <unistd.h>
 
 /**
- * This program demonstrates the use of the fork() and exec()
- * functions.
+ * I don't like C that much....
+ * Assignment 908 is a go.
  */
 int main() {
     /* String to hold the command to run. */
