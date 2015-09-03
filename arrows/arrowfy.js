@@ -28,4 +28,4 @@
         // Set the CSS for the main arrow div.
         this.addClass("arrow");
     };
-})(jQuery);
+})(jQuery);;
