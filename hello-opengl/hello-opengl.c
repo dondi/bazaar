@@ -208,6 +208,7 @@ int main(int argc, char **argv) {
     glutInitWindowSize(256, 256);
     glutInitWindowPosition(50, 50);
     glutCreateWindow("Hello OpenGL");
+    //File changed!
 
     // Setup.
     init();
