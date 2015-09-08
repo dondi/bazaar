@@ -2,6 +2,8 @@
  * A module demonstrating assorted algorithms for selected 2D graphics
  * operations.
  */
+ //Caveman
+ 
 var Primitives = {
     /*
      * This is the cornerstone: we promise not to use any other graphics
