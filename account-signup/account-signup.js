@@ -1,3 +1,4 @@
+Pull request attempt
 /*
  * Companion JavaScript for sample account signup page.
  *
