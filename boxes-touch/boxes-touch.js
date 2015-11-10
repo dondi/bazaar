@@ -1,29 +1,8 @@
-var BoxesTouch = {
-    /**
-     * Sets up the given jQuery collection as the drawing area(s).
-     */
-    setDrawingArea: function (jQueryElements) {
-        // Set up any pre-existing box elements for touch behavior.
-        jQueryElements
-            .addClass("drawing-area")
-            
-            // Event handler setup must be low-level because jQuery
-            // doesn't relay touch-specific event properties.
-            .each(function (index, element) {
-                element.addEventListener("touchmove", BoxesTouch.trackDrag, false);
-                element.addEventListener("touchend", BoxesTouch.endDrag, false);
-            })
-
-            .find("div.box").each(function (index, element) {
-                element.addEventListener("touchstart", BoxesTouch.startMove, false);
-                element.addEventListener("touchend", BoxesTouch.unhighlight, false);
-            });
-    },
-
+(function ($) {
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
      */
-    trackDrag: function (event) {
+    var trackDrag = function (event) {
         $.each(event.changedTouches, function (index, touch) {
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
@@ -34,15 +13,15 @@ var BoxesTouch = {
                 });
             }
         });
-        
+
         // Don't do any touch scrolling.
         event.preventDefault();
-    },
+    };
 
     /**
      * Concludes a drawing or moving sequence.
      */
-    endDrag: function (event) {
+    var endDrag = function (event) {
         $.each(event.changedTouches, function (index, touch) {
             if (touch.target.movingBox) {
                 // Change state to "not-moving-anything" by clearing out
@@ -50,19 +29,19 @@ var BoxesTouch = {
                 touch.target.movingBox = null;
             }
         });
-    },
+    };
 
     /**
      * Indicates that an element is unhighlighted.
      */
-    unhighlight: function () {
+    var unhighlight = function () {
         $(this).removeClass("box-highlight");
-    },
+    };
 
     /**
      * Begins a box move sequence.
      */
-    startMove: function (event) {
+    var startMove = function (event) {
         $.each(event.changedTouches, function (index, touch) {
             // Highlight the element.
             $(touch.target).addClass("box-highlight");
@@ -81,6 +60,30 @@ var BoxesTouch = {
         // Eat up the event so that the drawing area does not
         // deal with it.
         event.stopPropagation();
-    }
+    };
 
-};
+    /**
+     * Sets up the given jQuery collection as the drawing area(s).
+     */
+    var setDrawingArea = function (jQueryElements) {
+        // Set up any pre-existing box elements for touch behavior.
+        jQueryElements
+            .addClass("drawing-area")
+            
+            // Event handler setup must be low-level because jQuery
+            // doesn't relay touch-specific event properties.
+            .each(function (index, element) {
+                element.addEventListener("touchmove", trackDrag, false);
+                element.addEventListener("touchend", endDrag, false);
+            })
+
+            .find("div.box").each(function (index, element) {
+                element.addEventListener("touchstart", startMove, false);
+                element.addEventListener("touchend", unhighlight, false);
+            });
+    };
+
+    $.fn.boxesTouch = function () {
+        setDrawingArea(this);
+    };
+}(jQuery));
