@@ -1,0 +1,3 @@
+$(function () {
+     $("#drawing-area").boxes();
+});

@@ -2,6 +2,7 @@
 .drawing-area {
     cursor: crosshair;
     position: relative;
+    user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
 }
