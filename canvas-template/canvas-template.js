@@ -8,11 +8,11 @@
 // from the global namespace.
 (function () {
     // Ditto on using jQuery here.
-    var canvas = document.getElementById("canvas"),
-        renderingContext = canvas.getContext("2d"),
+    var canvas = document.getElementById("canvas");
+    var renderingContext = canvas.getContext("2d");
 
-        // Declare other variables here.
-        radialGradient = renderingContext.createRadialGradient(160, 160, 1, 180, 180, 320);
+    // Declare other variables here.
+    var radialGradient = renderingContext.createRadialGradient(160, 160, 1, 180, 180, 320);
 
     // Put your canvas drawing code (and any other code) here.
     radialGradient.addColorStop(0, "white");

@@ -8,16 +8,16 @@
 // Another minor change: we use jQuery here, just to illustrate how you can
 // encapsulate code and get to the canvas element in that way.
 $(function () {
-    var canvas = $("#canvas")[0], // Note the array dereference.
-        renderingContext = canvas.getContext("2d"),
+    var canvas = $("#canvas")[0]; // Note the array dereference.
+    var renderingContext = canvas.getContext("2d");
 
-        // The curve data.
-        curve = {
-            startPoint: { x: 10, y: 50 },
-            controlPoint1: { x: 70, y: 10 },
-            controlPoint2: { x: 80, y: 90 },
-            endPoint: { x: 50, y: 100 }
-        };
+    // The curve data.
+    var curve = {
+        startPoint: { x: 10, y: 50 },
+        controlPoint1: { x: 70, y: 10 },
+        controlPoint2: { x: 80, y: 90 },
+        endPoint: { x: 50, y: 100 }
+    };
 
     // Now, we can draw the curve's vertices...
     renderingContext.strokeStyle = "rgba(200, 200, 200, 0.5)";
