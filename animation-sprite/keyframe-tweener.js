@@ -31,97 +31,97 @@
     // - rotate: the rotation angle of the sprite (default is 0)
     var initializeAnimation = function (settings) {
         // We need to keep track of the current frame.
-        var currentFrame = 0,
+        var currentFrame = 0;
 
-            // Avoid having to go through settings to get to the
-            // rendering context and sprites.
-            renderingContext = settings.renderingContext,
-            width = settings.width,
-            height = settings.height,
-            sprites = settings.sprites,
+        // Avoid having to go through settings to get to the
+        // rendering context and sprites.
+        var renderingContext = settings.renderingContext;
+        var width = settings.width;
+        var height = settings.height;
+        var sprites = settings.sprites;
 
-            previousTimestamp = null,
-            nextFrame = function (timestamp) {
-                // Bail-out #1: We just started.
-                if (!previousTimestamp) {
-                    previousTimestamp = timestamp;
-                    window.requestAnimationFrame(nextFrame);
-                    return;
-                }
-
-                // Bail-out #2: Too soon.
-                if (timestamp - previousTimestamp < (1000 / (settings.frameRate || 24))) {
-                    window.requestAnimationFrame(nextFrame);
-                    return;
-                }
-
-                // Clear the canvas.
-                renderingContext.clearRect(0, 0, width, height);
-
-                // For every sprite, go to the current pair of keyframes.
-                // Then, draw the sprite based on the current frame.
-                for (var i = 0, maxI = sprites.length; i < maxI; i += 1) {
-                    for (var j = 0, maxJ = sprites[i].keyframes.length - 1; j < maxJ; j += 1) {
-                        // We look for keyframe pairs such that the current
-                        // frame is between their frame numbers.
-                        if ((sprites[i].keyframes[j].frame <= currentFrame) &&
-                                (currentFrame <= sprites[i].keyframes[j + 1].frame)) {
-                            // Point to the start and end keyframes.
-                            var startKeyframe = sprites[i].keyframes[j],
-                                endKeyframe = sprites[i].keyframes[j + 1];
-
-                            // Save the rendering context state.
-                            renderingContext.save();
-
-                            // Set up our start and distance values, using defaults
-                            // if necessary.
-                            var ease = startKeyframe.ease || KeyframeTweener.linear,
-
-                                txStart = startKeyframe.tx || 0,
-                                txDistance = (endKeyframe.tx || 0) - txStart,
-
-                                tyStart = startKeyframe.ty || 0,
-                                tyDistance = (endKeyframe.ty || 0) - tyStart,
-
-                                sxStart = startKeyframe.sx || 1,
-                                sxDistance = (endKeyframe.sx || 1) - sxStart,
-
-                                syStart = startKeyframe.sy || 1,
-                                syDistance = (endKeyframe.sy || 1) - syStart,
-
-                                rotateStart = (startKeyframe.rotate || 0) * Math.PI / 180,
-                                rotateDistance = (endKeyframe.rotate || 0) * Math.PI / 180 - rotateStart;
-
-                            var currentTweenFrame = currentFrame - startKeyframe.frame,
-                                duration = endKeyframe.frame - startKeyframe.frame + 1;
-
-                            // Build our transform according to where we should be.
-                            renderingContext.translate(
-                                ease(currentTweenFrame, txStart, txDistance, duration),
-                                ease(currentTweenFrame, tyStart, tyDistance, duration)
-                            );
-                            renderingContext.scale(
-                                ease(currentTweenFrame, sxStart, sxDistance, duration),
-                                ease(currentTweenFrame, syStart, syDistance, duration)
-                            );
-                            renderingContext.rotate(
-                                ease(currentTweenFrame, rotateStart, rotateDistance, duration)
-                            );
-
-                            // Draw the sprite.
-                            sprites[i].draw(renderingContext);
-
-                            // Clean up.
-                            renderingContext.restore();
-                        }
-                    }
-                }
-
-                // Move to the next frame.
-                currentFrame += 1;
+        var previousTimestamp = null;
+        var nextFrame = function (timestamp) {
+            // Bail-out #1: We just started.
+            if (!previousTimestamp) {
                 previousTimestamp = timestamp;
                 window.requestAnimationFrame(nextFrame);
-            };
+                return;
+            }
+
+            // Bail-out #2: Too soon.
+            if (timestamp - previousTimestamp < (1000 / (settings.frameRate || 24))) {
+                window.requestAnimationFrame(nextFrame);
+                return;
+            }
+
+            // Clear the canvas.
+            renderingContext.clearRect(0, 0, width, height);
+
+            // For every sprite, go to the current pair of keyframes.
+            // Then, draw the sprite based on the current frame.
+            for (var i = 0, maxI = sprites.length; i < maxI; i += 1) {
+                for (var j = 0, maxJ = sprites[i].keyframes.length - 1; j < maxJ; j += 1) {
+                    // We look for keyframe pairs such that the current
+                    // frame is between their frame numbers.
+                    if ((sprites[i].keyframes[j].frame <= currentFrame) &&
+                            (currentFrame <= sprites[i].keyframes[j + 1].frame)) {
+                        // Point to the start and end keyframes.
+                        var startKeyframe = sprites[i].keyframes[j];
+                        var endKeyframe = sprites[i].keyframes[j + 1];
+
+                        // Save the rendering context state.
+                        renderingContext.save();
+
+                        // Set up our start and distance values, using defaults
+                        // if necessary.
+                        var ease = startKeyframe.ease || KeyframeTweener.linear;
+
+                        var txStart = startKeyframe.tx || 0;
+                        var txDistance = (endKeyframe.tx || 0) - txStart;
+
+                        var tyStart = startKeyframe.ty || 0;
+                        var tyDistance = (endKeyframe.ty || 0) - tyStart;
+
+                        var sxStart = startKeyframe.sx || 1;
+                        var sxDistance = (endKeyframe.sx || 1) - sxStart;
+
+                        var syStart = startKeyframe.sy || 1;
+                        var syDistance = (endKeyframe.sy || 1) - syStart;
+
+                        var rotateStart = (startKeyframe.rotate || 0) * Math.PI / 180;
+                        var rotateDistance = (endKeyframe.rotate || 0) * Math.PI / 180 - rotateStart;
+
+                        var currentTweenFrame = currentFrame - startKeyframe.frame;
+                        var duration = endKeyframe.frame - startKeyframe.frame + 1;
+
+                        // Build our transform according to where we should be.
+                        renderingContext.translate(
+                            ease(currentTweenFrame, txStart, txDistance, duration),
+                            ease(currentTweenFrame, tyStart, tyDistance, duration)
+                        );
+                        renderingContext.scale(
+                            ease(currentTweenFrame, sxStart, sxDistance, duration),
+                            ease(currentTweenFrame, syStart, syDistance, duration)
+                        );
+                        renderingContext.rotate(
+                            ease(currentTweenFrame, rotateStart, rotateDistance, duration)
+                        );
+
+                        // Draw the sprite.
+                        sprites[i].draw(renderingContext);
+
+                        // Clean up.
+                        renderingContext.restore();
+                    }
+                }
+            }
+
+            // Move to the next frame.
+            currentFrame += 1;
+            previousTimestamp = timestamp;
+            window.requestAnimationFrame(nextFrame);
+        };
 
         window.requestAnimationFrame(nextFrame);
     };
