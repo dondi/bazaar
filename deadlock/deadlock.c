@@ -31,7 +31,7 @@ void *do_work_one(void *param) {
     int work_one_counter = 0;
 
     while (1) {
-        randomwait(1);
+        randomwait(2);
         printf("1.1 Work one getting first mutex...\n");
         pthread_mutex_lock(&first_mutex);
         printf("1.2 Work one getting second mutex...\n");
@@ -39,7 +39,7 @@ void *do_work_one(void *param) {
         
         printf("1.3 Work one: %d\n", work_one_counter);
         work_one_counter++;
-        randomwait(3);
+        randomwait(4);
         
         printf("1.4 Work one releasing second mutex...\n");
         pthread_mutex_unlock(&second_mutex);
@@ -57,7 +57,7 @@ void *do_work_two(void *param) {
     int work_two_counter = 0;
     
     while (1) {
-        randomwait(1);
+        randomwait(5);
         printf("2.1 Work two getting second mutex...\n");
         pthread_mutex_lock(&second_mutex);
         printf("2.2 Work two getting first mutex...\n");
@@ -65,7 +65,7 @@ void *do_work_two(void *param) {
         
         printf("2.3 Work two: %d\n", work_two_counter);
         work_two_counter++;
-        randomwait(2);
+        randomwait(4);
         
         printf("2.4 Work two releasing first mutex...\n");
         pthread_mutex_unlock(&first_mutex);
