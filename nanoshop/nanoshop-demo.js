@@ -92,10 +92,7 @@
         renderingContext.putImageData(
             Nanoshop.applyFilter(
                 renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-                // This is a basic "darkener."
-                function (x, y, r, g, b, a) {
-                    return [r / 2, g / 2, b / 2, a];
-                }
+                Nanoshop.darkener
             ),
             0, 0
         );
