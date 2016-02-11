@@ -20,91 +20,91 @@ var Primitives = {
      * "optional" parameter mechanism to keep things at a single method.
      */
     fillRect: function (context, x, y, w, h, c1, c2, c3, c4) {
-        var module = this,
-            i,
-            j,
-            bottom = y + h,
-            right = x + w,
-            leftColor = c1 ? [c1[0], c1[1], c1[2]] : c1,
-            rightColor = c2 ? [c2[0], c2[1], c2[2]] : c2,
-            leftVDelta,
-            rightVDelta,
-            hDelta,
-            currentColor,
+        var module = this;
+        var i;
+        var j;
+        var bottom = y + h;
+        var right = x + w;
+        var leftColor = c1 ? [c1[0], c1[1], c1[2]] : c1;
+        var rightColor = c2 ? [c2[0], c2[1], c2[2]] : c2;
+        var leftVDelta;
+        var rightVDelta;
+        var hDelta;
+        var currentColor;
 
-            // We have four subcases: zero, one, two, or four colors
-            // supplied.  The three-color case will be treated as if
-            // the third and fourth colors are the same.  Instead of
-            // embedding different logic into a single loop, we just
-            // break them up.  This allows each case to be "optimal"
-            // and simplifies reading the code.  There *is* some
-            // duplicate code, but in this case the benefits outweigh
-            // the cost.
-            fillRectNoColor = function () {
-                // The rendering context will just ignore the
-                // undefined colors in this case.
-                for (i = y; i < bottom; i += 1) {
-                    for (j = x; j < right; j += 1) {
-                        module.setPixel(context, j, i);
-                    }
+        // We have four subcases: zero, one, two, or four colors
+        // supplied.  The three-color case will be treated as if
+        // the third and fourth colors are the same.  Instead of
+        // embedding different logic into a single loop, we just
+        // break them up.  This allows each case to be "optimal"
+        // and simplifies reading the code.  There *is* some
+        // duplicate code, but in this case the benefits outweigh
+        // the cost.
+        var fillRectNoColor = function () {
+            // The rendering context will just ignore the
+            // undefined colors in this case.
+            for (i = y; i < bottom; i += 1) {
+                for (j = x; j < right; j += 1) {
+                    module.setPixel(context, j, i);
                 }
-            },
+            }
+        };
 
-            fillRectOneColor = function () {
-                // Single color all the way through.
-                for (i = y; i < bottom; i += 1) {
-                    for (j = x; j < right; j += 1) {
-                        module.setPixel(context, j, i, c1[0], c1[1], c1[2]);
-                    }
+        var fillRectOneColor = function () {
+            // Single color all the way through.
+            for (i = y; i < bottom; i += 1) {
+                for (j = x; j < right; j += 1) {
+                    module.setPixel(context, j, i, c1[0], c1[1], c1[2]);
                 }
-            },
+            }
+        };
 
-            fillRectTwoColors = function () {
-                // This modifies the color vertically only.
-                for (i = y; i < bottom; i += 1) {
-                    for (j = x; j < right; j += 1) {
-                        module.setPixel(context, j, i,
-                                leftColor[0],
-                                leftColor[1],
-                                leftColor[2]);
-                    }
-
-                    // Move to the next level of the gradient.
-                    leftColor[0] += leftVDelta[0];
-                    leftColor[1] += leftVDelta[1];
-                    leftColor[2] += leftVDelta[2];
+        var fillRectTwoColors = function () {
+            // This modifies the color vertically only.
+            for (i = y; i < bottom; i += 1) {
+                for (j = x; j < right; j += 1) {
+                    module.setPixel(context, j, i,
+                            leftColor[0],
+                            leftColor[1],
+                            leftColor[2]);
                 }
-            },
 
-            fillRectFourColors = function () {
-                for (i = y; i < bottom; i += 1) {
-                    // Move to the next "vertical" color level.
-                    currentColor = [leftColor[0], leftColor[1], leftColor[2]];
-                    hDelta = [(rightColor[0] - leftColor[0]) / w,
-                              (rightColor[1] - leftColor[1]) / w,
-                              (rightColor[2] - leftColor[2]) / w];
+                // Move to the next level of the gradient.
+                leftColor[0] += leftVDelta[0];
+                leftColor[1] += leftVDelta[1];
+                leftColor[2] += leftVDelta[2];
+            }
+        };
 
-                    for (j = x; j < right; j += 1) {
-                        module.setPixel(context, j, i,
-                                currentColor[0],
-                                currentColor[1],
-                                currentColor[2]);
+        var fillRectFourColors = function () {
+            for (i = y; i < bottom; i += 1) {
+                // Move to the next "vertical" color level.
+                currentColor = [leftColor[0], leftColor[1], leftColor[2]];
+                hDelta = [(rightColor[0] - leftColor[0]) / w,
+                          (rightColor[1] - leftColor[1]) / w,
+                          (rightColor[2] - leftColor[2]) / w];
 
-                        // Move to the next color horizontally.
-                        currentColor[0] += hDelta[0];
-                        currentColor[1] += hDelta[1];
-                        currentColor[2] += hDelta[2];
-                    }
+                for (j = x; j < right; j += 1) {
+                    module.setPixel(context, j, i,
+                            currentColor[0],
+                            currentColor[1],
+                            currentColor[2]);
 
-                    // The color on each side "grades" at different rates.
-                    leftColor[0] += leftVDelta[0];
-                    leftColor[1] += leftVDelta[1];
-                    leftColor[2] += leftVDelta[2];
-                    rightColor[0] += rightVDelta[0];
-                    rightColor[1] += rightVDelta[1];
-                    rightColor[2] += rightVDelta[2];
+                    // Move to the next color horizontally.
+                    currentColor[0] += hDelta[0];
+                    currentColor[1] += hDelta[1];
+                    currentColor[2] += hDelta[2];
                 }
-            };
+
+                // The color on each side "grades" at different rates.
+                leftColor[0] += leftVDelta[0];
+                leftColor[1] += leftVDelta[1];
+                leftColor[2] += leftVDelta[2];
+                rightColor[0] += rightVDelta[0];
+                rightColor[1] += rightVDelta[1];
+                rightColor[2] += rightVDelta[2];
+            }
+        };
 
         // Depending on which colors are supplied, we call a different
         // version of the fill code.
@@ -146,12 +146,12 @@ var Primitives = {
 
     // Our digital-differential analyzer (DDA) version.
     lineDDA: function (context, x1, y1, x2, y2, color) {
-        var steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)),
-            dx = (x2 - x1) / steps,
-            dy = (y2 - y1) / steps,
-            x = x1,
-            y = y1,
-            i;
+        var steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
+        var dx = (x2 - x1) / steps;
+        var dy = (y2 - y1) / steps;
+        var x = x1;
+        var y = y1;
+        var i;
 
         color = color || [0, 0, 0];
         for (i = 0; i <= steps; i += 1) {
@@ -163,11 +163,11 @@ var Primitives = {
 
     // Bresenham algorithm version 1.
     lineBres1: function (context, x1, y1, x2, y2, color) {
-        var x = x1,
-            y = y1,
-            dx = x2 - x1,
-            dy = y1 - y2,
-            err = 0;
+        var x = x1;
+        var y = y1;
+        var dx = x2 - x1;
+        var dy = y1 - y2;
+        var err = 0;
 
         color = color || [0, 0, 0];
         while (true) {
@@ -187,11 +187,11 @@ var Primitives = {
 
     // Bresenham algorithm version 2.
     lineBres2: function (context, x1, y1, x2, y2, color) {
-        var x = x1,
-            y = y1,
-            dx = x2 - x1,
-            dy = y1 - y2,
-            err = 0;
+        var x = x1;
+        var y = y1;
+        var dx = x2 - x1;
+        var dy = y1 - y2;
+        var err = 0;
 
         color = color || [0, 0, 0];
         while (true) {
@@ -213,11 +213,11 @@ var Primitives = {
 
     // Bresenham algorithm version 3.
     lineBres3: function (context, x1, y1, x2, y2, color) {
-        var x = x1,
-            y = y1,
-            dx = x2 - x1,
-            dy = y1 - y2,
-            err = 0;
+        var x = x1;
+        var y = y1;
+        var dx = x2 - x1;
+        var dy = y1 - y2;
+        var err = 0;
 
         color = color || [0, 0, 0];
         while (true) {
@@ -241,13 +241,13 @@ var Primitives = {
     // The final, optimized Bresenham algorithm: here, we presave
     // most values, and adjust them to compare only to zero.
     lineBresenham: function (context, x1, y1, x2, y2, color) {
-        var x = x1,
-            y = y1,
-            dx = x2 - x1,
-            dy = y1 - y2,
-            k1 = dy << 1, // dy divided by 2.
-            err = k1 - dx,
-            k2 = (dy - dx) << 1; // dy - dx divided by 2.
+        var x = x1;
+        var y = y1;
+        var dx = x2 - x1;
+        var dy = y1 - y2;
+        var k1 = dy << 1; // dy divided by 2.
+        var err = k1 - dx;
+        var k2 = (dy - dx) << 1; // dy - dx divided by 2.
 
         color = color || [0, 0, 0];
         while (true) {
@@ -286,15 +286,15 @@ var Primitives = {
 
     // First, the most naive possible implementation: circle by trigonometry.
     circleTrig: function (context, xc, yc, r, color) {
-        var theta = 1 / r,
+        var theta = 1 / r;
 
-            // At the very least, we compute our sine and cosine just once.
-            s = Math.sin(theta),
-            c = Math.cos(theta),
+        // At the very least, we compute our sine and cosine just once.
+        var s = Math.sin(theta);
+        var c = Math.cos(theta);
 
-            // We compute the first octant, from zero to pi/4.
-            x = r,
-            y = 0;
+        // We compute the first octant, from zero to pi/4.
+        var x = r;
+        var y = 0;
 
         while (x >= y) {
             this.plotCirclePoints(context, xc, yc, x, y, color);
@@ -305,9 +305,9 @@ var Primitives = {
 
     // Now DDA.
     circleDDA: function (context, xc, yc, r, color) {
-        var epsilon = 1 / r,
-            x = r,
-            y = 0;
+        var epsilon = 1 / r;
+        var x = r;
+        var y = 0;
 
         while (x >= y) {
             this.plotCirclePoints(context, xc, yc, x, y, color);
@@ -318,9 +318,9 @@ var Primitives = {
 
     // One of three Bresenham-like approaches.
     circleBres1: function (context, xc, yc, r, color) {
-        var p = 3 - 2 * r,
-            x = 0,
-            y = r;
+        var p = 3 - 2 * r;
+        var x = 0;
+        var y = r;
 
         while (x < y) {
             this.plotCirclePoints(context, xc, yc, x, y, color);
@@ -339,11 +339,11 @@ var Primitives = {
 
     // And another...
     circleBres2: function (context, xc, yc, r, color) {
-        var x = 0,
-            y = r,
-            e = 1 - r,
-            u = 1,
-            v = e - r;
+        var x = 0;
+        var y = r;
+        var e = 1 - r;
+        var u = 1;
+        var v = e - r;
 
         while (x <= y) {
             this.plotCirclePoints(context, xc, yc, x, y, color);
@@ -364,9 +364,9 @@ var Primitives = {
 
     // Last but not least...
     circleBres3: function (context, xc, yc, r, color) {
-        var x = r,
-            y = 0,
-            e = 0;
+        var x = r;
+        var y = 0;
+        var e = 0;
 
         while (y <= x) {
             this.plotCirclePoints(context, xc, yc, x, y, color);
@@ -401,71 +401,71 @@ var Primitives = {
 
     // Now to the function itself.
     fillPolygon: function (context, polygon, color) {
-        var Edge = this.Edge, // An alias for convenience.
+        var Edge = this.Edge; // An alias for convenience.
 
-            /*
-             * A useful helper function: this "snaps" a given y coordinate
-             * to its nearest scan line.
-             */
-            toScanLine = function (y) {
-                return Math.ceil(y);
-            },
+        /*
+         * A useful helper function: this "snaps" a given y coordinate
+         * to its nearest scan line.
+         */
+        var toScanLine = function (y) {
+            return Math.ceil(y);
+        };
 
-            /*
-             * We will need to sort edges by x coordinate.
-             */
-            xComparator = function (edge1, edge2) {
-                return (edge1.currentX - edge2.currentX);
-            },
+        /*
+         * We will need to sort edges by x coordinate.
+         */
+        var xComparator = function (edge1, edge2) {
+            return edge1.currentX - edge2.currentX;
+        };
 
-            /*
-             * We will need to do "array difference:" return an array whose
-             * elements are in the first array but not in the second.
-             */
-            arrayDifference = function (array1, array2) {
-                return array1.filter(function (element) {
-                    return array2.indexOf(element) < 0;
-                });
-            },
+        /*
+         * We will need to do "array difference:" return an array whose
+         * elements are in the first array but not in the second.
+         */
+        var arrayDifference = function (array1, array2) {
+            return array1.filter(function (element) {
+                return array2.indexOf(element) < 0;
+            });
+        };
 
-            /*
-             * An important helper function: this moves the edges whose
-             * minimum y match the given scan line from the source
-             * list to the destination. We assume that the source list
-             * is sorted by minimum y.
-             */
-            moveMatchingMinYs = function (src, dest, targetY) {
-                var i;
-                for (i = 0; i < src.length; i += 1) {
-                    if (toScanLine(src[i].minY) === targetY) {
-                        dest.push(src[i]);
-                    } else if (toScanLine(src[i].minY) > targetY) {
-                        // We can bail immediately because the global edge list is sorted.
-                        break;
-                    }
+        /*
+         * An important helper function: this moves the edges whose
+         * minimum y match the given scan line from the source
+         * list to the destination. We assume that the source list
+         * is sorted by minimum y.
+         */
+        var moveMatchingMinYs = function (src, dest, targetY) {
+            for (var i = 0, max = src.length; i < max; i += 1) {
+                if (toScanLine(src[i].minY) === targetY) {
+                    dest.push(src[i]);
+                } else if (toScanLine(src[i].minY) > targetY) {
+                    // We can bail immediately because the global edge list is sorted.
+                    break;
                 }
+            }
 
-                // Eliminate the moved edges from the source array; this is
-                // the function's result.
-                return arrayDifference(src, dest);
-            },
+            // Eliminate the moved edges from the source array; this is
+            // the function's result.
+            return arrayDifference(src, dest);
+        };
 
-            globalEdgeList = [], // List of all edges.
-            activeEdgeList = [], // List of all edges currently being scanned.
-            i,                   // Reusable index variable.
-            anEdge,              // Temporary edge holder.
-            currentScanLine,     // The scan line that is being drawn.
-            drawPixel,           // Whether we are supposed to plot something.
-            fromX,               // The starting x coordinate of the current scan line.
-            toX,                 // The ending x coordinate of the current scan line.
-            x,                   // Another reusable index variable, for drawing.
-            edgesToRemove;       // For use when, well, removing edges from a list.
+        var globalEdgeList = []; // List of all edges.
+        var activeEdgeList = []; // List of all edges currently being scanned.
+        var i;                   // Reusable index variable.
+        var max;                 // Another reusable variable, for loop maximums.
+        var anEdge;              // Temporary edge holder.
+        var currentScanLine;     // The scan line that is being drawn.
+        var drawPixel;           // Whether we are supposed to plot something.
+        var fromX;               // The starting x coordinate of the current scan line.
+        var toX;                 // The ending x coordinate of the current scan line.
+        var x;                   // Another reusable index variable, for drawing.
+        var edgesToRemove;       // For use when, well, removing edges from a list.
 
         // The usual color guard.
         color = color || [0, 0, 0];
 
         // Create the global edge list.
-        for (i = 0; i < polygon.length; i += 1) {
+        for (i = 0, max = polygon.length; i < max; i += 1) {
             // If we are at the last vertex, we go back to the first one.
             anEdge = new Edge(polygon[i], polygon[(i + 1) % polygon.length]);
 
@@ -496,7 +496,7 @@ var Primitives = {
         drawPixel = false;
         while (activeEdgeList.length) {
             fromX = Number.MAX_VALUE;
-            for (i = 0; i < activeEdgeList.length; i += 1) {
+            for (i = 0, max = activeEdgeList.length; i < max; i += 1) {
                 // If we're drawing pixels, we draw until we reach the x
                 // coordinate of this edge. Otherwise, we just remember where we
                 // are then move on.
@@ -527,7 +527,7 @@ var Primitives = {
 
             // Remove edges for which we have reached the maximum y.
             edgesToRemove = [];
-            for (i = 0; i < activeEdgeList.length; i += 1) {
+            for (i = 0, max = activeEdgeList.length; i < max; i += 1) {
                 if (toScanLine(activeEdgeList[i].maxY) === currentScanLine) {
                     edgesToRemove.push(activeEdgeList[i]);
                 }
@@ -538,7 +538,7 @@ var Primitives = {
             globalEdgeList = moveMatchingMinYs(globalEdgeList, activeEdgeList, currentScanLine);
 
             // Update the x coordinates of the active edges.
-            for (i = 0; i < activeEdgeList.length; i += 1) {
+            for (i = 0, max = activeEdgeList.length; i < max; i += 1) {
                 activeEdgeList[i].currentX += activeEdgeList[i].inverseSlope;
             }
 
