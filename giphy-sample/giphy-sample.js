@@ -9,12 +9,16 @@ $(function () {
                 api_key: "dc6zaTOxFJmzC"
             }
         ).done(function (result) {
-            var img = $("<img/>").attr({
-                    src: result.data[0].images.original.url,
-                    alt: "search result"
-                });
-
-            $("body").append(img);
+            $(".image-result-container").empty().append(
+                result.data.map(function (image) {
+                    return $("<div></div>").addClass("col-xs-2").append(
+                        $("<img/>").attr({
+                            src: image.images.fixed_width.url,
+                            alt: image.source_tld
+                        })
+                    );
+                })
+            );
         });
     });
 
