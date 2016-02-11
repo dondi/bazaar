@@ -3,9 +3,90 @@
  * "pixel neighborhood" filter on a canvas drawing.
  */
 (function () {
-    var canvas = $("#picture")[0],
-        renderingContext = canvas.getContext("2d"),
-        gradient;
+    var canvas = $("#picture")[0];
+    var renderingContext = canvas.getContext("2d");
+
+    // Scene created by Angela Elgar: https://github.com/aelgar
+    renderingContext.save();
+    renderingContext.translate(400, 200);
+    Sprites.Wall.draw(renderingContext, { });
+    
+    renderingContext.resetTransform();
+    renderingContext.translate(120, 220);
+    Sprites.Shelf.draw(renderingContext);
+    renderingContext.translate(220, 0);
+    Sprites.Shelf.draw(renderingContext);
+    renderingContext.resetTransform();
+    renderingContext.translate(510, 120);
+    Sprites.Chalkboard.draw(renderingContext, { variation: "A" });
+    renderingContext.translate(110, 0);
+    Sprites.Chalkboard.draw(renderingContext, { variation: "B" });
+    renderingContext.translate(110, 0);
+    Sprites.Chalkboard.draw(renderingContext, { variation: "A" });
+
+    renderingContext.resetTransform();
+    renderingContext.translate(80, 88);
+    renderingContext.scale(0.2, 0.2);
+    renderingContext.rotate(Math.PI);
+    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
+    renderingContext.translate(-180, 0);
+    Sprites.Cup.draw(renderingContext, { color:"DarkSalmon" });
+    renderingContext.translate(-180, 0);
+    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
+    
+    renderingContext.translate(-690, 0);
+    renderingContext.rotate(Math.PI);
+    Sprites.Cup.draw(renderingContext, { color:"SeaGreen" });
+    renderingContext.translate(250, 0);
+    Sprites.Cup.draw(renderingContext, { });
+    
+    renderingContext.resetTransform();
+    renderingContext.translate(70, 158);
+    renderingContext.scale(0.2, 0.2);
+    Sprites.Cup.draw(renderingContext, { color:"CadetBlue" });
+    renderingContext.translate(220, 0);
+    Sprites.Cup.draw(renderingContext, { color: "Plum" });
+    renderingContext.translate(220, 0);
+    Sprites.Cup.draw(renderingContext, { color: "CadetBlue" });
+
+    renderingContext.resetTransform();
+    renderingContext.translate(290, 228);
+    renderingContext.scale(0.2, 0.2);
+    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
+    renderingContext.translate(220, 0);
+    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
+    renderingContext.translate(220, 0);
+    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
+
+    renderingContext.resetTransform();
+    renderingContext.translate(570, 360);
+    Sprites.Counter.draw(renderingContext);
+    
+    renderingContext.resetTransform();
+    renderingContext.translate(540, 280);
+    renderingContext.scale(0.2, 0.2);
+    Sprites.Cup.draw(renderingContext, { steamOpacity: 0.3 });
+    renderingContext.translate(300,0);
+    Sprites.Cup.draw(renderingContext, { steamOpacity: 0.4, color: "SeaGreen" });
+
+    renderingContext.setTransform(.5, 0, 0, .5, 60, 50);
+    Sprites.RoomLight.draw(renderingContext, { brightness: 0.3 });
+    renderingContext.translate(300, -50);
+    renderingContext.scale(1.5, 1.2);
+    Sprites.RoomLight.draw(renderingContext, { brightness: 0.5 });
+    renderingContext.translate(280, -20);
+    renderingContext.scale(0.5, 1);
+    Sprites.RoomLight.draw(renderingContext, { brightness: 0.3 });
+    renderingContext.translate(500, 30);
+    renderingContext.scale(2.5, 0.7);
+    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
+    renderingContext.translate(160, -80);
+    renderingContext.scale(0.5, 1);
+    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
+    renderingContext.translate(-800, -600);
+    renderingContext.scale(5, 2.5);
+    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
+    renderingContext.restore();
 
     // Some edge lines to test for wraparound bleeding.
     renderingContext.strokeStyle = "yellow";
@@ -37,49 +118,6 @@
     renderingContext.moveTo(canvas.width - 1, canvas.height / 2);
     renderingContext.lineTo(canvas.width - 1, canvas.height - 1);
     renderingContext.stroke();
-
-    // Adapted from original code by Tyler Nichols.
-    gradient = renderingContext.createRadialGradient(120, 120, 15, 120, 120, 75);
-    gradient.addColorStop(0, "rgb(255, 102, 102)");
-    gradient.addColorStop(1, "red");
-
-    // Draw the sphere with a radial gradient.
-    renderingContext.beginPath();
-    renderingContext.fillStyle = gradient;
-    renderingContext.arc(150, 150, 75, 0, 2 * Math.PI, true);
-    renderingContext.shadowColor = "gray";
-    renderingContext.shadowBlur = 20;
-    renderingContext.shadowOffsetX = 10;
-    renderingContext.shadowOffsetY = 15;
-    renderingContext.fill();
-    renderingContext.closePath();
-
-    // Draw the top of the cube.
-    renderingContext.beginPath();
-    renderingContext.fillStyle = "rgb(140, 140, 140)";
-    renderingContext.moveTo(300, 300);
-    renderingContext.lineTo(335, 265);
-    renderingContext.lineTo(435, 265);
-    renderingContext.lineTo(400, 300);
-    renderingContext.lineTo(300, 300);
-    renderingContext.fill();
-    renderingContext.closePath();
-
-    // Draw the face of the cube.
-    renderingContext.fillStyle = "rgb(110, 110, 110)";
-    renderingContext.fillRect(300, 300, 100, 100);
-
-    // Draw the right side of the cube.
-    renderingContext.beginPath();
-    renderingContext.fillStyle = "rgb(79, 79, 79)";
-    renderingContext.moveTo(435, 265);
-    renderingContext.lineTo(435, 355);
-    renderingContext.lineTo(400, 400);
-    renderingContext.lineTo(400, 300);
-    renderingContext.lineTo(435, 265);
-    renderingContext.fill();
-    renderingContext.closePath();
-    // (end of adapted code by Tyler Nichols)
 
     // Set a little event handler to apply the filter.
     $("#apply-filter-button").click(function () {
