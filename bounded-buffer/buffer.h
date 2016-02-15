@@ -1,8 +1,8 @@
 /**
  * Public definitions for a bounded buffer.
  */
-#ifndef __BUFFER__
-#define __BUFFER__
+#ifndef BOUNDED_BUFFER_DEFINITIONS
+#define BOUNDED_BUFFER_DEFINITIONS
 
 typedef int buffer_item;
 

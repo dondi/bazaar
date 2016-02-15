@@ -1,8 +1,8 @@
 /**
  * Definitions for critical-section functions and shared resources.
  */
-#ifndef __BB_CS__
-#define __BB_CS__
+#ifndef BOUNDED_BUFFER_CRITICAL_SECTION
+#define BOUNDED_BUFFER_CRITICAL_SECTION
 
 #include "buffer.h"
 

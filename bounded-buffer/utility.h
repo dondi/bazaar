@@ -1,8 +1,8 @@
 /**
  * Useful functions for critical-solution programs.
  */
-#ifndef __UTILITY__
-#define __UTILITY__
+#ifndef BOUNDED_BUFFER_UTILITIES
+#define BOUNDED_BUFFER_UTILITIES
 
 int randomwait(int bound);
 
