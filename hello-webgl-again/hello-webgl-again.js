@@ -3,115 +3,66 @@
  * takes the canvas that it will need.
  */
 (function (canvas) {
+    /*
+     * This code does not really belong here: it should live
+     * in a separate library of matrix and transformation
+     * functions.  It is here only to show you how matrices
+     * can be used with GLSL.
+     *
+     * Based on the original glRotate reference:
+     *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
+     */
+    var getRotationMatrix = function (angle, x, y, z) {
+        // In production code, this function should be associated
+        // with a matrix object with associated functions.
+        var axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
+        var s = Math.sin(angle * Math.PI / 180.0);
+        var c = Math.cos(angle * Math.PI / 180.0);
+        var oneMinusC = 1.0 - c;
 
-    // Because many of these variables are best initialized then immediately
-    // used in context, we merely name them here.  Read on to see how they
-    // are used.
-    var gl, // The WebGL context.
+        // Normalize the axis vector of rotation.
+        x /= axisLength;
+        y /= axisLength;
+        z /= axisLength;
 
-        // This variable stores 3D model information.
-        objectsToDraw,
+        // Now we can calculate the other terms.
+        // "2" for "squared."
+        var x2 = x * x;
+        var y2 = y * y;
+        var z2 = z * z;
+        var xy = x * y;
+        var yz = y * z;
+        var xz = x * z;
+        var xs = x * s;
+        var ys = y * s;
+        var zs = z * s;
 
-        // The shader program to use.
-        shaderProgram,
+        // GL expects its matrices in column major order.
+        return [
+            (x2 * oneMinusC) + c,
+            (xy * oneMinusC) + zs,
+            (xz * oneMinusC) - ys,
+            0.0,
 
-        // Utility variable indicating whether some fatal has occurred.
-        abort = false,
+            (xy * oneMinusC) - zs,
+            (y2 * oneMinusC) + c,
+            (yz * oneMinusC) + xs,
+            0.0,
 
-        // Important state variables.
-        animationActive = false,
-        currentRotation = 0.0,
-        rotationMatrix,
-        vertexPosition,
-        vertexColor,
+            (xz * oneMinusC) + ys,
+            (yz * oneMinusC) - xs,
+            (z2 * oneMinusC) + c,
+            0.0,
 
-        // An individual "draw object" function.
-        drawObject,
-
-        // The big "draw scene" function.
-        drawScene,
-
-        // State and function for performing animation.
-        previousTimestamp,
-        advanceScene,
-
-        // Reusable loop variables.
-        i,
-        maxi,
-        j,
-        maxj,
-
-        /*
-         * This code does not really belong here: it should live
-         * in a separate library of matrix and transformation
-         * functions.  It is here only to show you how matrices
-         * can be used with GLSL.
-         *
-         * Based on the original glRotate reference:
-         *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
-         */
-        getRotationMatrix = function (angle, x, y, z) {
-            // In production code, this function should be associated
-            // with a matrix object with associated functions.
-            var axisLength = Math.sqrt((x * x) + (y * y) + (z * z)),
-                s = Math.sin(angle * Math.PI / 180.0),
-                c = Math.cos(angle * Math.PI / 180.0),
-                oneMinusC = 1.0 - c,
-
-                // We can't calculate this until we have normalized
-                // the axis vector of rotation.
-                x2, // "2" for "squared."
-                y2,
-                z2,
-                xy,
-                yz,
-                xz,
-                xs,
-                ys,
-                zs;
-
-            // Normalize the axis vector of rotation.
-            x /= axisLength;
-            y /= axisLength;
-            z /= axisLength;
-
-            // *Now* we can calculate the other terms.
-            x2 = x * x;
-            y2 = y * y;
-            z2 = z * z;
-            xy = x * y;
-            yz = y * z;
-            xz = x * z;
-            xs = x * s;
-            ys = y * s;
-            zs = z * s;
-
-            // GL expects its matrices in column major order.
-            return [
-                (x2 * oneMinusC) + c,
-                (xy * oneMinusC) + zs,
-                (xz * oneMinusC) - ys,
-                0.0,
-
-                (xy * oneMinusC) - zs,
-                (y2 * oneMinusC) + c,
-                (yz * oneMinusC) + xs,
-                0.0,
-
-                (xz * oneMinusC) + ys,
-                (yz * oneMinusC) - xs,
-                (z2 * oneMinusC) + c,
-                0.0,
-
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ];
-        };
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ];
+    };
 
     // Grab the WebGL rendering context.
-    gl = GLSLUtilities.getGL(canvas);
+    var gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
         alert("No WebGL context found...sorry.");
 
@@ -127,7 +78,7 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.
-    objectsToDraw = [
+    var objectsToDraw = [
         {
             vertices: [].concat(
                 [ 0.0, 0.0, 0.0 ],
@@ -181,7 +132,7 @@
     ];
 
     // Pass the vertices to WebGL.
-    for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+    for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
         objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
                 objectsToDraw[i].vertices);
 
@@ -189,7 +140,7 @@
             // If we have a single color, we expand that into an array
             // of the same color over and over.
             objectsToDraw[i].colors = [];
-            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
+            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3;
                     j < maxj; j += 1) {
                 objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
                     objectsToDraw[i].color.r,
@@ -203,7 +154,8 @@
     }
 
     // Initialize the shaders.
-    shaderProgram = GLSLUtilities.initSimpleShaderProgram(
+    var abort = false;
+    var shaderProgram = GLSLUtilities.initSimpleShaderProgram(
         gl,
         $("#vertex-shader").text(),
         $("#fragment-shader").text(),
@@ -232,16 +184,16 @@
     gl.useProgram(shaderProgram);
 
     // Hold on to the important variables within the shaders.
-    vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
+    var vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
+    var vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
-    rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
+    var rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
 
     /*
      * Displays an individual object.
      */
-    drawObject = function (object) {
+    var drawObject = function (object) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
@@ -255,7 +207,7 @@
     /*
      * Displays the scene.
      */
-    drawScene = function () {
+    var drawScene = function () {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -263,7 +215,7 @@
         gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 0, 1, 0)));
 
         // Display the objects.
-        for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
             drawObject(objectsToDraw[i]);
         }
 
@@ -274,8 +226,11 @@
     /*
      * Animates the scene.
      */
-    previousTimestamp = null;
-    advanceScene = function (timestamp) {
+    var animationActive = false;
+    var currentRotation = 0.0;
+    var previousTimestamp = null;
+
+    var advanceScene = function (timestamp) {
         // Check if the user has turned things off.
         if (!animationActive) {
             return;
