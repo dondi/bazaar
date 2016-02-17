@@ -37,6 +37,25 @@ var NanoshopNeighborhood = {
     },
 
     /*
+     * This is a rudimentary edge dector---another filter that would not be possible
+     * without knowing about the other pixels in our neighborhood.
+     */
+    basicEdgeDetector: function (x, y, rgbaNeighborhood) {
+        var neighborTotal = 0;
+        for (var i = 0; i < 9; i += 1) {
+            if (i !== 4) {
+                neighborTotal += (rgbaNeighborhood[i].r + rgbaNeighborhood[i].g + rgbaNeighborhood[i].b);
+            }
+        }
+
+        var myAverage = (rgbaNeighborhood[4].r + rgbaNeighborhood[4].g + rgbaNeighborhood[4].b) / 3;
+        var neighborAverage = neighborTotal / 3 / 8; // Three components, eight neighbors.
+
+        return myAverage < neighborAverage ? [ 0, 0, 0, rgbaNeighborhood[4].a ] :
+                [ 255, 255, 255, rgbaNeighborhood[4].a ];
+    },
+
+    /*
      * Applies the given filter to the given ImageData object,
      * then modifies its pixels according to the given filter.
      *
