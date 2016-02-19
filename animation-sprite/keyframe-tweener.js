@@ -100,12 +100,12 @@
                             ease(currentTweenFrame, txStart, txDistance, duration),
                             ease(currentTweenFrame, tyStart, tyDistance, duration)
                         );
+                        renderingContext.rotate(
+                            ease(currentTweenFrame, rotateStart, rotateDistance, duration)
+                        );
                         renderingContext.scale(
                             ease(currentTweenFrame, sxStart, sxDistance, duration),
                             ease(currentTweenFrame, syStart, syDistance, duration)
-                        );
-                        renderingContext.rotate(
-                            ease(currentTweenFrame, rotateStart, rotateDistance, duration)
                         );
 
                         // Draw the sprite.
