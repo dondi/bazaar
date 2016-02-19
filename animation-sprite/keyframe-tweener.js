@@ -103,7 +103,6 @@
                             renderingContext.rotate(
                                 ease(currentTweenFrame, rotateStart, rotateDistance, duration)
                             );
-
                             renderingContext.scale(
                                 ease(currentTweenFrame, sxStart, sxDistance, duration),
                                 ease(currentTweenFrame, syStart, syDistance, duration)
