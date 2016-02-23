@@ -3,9 +3,9 @@
  * "pixel neighborhood" filter on a canvas drawing.
  */
 (function () {
-    var canvas = $("#picture")[0],
-        renderingContext = canvas.getContext("2d"),
-        gradient;
+    var canvas = $("#picture")[0];
+    var renderingContext = canvas.getContext("2d");
+    var gradient;
 
     // Some edge lines to test for wraparound bleeding.
     renderingContext.strokeStyle = "yellow";

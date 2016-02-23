@@ -3,9 +3,9 @@
  * filter on a canvas drawing.
  */
 (function () {
-    var canvas = $("#picture")[0],
-        renderingContext = canvas.getContext("2d"),
-        gradient;
+    var canvas = $("#picture")[0];
+    var renderingContext = canvas.getContext("2d");
+    var gradient;
 
     // Adapted from original code by Tyler Nichols.
     gradient = renderingContext.createRadialGradient(120, 120, 15, 120, 120, 75);
