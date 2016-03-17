@@ -40,9 +40,9 @@ $(function () {
     });
 
     test("Addition and Subtraction", function () {
-        var v1 = new Vector(4, 5),
-            v2 = new Vector(-10, 4),
-            vresult = v1.add(v2);
+        var v1 = new Vector(4, 5);
+        var v2 = new Vector(-10, 4);
+        var vresult = v1.add(v2);
 
         equal(vresult.dimensions(), 2, "Vector sum size check");
         equal(vresult.x(), -6, "Vector sum first element");
@@ -72,8 +72,8 @@ $(function () {
     });
 
     test("Scalar Multiplication and Division", function () {
-        var v = new Vector(8, 2, 3),
-            vresult = v.multiply(2);
+        var v = new Vector(8, 2, 3);
+        var vresult = v.multiply(2);
 
         equal(vresult.x(), 16, "Vector scalar multiplication first element");
         equal(vresult.y(), 4, "Vector scalar multiplication second element");
@@ -87,8 +87,8 @@ $(function () {
     });
 
     test("Dot Product", function () {
-        var v1 = new Vector(-5, -2),
-            v2 = new Vector(-3, 4);
+        var v1 = new Vector(-5, -2);
+        var v2 = new Vector(-3, 4);
 
         equal(v1.dot(v2), 7, "2D dot product");
 
@@ -122,9 +122,8 @@ $(function () {
     });
 
     test("Cross Product", function () {
-        var v1 = new Vector(3, 4),
-            v2 = new Vector(1, 2),
-            vresult;
+        var v1 = new Vector(3, 4);
+        var v2 = new Vector(1, 2);
 
         // The cross product is restricted to 3D, so we start
         // with an error check.
@@ -139,7 +138,7 @@ $(function () {
         // establishes the right-handedness of a cross-product.
         v1 = new Vector(1, 0, 0);
         v2 = new Vector(0, 1, 0);
-        vresult = v1.cross(v2);
+        var vresult = v1.cross(v2);
 
         equal(vresult.x(), 0, "Cross product first element");
         equal(vresult.y(), 0, "Cross product second element");
@@ -180,8 +179,8 @@ $(function () {
     });
 
     test("Projection", function () {
-        var v = new Vector(3, 3, 0),
-            vresult = v.projection(new Vector(5, 0, 0));
+        var v = new Vector(3, 3, 0);
+        var vresult = v.projection(new Vector(5, 0, 0));
 
         equal(vresult.magnitude(), 3, "3D vector projection magnitude check");
         equal(vresult.x(), 3, "3D vector projection first element");
