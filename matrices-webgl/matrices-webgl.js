@@ -7,144 +7,144 @@
     // Because many of these variables are best initialized then immediately
     // used in context, we merely name them here.  Read on to see how they
     // are used.
-    var gl, // The WebGL context.
+    var gl; // The WebGL context.
 
-        // This variable stores 3D model information.
-        objectsToDraw,
+    // This variable stores 3D model information.
+    var objectsToDraw;
 
-        // The shader program to use.
-        shaderProgram,
+    // The shader program to use.
+    var shaderProgram;
 
-        // Utility variable indicating whether some fatal has occurred.
-        abort = false,
+    // Utility variable indicating whether some fatal has occurred.
+    var abort = false;
 
-        // Important state variables.
-        animationActive = false,
-        currentRotation = 0.0,
-        currentInterval,
-        modelViewMatrix,
-        projectionMatrix,
-        vertexPosition,
-        vertexColor,
+    // Important state variables.
+    var animationActive = false;
+    var currentRotation = 0.0;
+    var currentInterval;
+    var modelViewMatrix;
+    var projectionMatrix;
+    var vertexPosition;
+    var vertexColor;
 
-        // An individual "draw object" function.
-        drawObject,
+    // An individual "draw object" function.
+    var drawObject;
 
-        // The big "draw scene" function.
-        drawScene,
+    // The big "draw scene" function.
+    var drawScene;
 
-        // State and function for performing animation.
-        previousTimestamp,
-        advanceScene,
+    // State and function for performing animation.
+    var previousTimestamp;
+    var advanceScene;
 
-        // Reusable loop variables.
-        i,
-        maxi,
-        j,
-        maxj,
+    // Reusable loop variables.
+    var i;
+    var maxi;
+    var j;
+    var maxj;
 
-        /*
-         * This code does not really belong here: it should live
-         * in a separate library of matrix and transformation
-         * functions.  It is here only to show you how matrices
-         * can be used with GLSL.
-         *
-         * Based on the original glRotate reference:
-         *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
-         */
-        getRotationMatrix = function (angle, x, y, z) {
-            // In production code, this function should be associated
-            // with a matrix object with associated functions.
-            var axisLength = Math.sqrt((x * x) + (y * y) + (z * z)),
-                s = Math.sin(angle * Math.PI / 180.0),
-                c = Math.cos(angle * Math.PI / 180.0),
-                oneMinusC = 1.0 - c,
+    /*
+     * This code does not really belong here: it should live
+     * in a separate library of matrix and transformation
+     * functions.  It is here only to show you how matrices
+     * can be used with GLSL.
+     *
+     * Based on the original glRotate reference:
+     *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
+     */
+    var getRotationMatrix = function (angle, x, y, z) {
+        // In production code, this function should be associated
+        // with a matrix object with associated functions.
+        var axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
+        var s = Math.sin(angle * Math.PI / 180.0);
+        var c = Math.cos(angle * Math.PI / 180.0);
+        var oneMinusC = 1.0 - c;
 
-                // We can't calculate this until we have normalized
-                // the axis vector of rotation.
-                x2, // "2" for "squared."
-                y2,
-                z2,
-                xy,
-                yz,
-                xz,
-                xs,
-                ys,
-                zs;
+        // We can't calculate this until we have normalized
+        // the axis vector of rotation.
+        var x2; // "2" for "squared."
+        var y2;
+        var z2;
+        var xy;
+        var yz;
+        var xz;
+        var xs;
+        var ys;
+        var zs;
 
-            // Normalize the axis vector of rotation.
-            x /= axisLength;
-            y /= axisLength;
-            z /= axisLength;
+        // Normalize the axis vector of rotation.
+        x /= axisLength;
+        y /= axisLength;
+        z /= axisLength;
 
-            // *Now* we can calculate the other terms.
-            x2 = x * x;
-            y2 = y * y;
-            z2 = z * z;
-            xy = x * y;
-            yz = y * z;
-            xz = x * z;
-            xs = x * s;
-            ys = y * s;
-            zs = z * s;
+        // *Now* we can calculate the other terms.
+        x2 = x * x;
+        y2 = y * y;
+        z2 = z * z;
+        xy = x * y;
+        yz = y * z;
+        xz = x * z;
+        xs = x * s;
+        ys = y * s;
+        zs = z * s;
 
-            // GL expects its matrices in column major order.
-            return [
-                (x2 * oneMinusC) + c,
-                (xy * oneMinusC) + zs,
-                (xz * oneMinusC) - ys,
-                0.0,
+        // GL expects its matrices in column major order.
+        return [
+            (x2 * oneMinusC) + c,
+            (xy * oneMinusC) + zs,
+            (xz * oneMinusC) - ys,
+            0.0,
 
-                (xy * oneMinusC) - zs,
-                (y2 * oneMinusC) + c,
-                (yz * oneMinusC) + xs,
-                0.0,
+            (xy * oneMinusC) - zs,
+            (y2 * oneMinusC) + c,
+            (yz * oneMinusC) + xs,
+            0.0,
 
-                (xz * oneMinusC) + ys,
-                (yz * oneMinusC) - xs,
-                (z2 * oneMinusC) + c,
-                0.0,
+            (xz * oneMinusC) + ys,
+            (yz * oneMinusC) - xs,
+            (z2 * oneMinusC) + c,
+            0.0,
 
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ];
-        },
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ];
+    };
 
-        /*
-         * This is another function that really should reside in a
-         * separate library.  But, because the creation of that library
-         * is part of the student course work, we leave it here for
-         * later refactoring and adaptation by students.
-         */
-        getOrthoMatrix = function (left, right, bottom, top, zNear, zFar) {
-            var width = right - left,
-                height = top - bottom,
-                depth = zFar - zNear;
+    /*
+     * This is another function that really should reside in a
+     * separate library.  But, because the creation of that library
+     * is part of the student course work, we leave it here for
+     * later refactoring and adaptation by students.
+     */
+    var getOrthoMatrix = function (left, right, bottom, top, zNear, zFar) {
+        var width = right - left;
+        var height = top - bottom;
+        var depth = zFar - zNear;
 
-            return [
-                2.0 / width,
-                0.0,
-                0.0,
-                0.0,
+        return [
+            2.0 / width,
+            0.0,
+            0.0,
+            0.0,
 
-                0.0,
-                2.0 / height,
-                0.0,
-                0.0,
+            0.0,
+            2.0 / height,
+            0.0,
+            0.0,
 
-                0.0,
-                0.0,
-                -2.0 / depth,
-                0.0,
+            0.0,
+            0.0,
+            -2.0 / depth,
+            0.0,
 
-                -(right + left) / width,
-                -(top + bottom) / height,
-                -(zFar + zNear) / depth,
-                1.0
-            ];
-        };
+            -(right + left) / width,
+            -(top + bottom) / height,
+            -(zFar + zNear) / depth,
+            1.0
+        ];
+    };
 
     // Grab the WebGL rendering context.
     gl = GLSLUtilities.getGL(canvas);

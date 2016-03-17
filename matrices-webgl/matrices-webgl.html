@@ -1,80 +1,80 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Matrices in WebGL</title>
-        <link rel="stylesheet" href="matrices-webgl.css" />
-    </head>
-    <body>
-        <h1>Matrices in WebGL</h1>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Matrices in WebGL</title>
+    <link rel="stylesheet" href="matrices-webgl.css" />
+  </head>
+  <body>
+    <h1>Matrices in WebGL</h1>
 
-        <p>You’ll need a WebGL-capable web browser to see anything here;
-            instructions can be found in this
-            <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">official
-            WebGL wiki page</a>.</p>
+    <p>You’ll need a WebGL-capable web browser to see anything here;
+        instructions can be found in this
+        <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">official
+        WebGL wiki page</a>.</p>
 
-        <p>This page demonstrates a typical model-view + projection
-            matrix setup in WebGL.  It includes some "stock" matrix
-            code but does not have a complete set.</p>
+    <p>This page demonstrates a typical model-view + projection
+        matrix setup in WebGL.  It includes some "stock" matrix
+        code but does not have a complete set.</p>
 
-        <!-- Note the rectangular canvas now. -->
-        <canvas id="matrices-webgl" width="1024" height="512">
-            Sorry, your web browser does not appear to support
-            the <code>canvas</code> element, either.
-        </canvas>
+    <!-- Note the rectangular canvas now. -->
+    <canvas id="matrices-webgl" width="1024" height="512">
+      Sorry, your web browser does not appear to support
+      the <code>canvas</code> element, either.
+    </canvas>
 
-        <!-- jQuery makes some things more convenient. -->
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- jQuery makes some things more convenient. -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-        <!-- GLSLUtilities is a starting point for holding functionality that
-             is common to many WebGL programs. -->
-        <script src="glsl-utilities.js"></script>
+    <!-- GLSLUtilities is a starting point for holding functionality that
+         is common to many WebGL programs. -->
+    <script src="glsl-utilities.js"></script>
 
-        <!-- Shapes is a library that generates "canned" shapes. -->
-        <script src="shapes.js"></script>
+    <!-- Shapes is a library that generates "canned" shapes. -->
+    <script src="shapes.js"></script>
 
-        <!-- Set up shaders: we've placed the source in script elements for
-            simplicity.  Shaders are ideally kept in separate files for easier
-            maintenance, but in that situation, additional code and security
-            constraints are involved. -->
+    <!-- Set up shaders: we've placed the source in script elements for
+        simplicity.  Shaders are ideally kept in separate files for easier
+        maintenance, but in that situation, additional code and security
+        constraints are involved. -->
 
-        <!-- The vertex shader is a complete pass-through. -->
-        <script id="vertex-shader" type="x-shader/x-vertex">
-            #ifdef GL_ES
-            precision highp float;
-            #endif
+    <!-- The vertex shader is a complete pass-through. -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
 
-            attribute vec3 vertexPosition;
+        attribute vec3 vertexPosition;
 
-            // Note this new additional output.
-            attribute vec3 vertexColor;
-            varying vec4 finalVertexColor;
-            uniform mat4 projectionMatrix;
-            uniform mat4 modelViewMatrix;
+        // Note this new additional output.
+        attribute vec3 vertexColor;
+        varying vec4 finalVertexColor;
+        uniform mat4 projectionMatrix;
+        uniform mat4 modelViewMatrix;
 
-            void main(void) {
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
-                finalVertexColor = vec4(vertexColor, 1.0);
-            }
-        </script>
+        void main(void) {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
+            finalVertexColor = vec4(vertexColor, 1.0);
+        }
+    </script>
 
-        <!-- The fragment shader produces a single unconditional color. -->
-        <script id="fragment-shader" type="x-shader/x-fragment">
-            #ifdef GL_ES
-            precision highp float;
-            #endif
+    <!-- The fragment shader produces a single unconditional color. -->
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
 
-            varying vec4 finalVertexColor;
+        varying vec4 finalVertexColor;
 
-            void main(void) {
-                // We vary the color based on the fragment's z coordinate,
-                // which, at this point, ranges from 0 (near) to 1 (far).
-                // Note the ".rgb" subselector.
-                gl_FragColor = vec4((1.0 - gl_FragCoord.z) * finalVertexColor.rgb, 1.0);
-            }
-        </script>
+        void main(void) {
+            // We vary the color based on the fragment's z coordinate,
+            // which, at this point, ranges from 0 (near) to 1 (far).
+            // Note the ".rgb" subselector.
+            gl_FragColor = vec4((1.0 - gl_FragCoord.z) * finalVertexColor.rgb, 1.0);
+        }
+    </script>
 
-        <!-- This script sets up the specific scene for this page. -->
-        <script src="matrices-webgl.js"></script>
+    <!-- This script sets up the specific scene for this page. -->
+    <script src="matrices-webgl.js"></script>
   </body>
 </html>
