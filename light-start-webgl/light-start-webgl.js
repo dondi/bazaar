@@ -212,7 +212,7 @@
             // If we have a single color, we expand that into an array
             // of the same color over and over.
             objectsToDraw[i].colors = [];
-            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3; j < maxj; j += 1) {
+            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3; j < maxj; j += 1) {
                 objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
                     objectsToDraw[i].color.r,
                     objectsToDraw[i].color.g,

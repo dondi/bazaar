@@ -3,165 +3,100 @@
  * takes the canvas that it will need.
  */
 (function (canvas) {
+    /*
+     * This code does not really belong here: it should live
+     * in a separate library of matrix and transformation
+     * functions.  It is here only to show you how matrices
+     * can be used with GLSL.
+     *
+     * Based on the original glRotate reference:
+     *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
+     */
+    var getRotationMatrix = function (angle, x, y, z) {
+        // In production code, this function should be associated
+        // with a matrix object with associated functions.
+        var axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
+        var s = Math.sin(angle * Math.PI / 180.0);
+        var c = Math.cos(angle * Math.PI / 180.0);
+        var oneMinusC = 1.0 - c;
 
-    // Because many of these variables are best initialized then immediately
-    // used in context, we merely name them here.  Read on to see how they
-    // are used.
-    var gl, // The WebGL context.
+        // Normalize the axis vector of rotation.
+        x /= axisLength;
+        y /= axisLength;
+        z /= axisLength;
 
-        // This variable stores 3D model information.
-        objectsToDraw,
+        // Now we can calculate the other terms.
+        // "2" for "squared."
+        var x2 = x * x;
+        var y2 = y * y;
+        var z2 = z * z;
+        var xy = x * y;
+        var yz = y * z;
+        var xz = x * z;
+        var xs = x * s;
+        var ys = y * s;
+        var zs = z * s;
 
-        // The shader program to use.
-        shaderProgram,
+        // GL expects its matrices in column major order.
+        return [
+            (x2 * oneMinusC) + c,
+            (xy * oneMinusC) + zs,
+            (xz * oneMinusC) - ys,
+            0.0,
 
-        // Utility variable indicating whether some fatal has occurred.
-        abort = false,
+            (xy * oneMinusC) - zs,
+            (y2 * oneMinusC) + c,
+            (yz * oneMinusC) + xs,
+            0.0,
 
-        // The raw meshes from which we will derive our objects.
-        mesh = Shapes.icosahedron(),
+            (xz * oneMinusC) + ys,
+            (yz * oneMinusC) - xs,
+            (z2 * oneMinusC) + c,
+            0.0,
 
-        // Important state variables.  Yep, they are growing!
-        modelViewMatrix,
-        xRotationMatrix,
-        yRotationMatrix,
-        projectionMatrix,
-        vertexPosition,
-        vertexDiffuseColor,
-        vertexSpecularColor,
-        shininess,
-        rotationAroundX = 0.0,
-        rotationAroundY = 0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ];
+    };
 
-        // For emphasis, we separate the variables that involve lighting.
-        normalVector,
-        lightPosition,
-        lightDiffuse,
-        lightSpecular,
+    /*
+     * This is another function that really should reside in a
+     * separate library.  But, because the creation of that library
+     * is part of the student course work, we leave it here for
+     * later refactoring and adaptation by students.
+     */
+    var getOrthoMatrix = function (left, right, bottom, top, zNear, zFar) {
+        var width = right - left;
+        var height = top - bottom;
+        var depth = zFar - zNear;
 
-        // An individual "draw object" function.
-        drawObject,
+        return [
+            2.0 / width,
+            0.0,
+            0.0,
+            0.0,
 
-        // The big "draw scene" function.
-        drawScene,
+            0.0,
+            2.0 / height,
+            0.0,
+            0.0,
 
-        // Transient state variables for event handling.
-        xDragStart,
-        yDragStart,
-        xRotationStart,
-        yRotationStart,
+            0.0,
+            0.0,
+            -2.0 / depth,
+            0.0,
 
-        // Reusable loop variables.
-        i,
-        maxi,
-        j,
-        maxj,
-
-        /*
-         * This code does not really belong here: it should live
-         * in a separate library of matrix and transformation
-         * functions.  It is here only to show you how matrices
-         * can be used with GLSL.
-         *
-         * Based on the original glRotate reference:
-         *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
-         */
-        getRotationMatrix = function (angle, x, y, z) {
-            // In production code, this function should be associated
-            // with a matrix object with associated functions.
-            var axisLength = Math.sqrt((x * x) + (y * y) + (z * z)),
-                s = Math.sin(angle * Math.PI / 180.0),
-                c = Math.cos(angle * Math.PI / 180.0),
-                oneMinusC = 1.0 - c,
-
-                // We can't calculate this until we have normalized
-                // the axis vector of rotation.
-                x2, // "2" for "squared."
-                y2,
-                z2,
-                xy,
-                yz,
-                xz,
-                xs,
-                ys,
-                zs;
-
-            // Normalize the axis vector of rotation.
-            x /= axisLength;
-            y /= axisLength;
-            z /= axisLength;
-
-            // *Now* we can calculate the other terms.
-            x2 = x * x;
-            y2 = y * y;
-            z2 = z * z;
-            xy = x * y;
-            yz = y * z;
-            xz = x * z;
-            xs = x * s;
-            ys = y * s;
-            zs = z * s;
-
-            // GL expects its matrices in column major order.
-            return [
-                (x2 * oneMinusC) + c,
-                (xy * oneMinusC) + zs,
-                (xz * oneMinusC) - ys,
-                0.0,
-
-                (xy * oneMinusC) - zs,
-                (y2 * oneMinusC) + c,
-                (yz * oneMinusC) + xs,
-                0.0,
-
-                (xz * oneMinusC) + ys,
-                (yz * oneMinusC) - xs,
-                (z2 * oneMinusC) + c,
-                0.0,
-
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ];
-        },
-
-        /*
-         * This is another function that really should reside in a
-         * separate library.  But, because the creation of that library
-         * is part of the student course work, we leave it here for
-         * later refactoring and adaptation by students.
-         */
-        getOrthoMatrix = function (left, right, bottom, top, zNear, zFar) {
-            var width = right - left,
-                height = top - bottom,
-                depth = zFar - zNear;
-
-            return [
-                2.0 / width,
-                0.0,
-                0.0,
-                0.0,
-
-                0.0,
-                2.0 / height,
-                0.0,
-                0.0,
-
-                0.0,
-                0.0,
-                -2.0 / depth,
-                0.0,
-
-                -(right + left) / width,
-                -(top + bottom) / height,
-                -(zFar + zNear) / depth,
-                1.0
-            ];
-        };
+            -(right + left) / width,
+            -(top + bottom) / height,
+            -(zFar + zNear) / depth,
+            1.0
+        ];
+    };
 
     // Grab the WebGL rendering context.
-    gl = GLSLUtilities.getGL(canvas);
+    var gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
         alert("No WebGL context found...sorry.");
 
@@ -177,7 +112,8 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.
-    objectsToDraw = [
+    var mesh = Shapes.icosahedron();
+    var objectsToDraw = [
         {
             vertices: Shapes.toRawTriangleArray(mesh),
 
@@ -197,16 +133,14 @@
     ];
 
     // Pass the vertices to WebGL.
-    for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].vertices);
+    for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].vertices);
 
         if (!objectsToDraw[i].colors) {
             // If we have a single color, we expand that into an array
             // of the same color over and over.
             objectsToDraw[i].colors = [];
-            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
-                    j < maxj; j += 1) {
+            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3; j < maxj; j += 1) {
                 objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
                     objectsToDraw[i].color.r,
                     objectsToDraw[i].color.g,
@@ -214,16 +148,14 @@
                 );
             }
         }
-        objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].colors);
+        objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].colors);
 
         // Same trick with specular colors.
         if (!objectsToDraw[i].specularColors) {
             // Future refactor: helper function to convert a single value or
             // array into an array of copies of itself.
             objectsToDraw[i].specularColors = [];
-            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
-                    j < maxj; j += 1) {
+            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3; j < maxj; j += 1) {
                 objectsToDraw[i].specularColors = objectsToDraw[i].specularColors.concat(
                     objectsToDraw[i].specularColor.r,
                     objectsToDraw[i].specularColor.g,
@@ -231,16 +163,15 @@
                 );
             }
         }
-        objectsToDraw[i].specularBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].specularColors);
+        objectsToDraw[i].specularBuffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].specularColors);
 
         // One more buffer: normals.
-        objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].normals);
+        objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].normals);
     }
 
     // Initialize the shaders.
-    shaderProgram = GLSLUtilities.initSimpleShaderProgram(
+    var abort = false;
+    var shaderProgram = GLSLUtilities.initSimpleShaderProgram(
         gl,
         $("#vertex-shader").text(),
         $("#fragment-shader").text(),
@@ -269,33 +200,33 @@
     gl.useProgram(shaderProgram);
 
     // Hold on to the important variables within the shaders.
-    vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
+    var vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
+    var vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
     gl.enableVertexAttribArray(vertexDiffuseColor);
-    vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
+    var vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
     gl.enableVertexAttribArray(vertexSpecularColor);
-    normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
+    var normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
     gl.enableVertexAttribArray(normalVector);
 
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
-    modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
-    xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
-    yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
-    projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
+    var modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
+    var xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
+    var yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
+    var projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
 
     // Note the additional variables.
-    lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
-    lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
-    lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
-    shininess = gl.getUniformLocation(shaderProgram, "shininess");
+    var lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
+    var lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
+    var lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
+    var shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
     /*
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
      */
-    drawObject = function (object) {
+    var drawObject = function (object) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexDiffuseColor, 3, gl.FLOAT, false, 0, 0);
@@ -330,31 +261,33 @@
     /*
      * Displays the scene.
      */
-    drawScene = function () {
+    var rotationAroundX = 0.0;
+    var rotationAroundY = 0.0;
+    var drawScene = function () {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Set the overall rotation.
         gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
-                getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
+            getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
         ));
         gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
-                getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
+            getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
         ));
 
         // Display the objects.
-        for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
             drawObject(objectsToDraw[i]);
         }
 
         // All done.
         gl.flush();
-    },
+    };
 
     /*
      * Performs rotation calculations.
      */
-    rotateScene = function (event) {
+    var rotateScene = function (event) {
         rotationAroundX = xRotationStart - yDragStart + event.clientY;
         rotationAroundY = yRotationStart - xDragStart + event.clientX;
         drawScene();
@@ -381,6 +314,10 @@
     gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
 
     // Instead of animation, we do interaction: let the mouse control rotation.
+    var xDragStart;
+    var yDragStart;
+    var xRotationStart;
+    var yRotationStart;
     $(canvas).mousedown(function (event) {
         xDragStart = event.clientX;
         yDragStart = event.clientY;
