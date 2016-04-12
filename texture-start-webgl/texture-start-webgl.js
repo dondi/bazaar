@@ -96,7 +96,7 @@
     };
 
     // Grab the WebGL rendering context.
-    gl = GLSLUtilities.getGL(canvas);
+    var gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
         alert("No WebGL context found...sorry.");
 
