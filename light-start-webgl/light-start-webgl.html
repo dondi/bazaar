@@ -1,109 +1,109 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Simple Diffuse Lighting in WebGL</title>
-        <link rel="stylesheet" href="light-start-webgl.css" />
-    </head>
-    <body>
-        <h1>Simple Diffuse Lighting in WebGL</h1>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Simple Diffuse Lighting in WebGL</title>
+    <link rel="stylesheet" href="light-start-webgl.css" />
+  </head>
+  <body>
+    <h1>Simple Diffuse Lighting in WebGL</h1>
 
-        <p>You’ll need a WebGL-capable web browser to see anything here;
-            instructions can be found in this
-            <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">official
-            WebGL wiki page</a>.</p>
+    <p>You’ll need a WebGL-capable web browser to see anything here;
+      instructions can be found in this
+      <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">official
+      WebGL wiki page</a>.</p>
 
-        <p>This page demonstrates a simple diffuse lighting model in WebGL.</p>
+    <p>This page demonstrates a simple diffuse lighting model in WebGL.</p>
 
-        <!-- Note the rectangular canvas now. -->
-        <canvas id="light-start-webgl" width="1024" height="512">
-            Sorry, your web browser does not appear to support
-            the <code>canvas</code> element, either.
-        </canvas>
+    <!-- Note the rectangular canvas now. -->
+    <canvas id="light-start-webgl" width="1024" height="512">
+      Sorry, your web browser does not appear to support
+      the <code>canvas</code> element, either.
+    </canvas>
 
-        <!-- jQuery makes some things more convenient. -->
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- jQuery makes some things more convenient. -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-        <!-- GLSLUtilities is a starting point for holding functionality that
-             is common to many WebGL programs. -->
-        <script src="glsl-utilities.js"></script>
+    <!-- GLSLUtilities is a starting point for holding functionality that
+         is common to many WebGL programs. -->
+    <script src="glsl-utilities.js"></script>
 
-        <!-- We use our vector library here. -->
-        <script src="../vector/vector.js"></script>
+    <!-- We use our vector library here. -->
+    <script src="../vector/vector.js"></script>
 
-        <!-- Shapes is a library that generates "canned" shapes. -->
-        <script src="shapes.js"></script>
+    <!-- Shapes is a library that generates "canned" shapes. -->
+    <script src="shapes.js"></script>
 
-        <!-- Set up shaders: we've placed the source in script elements for
-            simplicity.  Shaders are ideally kept in separate files for easier
-            maintenance, but in that situation, additional code and security
-            constraints are involved. -->
+    <!-- Set up shaders: we've placed the source in script elements for
+        simplicity.  Shaders are ideally kept in separate files for easier
+        maintenance, but in that situation, additional code and security
+        constraints are involved. -->
 
-        <!-- The vertex shader now includes some lighting calculations. -->
-        <script id="vertex-shader" type="x-shader/x-vertex">
-            #ifdef GL_ES
-            precision highp float;
-            #endif
+    <!-- The vertex shader now includes some lighting calculations. -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+      #ifdef GL_ES
+      precision highp float;
+      #endif
 
-            // Note the normal vector.
-            attribute vec3 vertexPosition;
-            attribute vec3 vertexColor;
-            attribute vec3 normalVector;
+      // Note the normal vector.
+      attribute vec3 vertexPosition;
+      attribute vec3 vertexColor;
+      attribute vec3 normalVector;
 
-            // The should-now-be-familiar matrices.
-            uniform mat4 projectionMatrix;
-            uniform mat4 modelViewMatrix;
-            uniform mat4 xRotationMatrix;
-            uniform mat4 yRotationMatrix;
+      // The should-now-be-familiar matrices.
+      uniform mat4 projectionMatrix;
+      uniform mat4 modelViewMatrix;
+      uniform mat4 xRotationMatrix;
+      uniform mat4 yRotationMatrix;
 
-            // We still output color...
-            varying vec4 finalVertexColor;
+      // We still output color...
+      varying vec4 finalVertexColor;
 
-            // ...but we need light to calculate them.
-            uniform vec3 lightPosition;
-            uniform vec3 lightDiffuse;
+      // ...but we need light to calculate them.
+      uniform vec3 lightPosition;
+      uniform vec3 lightDiffuse;
 
-            void main(void) {
-                // First, transform our vertex to its final eye location.
-                vec3 eyePosition = (modelViewMatrix * vec4(vertexPosition, 1.0)).xyz;
+      void main(void) {
+          // First, transform our vertex to its final eye location.
+          vec3 eyePosition = (modelViewMatrix * vec4(vertexPosition, 1.0)).xyz;
 
-                // Figure out the color of the light that lands on the vertex.
-                vec3 diffuseProduct = vertexColor * lightDiffuse;
+          // Figure out the color of the light that lands on the vertex.
+          vec3 diffuseProduct = vertexColor * lightDiffuse;
 
-                // Figure out our light direction vector.
-                vec3 l = normalize(lightPosition - eyePosition);
+          // Figure out our light direction vector.
+          vec3 l = normalize(lightPosition - eyePosition);
 
-                // We need to transform our normal vector, too.  We don't care about
-                // translation so we pad a 0.0 rather than a 1.0.
-                vec3 n = normalize(modelViewMatrix * vec4(normalVector, 0.0)).xyz;
+          // We need to transform our normal vector, too.  We don't care about
+          // translation so we pad a 0.0 rather than a 1.0.
+          vec3 n = normalize(modelViewMatrix * vec4(normalVector, 0.0)).xyz;
 
-                // Calculate the amount of diffuse light that hits the vertex.
-                float kd = max(dot(l, n), 0.0);
-                vec3 finalDiffuse = kd * diffuseProduct;
+          // Calculate the amount of diffuse light that hits the vertex.
+          float kd = max(dot(l, n), 0.0);
+          vec3 finalDiffuse = kd * diffuseProduct;
 
-                // OK, finally assign things.  Note the scale cheat  :-P
-                gl_Position = projectionMatrix *
-                        xRotationMatrix * yRotationMatrix *
-                        modelViewMatrix * vec4(2.0 * vertexPosition, 1.0);
-                finalVertexColor = vec4(finalDiffuse.rgb, 1.0);
-            }
-        </script>
+          // OK, finally assign things.  Note the scale cheat  :-P
+          gl_Position = projectionMatrix *
+                  xRotationMatrix * yRotationMatrix *
+                  modelViewMatrix * vec4(2.0 * vertexPosition, 1.0);
+          finalVertexColor = vec4(finalDiffuse.rgb, 1.0);
+      }
+    </script>
 
-        <!-- For now, the fragment shader just takes the incoming color.
-             Remember that interpolation is automatic. -->
-        <script id="fragment-shader" type="x-shader/x-fragment">
-            #ifdef GL_ES
-            precision highp float;
-            #endif
+    <!-- For now, the fragment shader just takes the incoming color.
+         Remember that interpolation is automatic. -->
+    <script id="fragment-shader" type="x-shader/x-fragment">
+      #ifdef GL_ES
+      precision highp float;
+      #endif
 
-            varying vec4 finalVertexColor;
+      varying vec4 finalVertexColor;
 
-            void main(void) {
-                gl_FragColor = vec4(finalVertexColor.rgb, 1.0);
-            }
-        </script>
+      void main(void) {
+          gl_FragColor = vec4(finalVertexColor.rgb, 1.0);
+      }
+    </script>
 
-        <!-- This script sets up the specific scene for this page. -->
-        <script src="light-start-webgl.js"></script>
+    <!-- This script sets up the specific scene for this page. -->
+    <script src="light-start-webgl.js"></script>
   </body>
 </html>

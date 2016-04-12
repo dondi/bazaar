@@ -9,8 +9,8 @@ var Shapes = {
      */
     icosahedron: function () {
         // These variables are actually "constants" for icosahedron coordinates.
-        var X = 0.525731112119133606,
-            Z = 0.850650808352039932;
+        var X = 0.525731112119133606;
+        var Z = 0.850650808352039932;
 
         return {
             vertices: [
@@ -91,14 +91,10 @@ var Shapes = {
      * arranged as triangles.
      */
     toRawTriangleArray: function (indexedVertices) {
-        var result = [],
-            i,
-            j,
-            maxi,
-            maxj;
+        var result = [];
 
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
@@ -115,14 +111,10 @@ var Shapes = {
      * arranged as line segments.
      */
     toRawLineArray: function (indexedVertices) {
-        var result = [],
-            i,
-            j,
-            maxi,
-            maxj;
+        var result = [];
 
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
