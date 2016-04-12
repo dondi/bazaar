@@ -9,8 +9,8 @@ var Shapes = {
      */
     icosahedron: function () {
         // These variables are actually "constants" for icosahedron coordinates.
-        var X = 0.525731112119133606,
-            Z = 0.850650808352039932;
+        var X = 0.525731112119133606;
+        var Z = 0.850650808352039932;
 
         return {
             vertices: [
@@ -91,14 +91,10 @@ var Shapes = {
      * arranged as triangles.
      */
     toRawTriangleArray: function (indexedVertices) {
-        var result = [],
-            i,
-            j,
-            maxi,
-            maxj;
+        var result = [];
 
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
@@ -115,14 +111,10 @@ var Shapes = {
      * arranged as line segments.
      */
     toRawLineArray: function (indexedVertices) {
-        var result = [],
-            i,
-            j,
-            maxi,
-            maxj;
+        var result = [];
 
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
@@ -148,35 +140,24 @@ var Shapes = {
      * loaded up for this function to work.
      */
     toNormalArray: function (indexedVertices) {
-        var result = [],
-            i,
-            j,
-            maxi,
-            maxj,
-            p0,
-            p1,
-            p2,
-            v0,
-            v1,
-            v2,
-            normal;
+        var result = [];
 
         // For each face...
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
             // We form vectors from the first and second then second and third vertices.
-            p0 = indexedVertices.vertices[indexedVertices.indices[i][0]];
-            p1 = indexedVertices.vertices[indexedVertices.indices[i][1]];
-            p2 = indexedVertices.vertices[indexedVertices.indices[i][2]];
+            var p0 = indexedVertices.vertices[indexedVertices.indices[i][0]];
+            var p1 = indexedVertices.vertices[indexedVertices.indices[i][1]];
+            var p2 = indexedVertices.vertices[indexedVertices.indices[i][2]];
 
             // Technically, the first value is not a vector, but v can stand for vertex
             // anyway, so...
-            v0 = new Vector(p0[0], p0[1], p0[2]);
-            v1 = new Vector(p1[0], p1[1], p1[2]).subtract(v0);
-            v2 = new Vector(p2[0], p2[1], p2[2]).subtract(v0);
-            normal = v1.cross(v2).unit();
+            var v0 = new Vector(p0[0], p0[1], p0[2]);
+            var v1 = new Vector(p1[0], p1[1], p1[2]).subtract(v0);
+            var v2 = new Vector(p2[0], p2[1], p2[2]).subtract(v0);
+            var normal = v1.cross(v2).unit();
 
             // We then use this same normal for every vertex in this face.
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     [ normal.x(), normal.y(), normal.z() ]
                 );
@@ -192,20 +173,14 @@ var Shapes = {
      * that are centered around the origin.
      */
     toVertexNormalArray: function (indexedVertices) {
-        var result = [],
-            i,
-            j,
-            maxi,
-            maxj,
-            p,
-            normal;
+        var result = [];
 
         // For each face...
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
             // For each vertex in that face...
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
-                p = indexedVertices.vertices[indexedVertices.indices[i][j]];
-                normal = new Vector(p[0], p[1], p[2]).unit();
+            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+                var p = indexedVertices.vertices[indexedVertices.indices[i][j]];
+                var normal = new Vector(p[0], p[1], p[2]).unit();
                 result = result.concat(
                     [ normal.x(), normal.y(), normal.z() ]
                 );
