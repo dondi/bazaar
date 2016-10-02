@@ -11,16 +11,22 @@ $(function () {
 
         // Access Twitter's user_timeline service.
         $.ajax({
-            url: "http://api.twitter.com/1/statuses/user_timeline.json",
+            url: "https://api.twitter.com/1.1/statuses/user_timeline.json",
 
             // Parameters are documented in:
-            //   https://dev.twitter.com/docs/api/1/get/statuses/user_timeline
+            //   https://dev.twitter.com/rest/reference/get/statuses/user_timeline
             data: {
                 screen_name: $("#screenname").val(),
                 count: 5
             },
 
-            dataType: "jsonp",
+            // Since this sample was last written, access to the Twitter API was significantly
+            // revised to use OAuth. Thus, this sample will not run as-is (what you see below is
+            // solely a sample and will be invalid by the time you see this). Please consult
+            // https://dev.twitter.com/oauth/overview for details.
+            headers: {
+                Authorization: 'Authorization: OAuth oauth_consumer_key="FfHxOmrpA48oxYS14qjY52WJf", oauth_nonce="a1b9ce5fe4c91e3343073f6da1493e4e", oauth_signature="mNUncBqTFOZS4d2OtSLl1EeOpDA%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1475384122", oauth_version="1.0"'
+            },
 
             // The data argument holds the array of tweets returned
             // by the user_timeline service.
