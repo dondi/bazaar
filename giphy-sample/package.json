@@ -1,0 +1,21 @@
+{
+  "name": "giphy-sample",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A web front end sample",
+  "main": "",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start --single-run"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine-core": "^2.3.4",
+    "karma": "latest",
+    "karma-chrome-launcher": "latest",
+    "karma-firefox-launcher": "latest",
+    "karma-fixture": "latest",
+    "karma-html2js-preprocessor": "latest",
+    "karma-jasmine": "latest"
+  }
+}
