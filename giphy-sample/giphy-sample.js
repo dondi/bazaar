@@ -20,30 +20,30 @@ window.GiphySearchController = (() => {
             var imageResultContainer = $(".image-result-container");
 
             searchButton.click(() => {
-              // The getJSON function initiates a connection to the web service.
-              $.getJSON("http://api.giphy.com/v1/gifs/search", {
-                  rating: "pg-13", // Exercise: Hook this up to the front end.
-                  q: searchTerm.val(),
-                  api_key: "dc6zaTOxFJmzC" // Giphy's public beta key (thank you Giphy).
-              }).done((result) => {
-                  // Receiving the response renders it in an HTML element tree then
-                  // appends it to the element(s) with the class image-result-container.
-                  imageResultContainer.empty().append(
-                      result.data.map((image) => {
-                          return $("<div></div>").addClass("col-xs-2").append(
-                              $("<img/>").attr({
-                                  src: image.images.fixed_width.url,
-                                  alt: image.source_tld
-                              })
-                          );
-                      })
-                  );
-              });
-          });
+                // The getJSON function initiates a connection to the web service.
+                $.getJSON("http://api.giphy.com/v1/gifs/search", {
+                    rating: "pg-13", // Exercise: Hook this up to the front end.
+                    q: searchTerm.val(),
+                    api_key: "dc6zaTOxFJmzC" // Giphy's public beta key (thank you Giphy).
+                }).done((result) => {
+                    // Receiving the response renders it in an HTML element tree then
+                    // appends it to the element(s) with the class image-result-container.
+                    imageResultContainer.empty().append(
+                        result.data.map((image) => {
+                            return $("<div></div>").addClass("col-xs-2").append(
+                                $("<img/>").attr({
+                                    src: image.images.fixed_width.url,
+                                    alt: image.source_tld
+                                })
+                            );
+                        })
+                    );
+                });
+            });
 
-          searchTerm.bind("input", () => {
-              searchButton.prop("disabled", !searchTerm.val());
-          });
+            searchTerm.bind("input", () => {
+                searchButton.prop("disabled", !searchTerm.val());
+            });
         }
     };
 })();
