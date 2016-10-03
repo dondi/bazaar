@@ -16,6 +16,7 @@
     "karma-firefox-launcher": "latest",
     "karma-fixture": "latest",
     "karma-html2js-preprocessor": "latest",
-    "karma-jasmine": "latest"
+    "karma-jasmine": "latest",
+    "karma-jasmine-ajax": "^0.1.13"
   }
 }
