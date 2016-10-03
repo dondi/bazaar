@@ -1,3 +1,4 @@
+/* eslint indent: ["error", 2] */
 module.exports = function (config) {
   config.set({
     frameworks: [
@@ -14,13 +15,17 @@ module.exports = function (config) {
     ],
 
     preprocessors: {
-      "test/**/*.html": ["html2js"]
+      "test/**/*.html": ["html2js"],
+      "*.js": ["coverage"]
     },
 
     browsers: [
       "Firefox"
     ],
 
-    reporters: ["dots"]
+    reporters: [
+      "dots",
+      "coverage"
+    ]
   });
 };
