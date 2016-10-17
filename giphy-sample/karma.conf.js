@@ -20,7 +20,7 @@ module.exports = function (config) {
     },
 
     browsers: [
-      "Firefox"
+      "Chrome", "Firefox"
     ],
 
     reporters: [
