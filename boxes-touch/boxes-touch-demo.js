@@ -1,3 +1,1 @@
-$(function () {
-    $("#drawing-area").boxesTouch();
-});
+$(() => $("#drawing-area").boxesTouch());

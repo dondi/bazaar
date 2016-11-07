@@ -1,0 +1,1 @@
+$(() => $("#drawing-area").boxesWithPhysics());

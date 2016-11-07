@@ -1,42 +1,35 @@
-(function ($) {
+(($) => {
     /**
      * Constant for the left mouse button.
      */
-    var LEFT_BUTTON = 1;
+    const LEFT_BUTTON = 1;
 
     /**
      * Utility function for disabling certain behaviors when the drawing
      * area is in certain states.
      */
-    var setupDragState = function () {
-        $(".drawing-area .box")
-            .unbind("mousemove")
-            .unbind("mouseleave");
-    };
+    let setupDragState = () => $(".drawing-area .box").unbind("mousemove").unbind("mouseleave");
 
     /**
      * Indicates that an element is highlighted.
      */
-    var highlight = function () {
-        $(this).addClass("box-highlight");
-    };
+    let highlight = (event) => $(event.currentTarget).addClass("box-highlight");
 
     /**
      * Indicates that an element is unhighlighted.
      */
-    var unhighlight = function () {
-        $(this).removeClass("box-highlight");
-    };
+    let unhighlight = (event) => $(event.currentTarget).removeClass("box-highlight");
 
     /**
      * Begins a box draw sequence.
      */
-    var startDraw = function (event) {
+    let startDraw = function (event) {
         // We only respond to the left mouse button.
         if (event.which === LEFT_BUTTON) {
-            // Add a new box to the drawing area.  Note how we use
+            // Add a new box to the drawing area. Note how we use
             // the drawing area as a holder of "local" variables
-            // ("this" as standardized by jQuery).
+            // ("this" as bound by jQuery---which is also why we don't
+            // use arrow function notation here).
             this.anchorX = event.pageX;
             this.anchorY = event.pageY;
             this.drawingBox = $("<div></div>")
@@ -53,12 +46,12 @@
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
      */
-    var trackDrag = function (event) {
+    let trackDrag = function (event) {
         // Don't bother if we aren't tracking anything.
         if (this.drawingBox) {
             // Calculate the new box location and dimensions.  Note how
             // this might require a "corner switch."
-            var newOffset = {
+            let newOffset = {
                 left: (this.anchorX < event.pageX) ? this.anchorX : event.pageX,
                 top: (this.anchorY < event.pageY) ? this.anchorY : event.pageY
             };
@@ -79,17 +72,17 @@
     /**
      * Begins a box move sequence.
      */
-    var startMove = function (event) {
+    let startMove = function (event) {
         // We only move using the left mouse button.
         if (event.which === LEFT_BUTTON) {
             // Take note of the box's current (global) location.
-            var jThis = $(this),
-                startOffset = jThis.offset(),
+            let jThis = $(this);
+            let startOffset = jThis.offset();
 
-                // Grab the drawing area (this element's parent).
-                // We want the actual element, and not the jQuery wrapper
-                // that usually comes with it.
-                parent = jThis.parent().get(0);
+            // Grab the drawing area (this element's parent).
+            // We want the actual element, and not the jQuery wrapper
+            // that usually comes with it.
+            let parent = jThis.parent().get(0);
 
             // Set the drawing area's state to indicate that it is
             // in the middle of a move.
@@ -110,7 +103,7 @@
     /**
      * Concludes a drawing or moving sequence.
      */
-    var endDrag = function (event) {
+    let endDrag = function (event) {
         if (this.drawingBox) {
             // Finalize things by setting the box's behavior.
             this.drawingBox
@@ -137,7 +130,7 @@
     /**
      * Sets up the given jQuery collection as the drawing area(s).
      */
-    var setDrawingArea = function (jQueryElements) {
+    let setDrawingArea = (jQueryElements) => {
         jQueryElements
             .addClass("drawing-area")
             .mousedown(startDraw)
@@ -148,7 +141,9 @@
             .mouseleave(endDrag);
     };
 
+    // No arrow function here because we don't want lexical scoping.
     $.fn.boxes = function () {
         setDrawingArea(this);
+        return this;
     };
-}(jQuery));
+})(jQuery);
