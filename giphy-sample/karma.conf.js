@@ -8,8 +8,8 @@ module.exports = function (config) {
     ],
 
     files: [
-      "*.js",
       "https://code.jquery.com/jquery-1.11.3.min.js",
+      "*.js",
       "test/**/*.js",
       "test/**/*.html"
     ],

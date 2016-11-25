@@ -1,4 +1,4 @@
-describe("Giphy search example", function () {
+describe("Giphy search example", () => {
     beforeEach(() => {
         fixture.setBase("test");
         fixture.load("search.fixture.html");
