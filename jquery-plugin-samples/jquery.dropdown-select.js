@@ -13,48 +13,50 @@
     change: function (oldSelection, newSelection) { }
     - Callback for whenever the current selection has changed.
 */
-(function ($) {
+(($) => {
     // Private plugin helpers.
-    var DIVIDER = '-----',
+    const DIVIDER = '-----';
 
-        // Note: This plug-in depends on Bootstrap JavaScript functionality.
-        //       For some assignments/exercises, you will not be allowed to
-        //       make use of this, in which case the main purpose of this
-        //       sample code is for jQuery plug-in functionality only.
-        $mainTemplate = $('<button type="button" ' +
+    // Note: This plug-in depends on Bootstrap JavaScript functionality.
+    //       For some assignments/exercises, you will not be allowed to
+    //       make use of this, in which case the main purpose of this sample
+    //       code is for demonstrating jQuery plug-in functionality only.
+    let $mainTemplate = $('<button type="button" ' +
             'class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
           '<span></span> ' +
           '<span class="caret"></span>' +
-        '</button>'),
+        '</button>');
 
-        $dropdownTemplate = $('<ul class="dropdown-menu" role="menu"></ul>'),
-        $itemTemplate = $('<li><a></a></li>'),
-        $dividerTemplate = $('<li class="divider"></li>');
+    let $dropdownTemplate = $('<ul class="dropdown-menu" role="menu"></ul>');
+    let $itemTemplate = $('<li><a></a></li>');
+    let $dividerTemplate = $('<li class="divider"></li>');
 
     $.fn.dropdownSelect = function (options) {
-        var $this = this.empty(),
-            $main = $mainTemplate.clone(),
-            $dropdown = $dropdownTemplate.clone(),
-            $selection = $main.find("span:first-child");
+        let $this = this.empty();
+        let $main = $mainTemplate.clone();
+        let $dropdown = $dropdownTemplate.clone();
+        let $selection = $main.find("span:first-child");
 
         $selection.text(options.initial);
-        options.options.forEach(function (option) {
-            var $item = (option === DIVIDER ? $dividerTemplate : $itemTemplate).clone();
+        options.options.forEach((option) => {
+            let $item = (option === DIVIDER ? $dividerTemplate : $itemTemplate).clone();
             if (option !== DIVIDER) {
                 $item.find("a").text(option);
-                $item.click(function () {
-                    var $this = $(this),
-                        oldSelection = $selection.text(),
-                        newSelection = $this.find("a").text();
+                $item.click((event) => {
+                    let $this = $(event.currentTarget);
+                    let oldSelection = $selection.text();
+                    let newSelection = $this.find("a").text();
 
                     $selection.text(newSelection);
 
-                    // Invoke the callback.
+                    // Invoke the callback. We want jQuery-like behavior that binds `this` to the component
+                    // that change, so we use `call` instead of plain parentheses.
                     if ($.isFunction(options.change)) {
                         options.change.call($this, oldSelection, newSelection);
                     }
                 });
             }
+
             $dropdown.append($item);
         });
 
@@ -64,4 +66,4 @@
     };
 
     $.fn.dropdownSelect.DIVIDER = DIVIDER;
-}(jQuery));
+})(jQuery);
