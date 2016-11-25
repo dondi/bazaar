@@ -1,7 +1,13 @@
-$(function () {
+$(() => {
+    let $log = $(".event-log");
+    let logEvent = (message) => {
+        $log.text($log.text() + message + "\n")
+            .scrollTop($log[0].scrollHeight - $log.height());
+    };
+
     $(".edit-in-place").inPlaceEditor({
         change: function () {
-            console.log($(this).text());
+            logEvent("In-place editor: " + $(this).text());
         }
     });
 
@@ -17,13 +23,13 @@ $(function () {
         ],
 
         change: function (oldSelection, newSelection) {
-            console.log("Changed from " + oldSelection + " to " + newSelection);
+            logEvent("Dropdown select: Changed from '" + oldSelection + "' to '" + newSelection + "'");
         }
     });
 
     $(".swivel-this").swivel({
         change: function (oldAngle, newAngle) {
-            console.log("Swiveled from " + oldAngle + " to " + newAngle);
+            logEvent("Swivel: Swiveled from " + oldAngle + " to " + newAngle);
         }
     });
 });
