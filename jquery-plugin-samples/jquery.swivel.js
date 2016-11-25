@@ -7,43 +7,41 @@
     change: function () { }
     - Callback for whenever the control has been manipulated.
 */
-(function ($) {
-    // Private plugin helpers.
+(($) => {
     $.fn.swivel = function (options) {
-        var $this = this,
-            $current = null,
-            anchorX = 0;
+        let $this = this;
+        let $current = null;
+        let anchorX = 0;
 
-        $this.addClass("swivel")
-            .mousedown(function (event) {
-                $current = $(this);
-                anchorX = event.screenX - ($current.data('swivel-angle') || 0);
-            });
+        $this.addClass("swivel").mousedown((event) => {
+            $current = $(event.currentTarget);
+            anchorX = event.screenX - ($current.data('swivel-angle') || 0);
+        });
 
         // Other mouse events go at the level of the document because
         // they might leave the element's bounding box.
-        $(document)
-            .mousemove(function (event) {
-                if ($current) {
-                    var currentAngle = $current.data('swivel-angle') || 0,
-                        newAngle = event.screenX - anchorX,
-                        newCss = "perspective(500px) rotateY(" + newAngle + "deg)";
+        $(document).mousemove((event) => {
+            if ($current) {
+                let currentAngle = $current.data('swivel-angle') || 0;
+                let newAngle = event.screenX - anchorX;
+                let newCss = "perspective(500px) rotateY(" + newAngle + "deg)";
 
-                    $current.css({
-                        '-moz-transform': newCss,
-                        '-webkit-transform': newCss
-                    }).data({
-                        'swivel-angle': newAngle
-                    });
+                $current.css({
+                    'transform': newCss,
+                    '-moz-transform': newCss,   // The `transform` property is new enough that it is worthwhile
+                    '-webkit-transform': newCss // to accommodate older browsers with vendor-specific names.
+                }).data({
+                    'swivel-angle': newAngle
+                });
 
-                    // Invoke the callback.
-                    if ($.isFunction(options.change)) {
-                        options.change.call($current, currentAngle, newAngle);
-                    }
+                // Invoke the callback. We want jQuery-like behavior that binds `this` to the component
+                // that change, so we use `call` instead of plain parentheses.
+                if ($.isFunction(options.change)) {
+                    options.change.call($current, currentAngle, newAngle);
                 }
-            })
-            .mouseup(function (event) {
-                $current = null;
-            });
+            }
+        }).mouseup(() => {
+            $current = null;
+        });
     };
-}(jQuery));
+})(jQuery);
