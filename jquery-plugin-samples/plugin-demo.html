@@ -6,8 +6,7 @@
     <meta charset="UTF-8" />
     <title>jQuery Plugin Demos</title>
 
-    <link rel="stylesheet"
-          href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- Sometimes, a plugin needs "companion" CSS.  That is fine. -->
     <link rel="stylesheet" href="jquery.in-place-editor.css">
@@ -19,48 +18,82 @@
     
   <body>
     <div class="container">
-      <h1>In-Place Editor</h1>
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>In-Place Editor</h1>
 
-      <p>This plugin makes any element's text editable.</p>
+          <p>This plugin makes any element's text editable.</p>
 
-      <p class="edit-in-place">Mouse over and click on this to see it at work.</p>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5 class="panel-title">Samples</h5>
+            </div>
+            <div class="panel-body">
+              <p class="edit-in-place">Mouse over and click on this to see it at work.</p>
 
-      <h3 class="edit-in-place">The plugin mimics the original element's font.</h3>
+              <h3 class="edit-in-place">The plugin mimics the original element's font.</h3>
 
-      <p><em class="edit-in-place">Look at the console to see the callback in action.</em></p>
+              <p><em class="edit-in-place">Look at the console to see the callback in action.</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <h1>Hand-Styled <code>select</code> Workalike</h1>
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>Hand-Styled <code>select</code> Workalike</h1>
 
-      <p>The standard Bootstrap-styled <code>select</code> element may not be to everyone's liking:</p>
+          <p>The standard Bootstrap-styled <code>select</code> element may not be to everyone's liking:</p>
 
-      <p>
-        <select class="form-control">
-          <option>Eenie</option>
-          <option>Meenie</option>
-          <option>Mynie</option>
-          <option>Moe</option>
-        </select>
-      </p>
+          <p>
+            <select class="form-control">
+              <option>Eenie</option>
+              <option>Meenie</option>
+              <option>Mynie</option>
+              <option>Moe</option>
+            </select>
+          </p>
 
-      <p>This plugin gives it a different look but similar functionality:</p>
+          <p>This plugin gives it a different look but similar functionality:</p>
 
-      <div id="demo-select"></div>
-      <h1>“Swivel” Control</h1>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5 class="panel-title">Sample</h5>
+            </div>
+            <div class="panel-body">
+              <div id="demo-select"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <p>This plugin demonstrates low-level mouse event handling.  We leave what it controls or
-      how it is used to your imagination.</p>
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>“Swivel” Control</h1>
 
-      <p><div class="swivel-this">&nbsp;</div></p>
+          <p>This plugin demonstrates low-level mouse event handling.  We leave what it controls or
+          how it is used to your imagination.</p>
 
-      <p><div class="swivel-this">And it's just a <code>div</code></div></p>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5 class="panel-title">Samples</h5>
+            </div>
+            <div class="panel-body">
+              <p><div class="swivel-this">&nbsp;</div></p>
 
-      <p><div class="swivel-this">So you can put text inside</div></p>
+              <p><div class="swivel-this">And it's just a <code>div</code></div></p>
+
+              <p><div class="swivel-this">So you can put text inside</div></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- We wrap up by loading up jQuery, then Bootstrap, then our plugins,
          then finally we actually use them. -->
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="jquery.in-place-editor.js"></script>
     <script src="jquery.dropdown-select.js"></script>
     <script src="jquery.swivel.js"></script>
