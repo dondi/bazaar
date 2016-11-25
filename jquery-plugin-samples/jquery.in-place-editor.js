@@ -65,6 +65,8 @@
             $overlay.append($input);
             $input.focus().select();
         });
+
+        return $this;
     };
 
 })(jQuery);

@@ -43,5 +43,7 @@
         }).mouseup(() => {
             $current = null;
         });
+
+        return $this;
     };
 })(jQuery);

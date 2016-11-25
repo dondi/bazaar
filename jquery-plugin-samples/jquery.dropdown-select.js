@@ -63,6 +63,8 @@
         $this.addClass("btn-group")
             .append($main)
             .append($dropdown);
+
+        return $this;
     };
 
     $.fn.dropdownSelect.DIVIDER = DIVIDER;
