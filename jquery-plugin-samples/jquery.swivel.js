@@ -27,9 +27,7 @@
                 let newCss = "perspective(500px) rotateY(" + newAngle + "deg)";
 
                 $current.css({
-                    'transform': newCss,
-                    '-moz-transform': newCss,   // The `transform` property is new enough that it is worthwhile
-                    '-webkit-transform': newCss // to accommodate older browsers with vendor-specific names.
+                    'transform': newCss
                 }).data({
                     'swivel-angle': newAngle
                 });
