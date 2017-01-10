@@ -6,13 +6,13 @@
 // Yes, we can use jQuery here, but avoid it just in case you
 // really don't want to use it.  We do still keep things away
 // from the global namespace.
-(function () {
+(() => {
     // Ditto on using jQuery here.
-    var canvas = document.getElementById("canvas");
-    var renderingContext = canvas.getContext("2d");
+    let canvas = document.getElementById("canvas");
+    let renderingContext = canvas.getContext("2d");
 
     // Declare other variables here.
-    var radialGradient = renderingContext.createRadialGradient(160, 160, 1, 180, 180, 320);
+    let radialGradient = renderingContext.createRadialGradient(160, 160, 1, 180, 180, 320);
 
     // Put your canvas drawing code (and any other code) here.
     radialGradient.addColorStop(0, "white");
@@ -22,4 +22,4 @@
     renderingContext.beginPath();
     renderingContext.arc(256, 256, 200, 0, Math.PI * 2, true);
     renderingContext.fill();
-}());
+})();
