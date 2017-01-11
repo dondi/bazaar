@@ -7,12 +7,12 @@
  */
 // Another minor change: we use jQuery here, just to illustrate how you can
 // encapsulate code and get to the canvas element in that way.
-$(function () {
-    var canvas = $("#canvas")[0]; // Note the array dereference.
-    var renderingContext = canvas.getContext("2d");
+$(() => {
+    let canvas = $("#canvas")[0]; // Note the array dereference.
+    let renderingContext = canvas.getContext("2d");
 
     // The curve data.
-    var curve = {
+    let curve = {
         startPoint: { x: 10, y: 50 },
         controlPoint1: { x: 70, y: 10 },
         controlPoint2: { x: 80, y: 90 },
