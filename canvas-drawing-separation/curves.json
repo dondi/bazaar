@@ -1,0 +1,46 @@
+[
+    {
+        "startPoint":{
+            "x":10,
+            "y":50
+        },
+        "controlPoint1":{
+            "x":70,
+            "y":10
+        },
+        "controlPoint2":{
+            "x":80,
+            "y":90
+        },
+        "endPoint":{
+            "x":50,
+            "y":100
+        },
+        "vertexStrokeStyle":"rgba(200, 200, 200, 0.5)",
+        "vertexLineWidth":1,
+        "curveStrokeStyle":"red",
+        "curveLineWidth":3
+    },
+    {
+        "startPoint":{
+            "x":-40,
+            "y":50
+        },
+        "controlPoint1":{
+            "x":-70,
+            "y":-30
+        },
+        "controlPoint2":{
+            "x":70,
+            "y":-60
+        },
+        "endPoint":{
+            "x":40,
+            "y":75
+        },
+        "vertexStrokeStyle":"rgb(0, 100, 100)",
+        "vertexLineWidth":1,
+        "curveStrokeStyle":"blue",
+        "curveLineWidth":5
+    }
+]
