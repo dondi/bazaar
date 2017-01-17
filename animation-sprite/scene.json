@@ -1,0 +1,58 @@
+[
+    {
+        "sprite": "square",
+        "keyframes": [
+            {
+                "frame": 0,
+                "tx": 20,
+                "ty": 20,
+                "ease": "linear"
+            },
+
+            {
+                "frame": 30,
+                "tx": 100,
+                "ty": 50,
+                "ease": "quadEaseInAndOut"
+            },
+
+            {
+                "frame": 80,
+                "tx": 80,
+                "ty": 500,
+                "rotate": 60
+            }
+        ]
+    },
+
+    {
+        "sprite": "circle",
+        "keyframes": [
+            {
+                "frame": 50,
+                "tx": 300,
+                "ty": 600,
+                "sx": 0.5,
+                "sy": 0.5,
+                "ease": "quadEaseOut"
+            },
+
+            {
+                "frame": 100,
+                "tx": 300,
+                "ty": 0,
+                "sx": 3,
+                "sy": 0.25,
+                "ease": "quadEaseOut"
+            },
+
+            {
+                "frame": 150,
+                "tx": 300,
+                "ty": 600,
+                "sx": 0.5,
+                "sy": 0.5
+            }
+        ]
+    }
+]

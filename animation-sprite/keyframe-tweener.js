@@ -2,7 +2,7 @@
  * A simple keyframe-tweening animation module for 2D
  * canvas elements.
  */
-(function () {
+(() => {
     // The big one: animation initialization.  The settings parameter
     // is expected to be a JavaScript object with the following
     // properties:
@@ -10,7 +10,7 @@
     // - renderingContext: the 2D canvas rendering context to use
     // - width: the width of the canvas element
     // - height: the height of the canvas element
-    // - sprites: the array of sprites to animate
+    // - scene: the array of sprites to animate
     // - frameRate: number of frames per second (default 24)
     //
     // In turn, each sprite is a JavaScript object with the following
@@ -29,19 +29,19 @@
     // - tx, ty: the location of the sprite (default is 0, 0)
     // - sx, sy: the scale factor of the sprite (default is 1, 1)
     // - rotate: the rotation angle of the sprite (default is 0)
-    var initializeAnimation = function (settings) {
+    let initializeAnimation = (settings) => {
         // We need to keep track of the current frame.
-        var currentFrame = 0;
+        let currentFrame = 0;
 
         // Avoid having to go through settings to get to the
         // rendering context and sprites.
-        var renderingContext = settings.renderingContext;
-        var width = settings.width;
-        var height = settings.height;
-        var sprites = settings.sprites;
+        let renderingContext = settings.renderingContext;
+        let width = settings.width;
+        let height = settings.height;
+        let scene = settings.scene;
 
-        var previousTimestamp = null;
-        var nextFrame = function (timestamp) {
+        let previousTimestamp = null;
+        let nextFrame = (timestamp) => {
             // Bail-out #1: We just started.
             if (!previousTimestamp) {
                 previousTimestamp = timestamp;
@@ -60,56 +60,58 @@
 
             // For every sprite, go to the current pair of keyframes.
             // Then, draw the sprite based on the current frame.
-            for (var i = 0, maxI = sprites.length; i < maxI; i += 1) {
-                for (var j = 0, maxJ = sprites[i].keyframes.length - 1; j < maxJ; j += 1) {
+            for (let i = 0, maxI = scene.length; i < maxI; i += 1) {
+                for (let j = 0, maxJ = scene[i].keyframes.length - 1; j < maxJ; j += 1) {
                     // We look for keyframe pairs such that the current
                     // frame is between their frame numbers.
-                    if ((sprites[i].keyframes[j].frame <= currentFrame) &&
-                            (currentFrame <= sprites[i].keyframes[j + 1].frame)) {
+                    if ((scene[i].keyframes[j].frame <= currentFrame) &&
+                            (currentFrame <= scene[i].keyframes[j + 1].frame)) {
                         // Point to the start and end keyframes.
-                        var startKeyframe = sprites[i].keyframes[j];
-                        var endKeyframe = sprites[i].keyframes[j + 1];
+                        let startKeyframe = scene[i].keyframes[j];
+                        let endKeyframe = scene[i].keyframes[j + 1];
 
                         // Save the rendering context state.
                         renderingContext.save();
 
                         // Set up our start and distance values, using defaults
                         // if necessary.
-                        var ease = startKeyframe.ease || KeyframeTweener.linear;
+                        let ease = KeyframeTweener[startKeyframe.ease || "linear"];
 
-                        var txStart = startKeyframe.tx || 0;
-                        var txDistance = (endKeyframe.tx || 0) - txStart;
+                        let txStart = startKeyframe.tx || 0;
+                        let txDistance = (endKeyframe.tx || 0) - txStart;
 
-                        var tyStart = startKeyframe.ty || 0;
-                        var tyDistance = (endKeyframe.ty || 0) - tyStart;
+                        let tyStart = startKeyframe.ty || 0;
+                        let tyDistance = (endKeyframe.ty || 0) - tyStart;
 
-                        var sxStart = startKeyframe.sx || 1;
-                        var sxDistance = (endKeyframe.sx || 1) - sxStart;
+                        let sxStart = startKeyframe.sx || 1;
+                        let sxDistance = (endKeyframe.sx || 1) - sxStart;
 
-                        var syStart = startKeyframe.sy || 1;
-                        var syDistance = (endKeyframe.sy || 1) - syStart;
+                        let syStart = startKeyframe.sy || 1;
+                        let syDistance = (endKeyframe.sy || 1) - syStart;
 
-                        var rotateStart = (startKeyframe.rotate || 0) * Math.PI / 180;
-                        var rotateDistance = (endKeyframe.rotate || 0) * Math.PI / 180 - rotateStart;
+                        let rotateStart = (startKeyframe.rotate || 0) * Math.PI / 180;
+                        let rotateDistance = (endKeyframe.rotate || 0) * Math.PI / 180 - rotateStart;
 
-                        var currentTweenFrame = currentFrame - startKeyframe.frame;
-                        var duration = endKeyframe.frame - startKeyframe.frame + 1;
+                        let currentTweenFrame = currentFrame - startKeyframe.frame;
+                        let duration = endKeyframe.frame - startKeyframe.frame + 1;
 
                         // Build our transform according to where we should be.
                         renderingContext.translate(
                             ease(currentTweenFrame, txStart, txDistance, duration),
                             ease(currentTweenFrame, tyStart, tyDistance, duration)
                         );
+
                         renderingContext.rotate(
                             ease(currentTweenFrame, rotateStart, rotateDistance, duration)
                         );
+
                         renderingContext.scale(
                             ease(currentTweenFrame, sxStart, sxDistance, duration),
                             ease(currentTweenFrame, syStart, syDistance, duration)
                         );
 
                         // Draw the sprite.
-                        sprites[i].draw(renderingContext);
+                        SampleSpriteLibrary[scene[i].sprite](renderingContext);
 
                         // Clean up.
                         renderingContext.restore();
@@ -128,23 +130,23 @@
 
     window.KeyframeTweener = {
         // The module comes with a library of common easing functions.
-        linear: function (currentTime, start, distance, duration) {
-            var percentComplete = currentTime / duration;
+        linear: (currentTime, start, distance, duration) => {
+            let percentComplete = currentTime / duration;
             return distance * percentComplete + start;
         },
 
-        quadEaseIn: function (currentTime, start, distance, duration) {
-            var percentComplete = currentTime / duration;
+        quadEaseIn: (currentTime, start, distance, duration) => {
+            let percentComplete = currentTime / duration;
             return distance * percentComplete * percentComplete + start;
         },
 
-        quadEaseOut: function (currentTime, start, distance, duration) {
-            var percentComplete = currentTime / duration;
+        quadEaseOut: (currentTime, start, distance, duration) => {
+            let percentComplete = currentTime / duration;
             return -distance * percentComplete * (percentComplete - 2) + start;
         },
 
-        quadEaseInAndOut: function (currentTime, start, distance, duration) {
-            var percentComplete = currentTime / (duration / 2);
+        quadEaseInAndOut: (currentTime, start, distance, duration) => {
+            let percentComplete = currentTime / (duration / 2);
             return (percentComplete < 1) ?
                     (distance / 2) * percentComplete * percentComplete + start :
                     (-distance / 2) * ((percentComplete - 1) * (percentComplete - 3) - 1) + start;
@@ -152,4 +154,4 @@
 
         initialize: initializeAnimation
     };
-}());
+})();
