@@ -2,35 +2,27 @@
  * A module demonstrating assorted algorithms for selected 2D graphics
  * operations.
  */
-var Primitives = {
+(() => {
     /*
      * This is the cornerstone: we promise not to use any other graphics
      * operation but this one.
      */
-    setPixel: function (context, x, y, r, g, b) {
+    let setPixel = (context, x, y, r, g, b) => {
         context.save();
-        context.fillStyle = "rgb(" + parseInt(r, 10) + "," +
-                parseInt(g, 10) + "," + parseInt(b, 10) + ")";
+        context.fillStyle = "rgb(" + parseInt(r, 10) + "," + parseInt(g, 10) + "," + parseInt(b, 10) + ")";
         context.fillRect(x, y, 1, 1);
         context.restore();
-    },
+    };
 
     /*
      * The easy fill case: rectangles.  We take advantage of JavaScript's
      * "optional" parameter mechanism to keep things at a single method.
      */
-    fillRect: function (context, x, y, w, h, c1, c2, c3, c4) {
-        var module = this;
-        var i;
-        var j;
-        var bottom = y + h;
-        var right = x + w;
-        var leftColor = c1 ? [c1[0], c1[1], c1[2]] : c1;
-        var rightColor = c2 ? [c2[0], c2[1], c2[2]] : c2;
-        var leftVDelta;
-        var rightVDelta;
-        var hDelta;
-        var currentColor;
+    let fillRect = (context, x, y, w, h, c1, c2, c3, c4) => {
+        let bottom = y + h;
+        let right = x + w;
+        let leftColor = c1 ? [c1[0], c1[1], c1[2]] : c1;
+        let rightColor = c2 ? [c2[0], c2[1], c2[2]] : c2;
 
         // We have four subcases: zero, one, two, or four colors
         // supplied.  The three-color case will be treated as if
@@ -40,33 +32,30 @@ var Primitives = {
         // and simplifies reading the code.  There *is* some
         // duplicate code, but in this case the benefits outweigh
         // the cost.
-        var fillRectNoColor = function () {
+        let fillRectNoColor = () => {
             // The rendering context will just ignore the
             // undefined colors in this case.
-            for (i = y; i < bottom; i += 1) {
-                for (j = x; j < right; j += 1) {
-                    module.setPixel(context, j, i);
+            for (let i = y; i < bottom; i += 1) {
+                for (let j = x; j < right; j += 1) {
+                    setPixel(context, j, i);
                 }
             }
         };
 
-        var fillRectOneColor = function () {
+        let fillRectOneColor = () => {
             // Single color all the way through.
-            for (i = y; i < bottom; i += 1) {
-                for (j = x; j < right; j += 1) {
-                    module.setPixel(context, j, i, c1[0], c1[1], c1[2]);
+            for (let i = y; i < bottom; i += 1) {
+                for (let j = x; j < right; j += 1) {
+                    setPixel(context, j, i, ...c1);
                 }
             }
         };
 
-        var fillRectTwoColors = function () {
+        let fillRectTwoColors = () => {
             // This modifies the color vertically only.
-            for (i = y; i < bottom; i += 1) {
-                for (j = x; j < right; j += 1) {
-                    module.setPixel(context, j, i,
-                            leftColor[0],
-                            leftColor[1],
-                            leftColor[2]);
+            for (let i = y; i < bottom; i += 1) {
+                for (let j = x; j < right; j += 1) {
+                    setPixel(context, j, i, ...leftColor);
                 }
 
                 // Move to the next level of the gradient.
@@ -76,19 +65,16 @@ var Primitives = {
             }
         };
 
-        var fillRectFourColors = function () {
-            for (i = y; i < bottom; i += 1) {
+        let fillRectFourColors = () => {
+            for (let i = y; i < bottom; i += 1) {
                 // Move to the next "vertical" color level.
                 currentColor = [leftColor[0], leftColor[1], leftColor[2]];
                 hDelta = [(rightColor[0] - leftColor[0]) / w,
                           (rightColor[1] - leftColor[1]) / w,
                           (rightColor[2] - leftColor[2]) / w];
 
-                for (j = x; j < right; j += 1) {
-                    module.setPixel(context, j, i,
-                            currentColor[0],
-                            currentColor[1],
-                            currentColor[2]);
+                for (let j = x; j < right; j += 1) {
+                    setPixel(context, j, i, ...currentColor);
 
                     // Move to the next color horizontally.
                     currentColor[0] += hDelta[0];
@@ -115,8 +101,8 @@ var Primitives = {
         } else if (!c3) {
             // For this case, we set up the left vertical deltas.
             leftVDelta = [(c2[0] - c1[0]) / h,
-                      (c2[1] - c1[1]) / h,
-                      (c2[2] - c1[2]) / h];
+                          (c2[1] - c1[1]) / h,
+                          (c2[2] - c1[2]) / h];
             fillRectTwoColors();
         } else {
             // The four-color case, with a quick assignment in case
@@ -128,14 +114,14 @@ var Primitives = {
             // situation where function call overhead costs more
             // than repeated code.
             leftVDelta = [(c3[0] - c1[0]) / h,
-                      (c3[1] - c1[1]) / h,
-                      (c3[2] - c1[2]) / h];
+                          (c3[1] - c1[1]) / h,
+                          (c3[2] - c1[2]) / h];
             rightVDelta = [(c4[0] - c2[0]) / h,
-                      (c4[1] - c2[1]) / h,
-                      (c4[2] - c2[2]) / h];
+                           (c4[1] - c2[1]) / h,
+                           (c4[2] - c2[2]) / h];
             fillRectFourColors();
         }
-    },
+    };
 
     /*
      * Here come our line-drawing primitives.  Note, for simplicity, that
@@ -145,33 +131,32 @@ var Primitives = {
      */
 
     // Our digital-differential analyzer (DDA) version.
-    lineDDA: function (context, x1, y1, x2, y2, color) {
-        var steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
-        var dx = (x2 - x1) / steps;
-        var dy = (y2 - y1) / steps;
-        var x = x1;
-        var y = y1;
-        var i;
+    let lineDDA = (context, x1, y1, x2, y2, color) => {
+        let steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
+        let dx = (x2 - x1) / steps;
+        let dy = (y2 - y1) / steps;
+        let x = x1;
+        let y = y1;
 
         color = color || [0, 0, 0];
-        for (i = 0; i <= steps; i += 1) {
-            this.setPixel(context, x, y, color[0], color[1], color[2]);
+        for (let i = 0; i <= steps; i += 1) {
+            setPixel(context, x, y, ...color);
             x += dx;
             y += dy;
         }
-    },
+    };
 
     // Bresenham algorithm version 1.
-    lineBres1: function (context, x1, y1, x2, y2, color) {
-        var x = x1;
-        var y = y1;
-        var dx = x2 - x1;
-        var dy = y1 - y2;
-        var err = 0;
+    let lineBres1 = (context, x1, y1, x2, y2, color) => {
+        let x = x1;
+        let y = y1;
+        let dx = x2 - x1;
+        let dy = y1 - y2;
+        let err = 0;
 
         color = color || [0, 0, 0];
         while (true) {
-            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            setPixel(context, x, y, ...color);
             if (x === x2) {
                 return;
             }
@@ -183,19 +168,19 @@ var Primitives = {
                 err -= 1;
             }
         }
-    },
+    };
 
     // Bresenham algorithm version 2.
-    lineBres2: function (context, x1, y1, x2, y2, color) {
-        var x = x1;
-        var y = y1;
-        var dx = x2 - x1;
-        var dy = y1 - y2;
-        var err = 0;
+    let lineBres2 = (context, x1, y1, x2, y2, color) => {
+        let x = x1;
+        let y = y1;
+        let dx = x2 - x1;
+        let dy = y1 - y2;
+        let err = 0;
 
         color = color || [0, 0, 0];
         while (true) {
-            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            setPixel(context, x, y, ...color);
             if (x === x2) {
                 return;
             }
@@ -209,19 +194,19 @@ var Primitives = {
                 err -= (2 * dx);
             }
         }
-    },
+    };
 
     // Bresenham algorithm version 3.
-    lineBres3: function (context, x1, y1, x2, y2, color) {
-        var x = x1;
-        var y = y1;
-        var dx = x2 - x1;
-        var dy = y1 - y2;
-        var err = 0;
+    let lineBres3 = (context, x1, y1, x2, y2, color) => {
+        let x = x1;
+        let y = y1;
+        let dx = x2 - x1;
+        let dy = y1 - y2;
+        let err = 0;
 
         color = color || [0, 0, 0];
         while (true) {
-            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            setPixel(context, x, y, ...color);
             if (x === x2) {
                 return;
             }
@@ -236,22 +221,22 @@ var Primitives = {
                 err += (2 * dy);
             }
         }
-    },
+    };
 
     // The final, optimized Bresenham algorithm: here, we presave
     // most values, and adjust them to compare only to zero.
-    lineBresenham: function (context, x1, y1, x2, y2, color) {
-        var x = x1;
-        var y = y1;
-        var dx = x2 - x1;
-        var dy = y1 - y2;
-        var k1 = dy << 1; // dy divided by 2.
-        var err = k1 - dx;
-        var k2 = (dy - dx) << 1; // dy - dx divided by 2.
+    let lineBresenham = (context, x1, y1, x2, y2, color) => {
+        let x = x1;
+        let y = y1;
+        let dx = x2 - x1;
+        let dy = y1 - y2;
+        let k1 = dy << 1; // dy divided by 2.
+        let err = k1 - dx;
+        let k2 = (dy - dx) << 1; // dy - dx divided by 2.
 
         color = color || [0, 0, 0];
         while (true) {
-            this.setPixel(context, x, y, color[0], color[1], color[2]);
+            setPixel(context, x, y, ...color);
             if (x === x2) {
                 return;
             }
@@ -264,7 +249,7 @@ var Primitives = {
                 err += k2;
             }
         }
-    },
+    };
 
     /*
      * Time for the circles.  First, we observe that it is sufficient
@@ -272,58 +257,58 @@ var Primitives = {
      * permutations of that eighth's coordinates.  So we define a helper
      * function that all of the circle implementations will use...
      */
-    plotCirclePoints: function (context, xc, yc, x, y, color) {
+    let plotCirclePoints = (context, xc, yc, x, y, color) => {
         color = color || [0, 0, 0];
-        this.setPixel(context, xc + x, yc + y, color[0], color[1], color[2]);
-        this.setPixel(context, xc + x, yc - y, color[0], color[1], color[2]);
-        this.setPixel(context, xc + y, yc + x, color[0], color[1], color[2]);
-        this.setPixel(context, xc + y, yc - x, color[0], color[1], color[2]);
-        this.setPixel(context, xc - x, yc + y, color[0], color[1], color[2]);
-        this.setPixel(context, xc - x, yc - y, color[0], color[1], color[2]);
-        this.setPixel(context, xc - y, yc + x, color[0], color[1], color[2]);
-        this.setPixel(context, xc - y, yc - x, color[0], color[1], color[2]);
-    },
+        setPixel(context, xc + x, yc + y, ...color);
+        setPixel(context, xc + x, yc - y, ...color);
+        setPixel(context, xc + y, yc + x, ...color);
+        setPixel(context, xc + y, yc - x, ...color);
+        setPixel(context, xc - x, yc + y, ...color);
+        setPixel(context, xc - x, yc - y, ...color);
+        setPixel(context, xc - y, yc + x, ...color);
+        setPixel(context, xc - y, yc - x, ...color);
+    };
 
     // First, the most naive possible implementation: circle by trigonometry.
-    circleTrig: function (context, xc, yc, r, color) {
-        var theta = 1 / r;
+    let circleTrig = (context, xc, yc, r, color) => {
+        let theta = 1 / r;
 
         // At the very least, we compute our sine and cosine just once.
-        var s = Math.sin(theta);
-        var c = Math.cos(theta);
+        let s = Math.sin(theta);
+        let c = Math.cos(theta);
 
         // We compute the first octant, from zero to pi/4.
-        var x = r;
-        var y = 0;
+        let x = r;
+        let y = 0;
 
         while (x >= y) {
-            this.plotCirclePoints(context, xc, yc, x, y, color);
+            plotCirclePoints(context, xc, yc, x, y, color);
             x = x * c - y * s;
             y = x * s + y * c;
         }
-    },
+    };
 
     // Now DDA.
-    circleDDA: function (context, xc, yc, r, color) {
-        var epsilon = 1 / r;
-        var x = r;
-        var y = 0;
+    let circleDDA = (context, xc, yc, r, color) => {
+        let epsilon = 1 / r;
+        let x = r;
+        let y = 0;
 
         while (x >= y) {
-            this.plotCirclePoints(context, xc, yc, x, y, color);
+            plotCirclePoints(context, xc, yc, x, y, color);
             x = x - (epsilon * y);
             y = y + (epsilon * x);
         }
-    },
+    };
 
     // One of three Bresenham-like approaches.
-    circleBres1: function (context, xc, yc, r, color) {
-        var p = 3 - 2 * r;
-        var x = 0;
-        var y = r;
+    let circleBres1 = (context, xc, yc, r, color) => {
+        let p = 3 - 2 * r;
+        let x = 0;
+        let y = r;
 
         while (x < y) {
-            this.plotCirclePoints(context, xc, yc, x, y, color);
+            plotCirclePoints(context, xc, yc, x, y, color);
             if (p < 0) {
                 p = p + 4 * x + 6;
             } else {
@@ -332,21 +317,22 @@ var Primitives = {
             }
             x += 1;
         }
+
         if (x === y) {
-            this.plotCirclePoints(context, xc, yc, x, y, color);
+            plotCirclePoints(context, xc, yc, x, y, color);
         }
-    },
+    };
 
     // And another...
-    circleBres2: function (context, xc, yc, r, color) {
-        var x = 0;
-        var y = r;
-        var e = 1 - r;
-        var u = 1;
-        var v = e - r;
+    let circleBres2 = (context, xc, yc, r, color) => {
+        let x = 0;
+        let y = r;
+        let e = 1 - r;
+        let u = 1;
+        let v = e - r;
 
         while (x <= y) {
-            this.plotCirclePoints(context, xc, yc, x, y, color);
+            plotCirclePoints(context, xc, yc, x, y, color);
             if (e < 0) {
                 x += 1;
                 u += 2;
@@ -360,16 +346,16 @@ var Primitives = {
                 e += v;
             }
         }
-    },
+    };
 
     // Last but not least...
-    circleBres3: function (context, xc, yc, r, color) {
-        var x = r;
-        var y = 0;
-        var e = 0;
+    let circleBres3 = (context, xc, yc, r, color) => {
+        let x = r;
+        let y = 0;
+        let e = 0;
 
         while (y <= x) {
-            this.plotCirclePoints(context, xc, yc, x, y, color);
+            plotCirclePoints(context, xc, yc, x, y, color);
             y += 1;
             e += (2 * y - 1);
             if (e > x) {
@@ -377,7 +363,7 @@ var Primitives = {
                 e -= (2 * x + 1);
             }
         }
-    },
+    };
 
     /*
      * Now, the big one: a general polygon-filling algorithm.
@@ -386,47 +372,39 @@ var Primitives = {
      */
 
     // For starters, we need an Edge helper object.
-    Edge: function (p1, p2) {
-        this.maxY = Math.max(p1.y, p2.y);
-        this.minY = Math.min(p1.y, p2.y);
-        this.horizontal = (p1.y === p2.y);
-        if (!this.horizontal) {
-            this.inverseSlope = (p2.x - p1.x) / (p2.y - p1.y);
-        }
+    let Edge = class {
+        constructor(p1, p2) {
+            this.maxY = Math.max(p1.y, p2.y);
+            this.minY = Math.min(p1.y, p2.y);
+            this.horizontal = (p1.y === p2.y);
+            if (!this.horizontal) {
+                this.inverseSlope = (p2.x - p1.x) / (p2.y - p1.y);
+            }
 
-        // The initial x coordinate is the x coordinate of the
-        // point with the lower y value.
-        this.currentX = (p1.y === this.minY) ? p1.x : p2.x;
-    },
+            // The initial x coordinate is the x coordinate of the
+            // point with the lower y value.
+            this.currentX = (p1.y === this.minY) ? p1.x : p2.x;
+        }
+    };
 
     // Now to the function itself.
-    fillPolygon: function (context, polygon, color) {
-        var Edge = this.Edge; // An alias for convenience.
-
+    let fillPolygon = (context, polygon, color) => {
         /*
          * A useful helper function: this "snaps" a given y coordinate
          * to its nearest scan line.
          */
-        var toScanLine = function (y) {
-            return Math.ceil(y);
-        };
+        let toScanLine = y => Math.ceil(y);
 
         /*
          * We will need to sort edges by x coordinate.
          */
-        var xComparator = function (edge1, edge2) {
-            return edge1.currentX - edge2.currentX;
-        };
+        let xComparator = (edge1, edge2) => edge1.currentX - edge2.currentX;
 
         /*
          * We will need to do "array difference:" return an array whose
          * elements are in the first array but not in the second.
          */
-        var arrayDifference = function (array1, array2) {
-            return array1.filter(function (element) {
-                return array2.indexOf(element) < 0;
-            });
-        };
+        let arrayDifference = (array1, array2) => array1.filter(element => array2.indexOf(element) < 0);
 
         /*
          * An important helper function: this moves the edges whose
@@ -434,8 +412,8 @@ var Primitives = {
          * list to the destination. We assume that the source list
          * is sorted by minimum y.
          */
-        var moveMatchingMinYs = function (src, dest, targetY) {
-            for (var i = 0, max = src.length; i < max; i += 1) {
+        let moveMatchingMinYs = (src, dest, targetY) => {
+            for (let i = 0, max = src.length; i < max; i += 1) {
                 if (toScanLine(src[i].minY) === targetY) {
                     dest.push(src[i]);
                 } else if (toScanLine(src[i].minY) > targetY) {
@@ -449,23 +427,24 @@ var Primitives = {
             return arrayDifference(src, dest);
         };
 
-        var globalEdgeList = []; // List of all edges.
-        var activeEdgeList = []; // List of all edges currently being scanned.
-        var i;                   // Reusable index variable.
-        var max;                 // Another reusable variable, for loop maximums.
-        var anEdge;              // Temporary edge holder.
-        var currentScanLine;     // The scan line that is being drawn.
-        var drawPixel;           // Whether we are supposed to plot something.
-        var fromX;               // The starting x coordinate of the current scan line.
-        var toX;                 // The ending x coordinate of the current scan line.
-        var x;                   // Another reusable index variable, for drawing.
-        var edgesToRemove;       // For use when, well, removing edges from a list.
+        /*
+         * Due to the relative complexity of this algorithm, we "pre-declare" variables here
+         * so that we can easily attach comments that explain their role in the fill.
+         */
+        let globalEdgeList = []; // List of all edges.
+        let activeEdgeList = []; // List of all edges currently being scanned.
+        let anEdge;              // Temporary edge holder.
+        let currentScanLine;     // The scan line that is being drawn.
+        let drawPixel;           // Whether we are supposed to plot something.
+        let fromX;               // The starting x coordinate of the current scan line.
+        let toX;                 // The ending x coordinate of the current scan line.
+        let edgesToRemove;       // For use when, well, removing edges from a list.
 
         // The usual color guard.
         color = color || [0, 0, 0];
 
         // Create the global edge list.
-        for (i = 0, max = polygon.length; i < max; i += 1) {
+        for (let i = 0, max = polygon.length; i < max; i += 1) {
             // If we are at the last vertex, we go back to the first one.
             anEdge = new Edge(polygon[i], polygon[(i + 1) % polygon.length]);
 
@@ -476,15 +455,13 @@ var Primitives = {
         }
 
         // Sort the list from top to bottom.
-        globalEdgeList.sort(function (edge1, edge2) {
-            if (edge1.minY !== edge2.minY) {
-                return (edge1.minY - edge2.minY);
-            } else {
-                // If the minimum y's are the same, then the edge with the
-                // smaller x value goes first.
-                return (edge1.currentX - edge2.currentX);
-            }
-        });
+        globalEdgeList.sort((edge1, edge2) => (edge1.minY !== edge2.minY) ?
+            edge1.minY - edge2.minY :
+
+            // If the minimum y's are the same, then the edge with the
+            // smaller x value goes first.
+            edge1.currentX - edge2.currentX
+        );
 
         // We start at the lowest y coordinate.
         currentScanLine = toScanLine(globalEdgeList[0].minY);
@@ -496,7 +473,7 @@ var Primitives = {
         drawPixel = false;
         while (activeEdgeList.length) {
             fromX = Number.MAX_VALUE;
-            for (i = 0, max = activeEdgeList.length; i < max; i += 1) {
+            for (let i = 0, max = activeEdgeList.length; i < max; i += 1) {
                 // If we're drawing pixels, we draw until we reach the x
                 // coordinate of this edge. Otherwise, we just remember where we
                 // are then move on.
@@ -504,13 +481,13 @@ var Primitives = {
                     toX = toScanLine(activeEdgeList[i].currentX);
 
                     // No cheating here --- draw each pixel, one by one.
-                    for (x = fromX; x <= toX; x += 1) {
-                        this.setPixel(context, x, currentScanLine,
-                                color[0], color[1], color[2]);
+                    for (let x = fromX; x <= toX; x += 1) {
+                        setPixel(context, x, currentScanLine, ...color);
                     }
                 } else {
                     fromX = toScanLine(activeEdgeList[i].currentX);
                 }
+
                 drawPixel = !drawPixel;
             }
 
@@ -518,7 +495,7 @@ var Primitives = {
             // encountered an odd number of edges, and need to draw a single
             // pixel.
             if (drawPixel) {
-                this.setPixel(context, fromX, currentScanLine, color);
+                setPixel(context, fromX, currentScanLine, ...color);
                 drawPixel = !drawPixel;
             }
 
@@ -527,7 +504,7 @@ var Primitives = {
 
             // Remove edges for which we have reached the maximum y.
             edgesToRemove = [];
-            for (i = 0, max = activeEdgeList.length; i < max; i += 1) {
+            for (let i = 0, max = activeEdgeList.length; i < max; i += 1) {
                 if (toScanLine(activeEdgeList[i].maxY) === currentScanLine) {
                     edgesToRemove.push(activeEdgeList[i]);
                 }
@@ -538,13 +515,28 @@ var Primitives = {
             globalEdgeList = moveMatchingMinYs(globalEdgeList, activeEdgeList, currentScanLine);
 
             // Update the x coordinates of the active edges.
-            for (i = 0, max = activeEdgeList.length; i < max; i += 1) {
+            for (let i = 0, max = activeEdgeList.length; i < max; i += 1) {
                 activeEdgeList[i].currentX += activeEdgeList[i].inverseSlope;
             }
 
             // Re-sort the edge list.
             activeEdgeList.sort(xComparator);
         }
-    }
+    };
 
-};
+    window.Primitives = {
+        setPixel,
+        fillRect,
+        lineDDA,
+        lineBres1,
+        lineBres2,
+        lineBres3,
+        lineBresenham,
+        circleTrig,
+        circleDDA,
+        circleBres1,
+        circleBres2,
+        circleBres3,
+        fillPolygon
+    };
+})();
