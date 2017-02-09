@@ -2,14 +2,14 @@
  * This demo script uses the Nanoshop module to apply a simple
  * filter on a canvas drawing.
  */
-(function () {
-    var canvas = $("#picture")[0];
-    var renderingContext = canvas.getContext("2d");
+(() => {
+    let canvas = $("#picture")[0];
+    let renderingContext = canvas.getContext("2d");
 
     // Scene created by Angela Elgar: https://github.com/aelgar
     renderingContext.translate(400, 200);
     Sprites.Wall.draw(renderingContext, { });
-    
+
     renderingContext.resetTransform();
     renderingContext.translate(120, 220);
     Sprites.Shelf.draw(renderingContext);
@@ -32,13 +32,13 @@
     Sprites.Cup.draw(renderingContext, { color:"DarkSalmon" });
     renderingContext.translate(-180, 0);
     Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
-    
+
     renderingContext.translate(-690, 0);
     renderingContext.rotate(Math.PI);
     Sprites.Cup.draw(renderingContext, { color:"SeaGreen" });
     renderingContext.translate(250, 0);
     Sprites.Cup.draw(renderingContext, { });
-    
+
     renderingContext.resetTransform();
     renderingContext.translate(70, 158);
     renderingContext.scale(0.2, 0.2);
@@ -60,7 +60,7 @@
     renderingContext.resetTransform();
     renderingContext.translate(570, 360);
     Sprites.Counter.draw(renderingContext);
-    
+
     renderingContext.resetTransform();
     renderingContext.translate(540, 280);
     renderingContext.scale(0.2, 0.2);
@@ -97,4 +97,4 @@
             0, 0
         );
     });
-}());
+})();

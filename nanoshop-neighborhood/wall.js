@@ -1,74 +1,74 @@
 // Graphics by Angela Elgar: https://github.com/aelgar
-(function () {
+(() => {
     window.Sprites = window.Sprites || { };
-    window.Sprites.Wall = (function () {
-        var wallHeight = 400;
-        var wallWidth = 800;
+    window.Sprites.Wall = (() => {
+        const WALL_HEIGHT = 400;
+        const WALL_WIDTH = 800;
 
-        var stripeCount = 9;
-        var lineThickness = 4;
-        var accentHeightRatio = .40;
-        var accentPanelWidth = 40;
+        const STRIPE_COUNT = 9;
+        const LINE_THICKNESS = 4;
+        const ACCENT_HEIGHT_RATIO = .40;
+        const ACCENT_PANEL_WIDTH = 40;
 
-        var baseColor = "#4C4537";
-        var stripeColor = "#7B9080";
-        var accentColor = "#6A5B47";
-        var accentLines = "#504030";
+        const BASE_COLOR = "#4C4537";
+        const STRIPE_COLOR = "#7B9080";
+        const ACCENT_COLOR = "#6A5B47";
+        const ACCENT_LINES = "#504030";
 
-        var stripeWidth = wallWidth / stripeCount;
-        var accentHeight = wallHeight * accentHeightRatio;
+        const STRIPE_WIDTH = WALL_WIDTH / STRIPE_COUNT;
+        const ACCENT_HEIGHT = WALL_HEIGHT * ACCENT_HEIGHT_RATIO;
 
-        var drawBase = function (renderingContext, options) {
-            renderingContext.fillStyle = baseColor;
-            renderingContext.strokeStyle = baseColor;
-            renderingContext.lineWidth = lineThickness;
-            renderingContext.fillRect(-(wallWidth / 2), -(wallHeight / 2), wallWidth, wallHeight);
-            renderingContext.strokeRect(-(wallWidth / 2), -(wallHeight / 2), wallWidth, wallHeight);
-            
+        let drawBase = (renderingContext, options) => {
+            renderingContext.fillStyle = BASE_COLOR;
+            renderingContext.strokeStyle = BASE_COLOR;
+            renderingContext.lineWidth = LINE_THICKNESS;
+            renderingContext.fillRect(-(WALL_WIDTH / 2), -(WALL_HEIGHT / 2), WALL_WIDTH, WALL_HEIGHT);
+            renderingContext.strokeRect(-(WALL_WIDTH / 2), -(WALL_HEIGHT / 2), WALL_WIDTH, WALL_HEIGHT);
+
             if (options.hasStripes) {
-                renderingContext.fillStyle = stripeColor;
-                for (var i = 0; i < stripeCount; i += 2) {
+                renderingContext.fillStyle = STRIPE_COLOR;
+                for (let i = 0; i < STRIPE_COUNT; i += 2) {
                     renderingContext.fillRect(
-                        -(wallWidth / 2) + stripeWidth * i,
-                        -(wallHeight / 2), stripeWidth, wallHeight
+                        -(WALL_WIDTH / 2) + STRIPE_WIDTH * i,
+                        -(WALL_HEIGHT / 2), STRIPE_WIDTH, WALL_HEIGHT
                     );
                 }
             }
         };
 
-        var drawAccent = function (renderingContext) {
-            renderingContext.fillStyle = accentColor;
-            renderingContext.strokeStyle = accentLines;
-            
-            renderingContext.fillRect(-(wallWidth / 2), ((wallHeight / 2) - accentHeight), wallWidth, accentHeight);
-            renderingContext.strokeRect(-(wallWidth / 2), ((wallHeight / 2) - accentHeight), wallWidth, accentHeight);
-            
-            for (var i = 0; i < (wallWidth / accentPanelWidth) / 2 - 1; i += 1) {
+        let drawAccent = (renderingContext) => {
+            renderingContext.fillStyle = ACCENT_COLOR;
+            renderingContext.strokeStyle = ACCENT_LINES;
+
+            renderingContext.fillRect(-(WALL_WIDTH / 2), ((WALL_HEIGHT / 2) - ACCENT_HEIGHT), WALL_WIDTH, ACCENT_HEIGHT);
+            renderingContext.strokeRect(-(WALL_WIDTH / 2), ((WALL_HEIGHT / 2) - ACCENT_HEIGHT), WALL_WIDTH, ACCENT_HEIGHT);
+
+            for (let i = 0; i < (WALL_WIDTH / ACCENT_PANEL_WIDTH) / 2 - 1; i += 1) {
                 renderingContext.strokeRect(
-                    -(wallWidth / 2) + stripeWidth * i, ((wallHeight / 2) - accentHeight),
-                    accentPanelWidth, accentHeight
+                    -(WALL_WIDTH / 2) + STRIPE_WIDTH * i, ((WALL_HEIGHT / 2) - ACCENT_HEIGHT),
+                    ACCENT_PANEL_WIDTH, ACCENT_HEIGHT
                 );
             }
-            
+
             renderingContext.fillRect(
-                -(wallWidth / 2), (wallHeight / 2) - accentHeight,
-                wallWidth, accentPanelWidth / 2
+                -(WALL_WIDTH / 2), (WALL_HEIGHT / 2) - ACCENT_HEIGHT,
+                WALL_WIDTH, ACCENT_PANEL_WIDTH / 2
             );
 
             renderingContext.strokeRect(
-                -(wallWidth / 2), (wallHeight / 2) - accentHeight,
-                wallWidth, accentPanelWidth / 2
+                -(WALL_WIDTH / 2), (WALL_HEIGHT / 2) - ACCENT_HEIGHT,
+                WALL_WIDTH, ACCENT_PANEL_WIDTH / 2
             );
         }
 
-        var drawWall = function (renderingContext, options) {
+        let drawWall = function (renderingContext, options) {
             renderingContext.save();
             drawBase(renderingContext, options);
-            
+
             if (options.hasAccent) {
                 drawAccent(renderingContext);
             }
-            
+
             renderingContext.restore();
         };
 

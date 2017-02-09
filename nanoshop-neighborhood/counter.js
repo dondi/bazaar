@@ -1,37 +1,37 @@
 // Graphics by Angela Elgar: https://github.com/aelgar
-(function () {
+(() => {
     window.Sprites = window.Sprites || { };
-    window.Sprites.Counter = (function () {
-        var counterHeight = 120;
-        var counterWidth = 400;
-        var counterTopWidth = 16;
-        var mainColor = "#57442A";
-        var shadowColor = "#47341A";
+    window.Sprites.Counter = (() => {
+        const COUNTER_HEIGHT = 120;
+        const COUNTER_WIDTH = 400;
+        const COUNTER_TOP_WIDTH = 16;
+        const MAIN_COLOR = "#57442A";
+        const SHADOW_COLOR = "#47341A";
 
-        var drawBase = function (renderingContext) {
-            renderingContext.fillStyle = mainColor;
+        let drawBase = (renderingContext) => {
+            renderingContext.fillStyle = MAIN_COLOR;
             renderingContext.fillRect(
-                -(counterWidth / 2), -(counterHeight / 2), 
-                counterWidth, counterHeight
+                -(COUNTER_WIDTH / 2), -(COUNTER_HEIGHT / 2),
+                COUNTER_WIDTH, COUNTER_HEIGHT
             );
 
-            renderingContext.fillStyle = shadowColor;
+            renderingContext.fillStyle = SHADOW_COLOR;
             renderingContext.fillRect(
-                -(counterWidth / 2), -(counterHeight / 2), 
-                counterWidth, counterHeight / 6
+                -(COUNTER_WIDTH / 2), -(COUNTER_HEIGHT / 2),
+                COUNTER_WIDTH, COUNTER_HEIGHT / 6
             );
 
-            renderingContext.strokeStyle = mainColor;
-            renderingContext.lineWidth = counterTopWidth;
+            renderingContext.strokeStyle = MAIN_COLOR;
+            renderingContext.lineWidth = COUNTER_TOP_WIDTH;
             renderingContext.lineCap = "square";
-            
+
             renderingContext.beginPath();
-            renderingContext.moveTo(-(counterWidth / 2), -(counterHeight / 2));
-            renderingContext.lineTo(counterWidth / 2, -(counterHeight / 2));
+            renderingContext.moveTo(-(COUNTER_WIDTH / 2), -(COUNTER_HEIGHT / 2));
+            renderingContext.lineTo(COUNTER_WIDTH / 2, -(COUNTER_HEIGHT / 2));
             renderingContext.stroke();
         };
 
-        var drawCounter = function (renderingContext) {
+        let drawCounter = (renderingContext) => {
             renderingContext.save();
             drawBase(renderingContext);
             renderingContext.restore();

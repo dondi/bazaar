@@ -1,59 +1,59 @@
 // Graphics by Angela Elgar: https://github.com/aelgar
-(function () {
+(() => {
     window.Sprites = window.Sprites || { };
-    window.Sprites.RoomLight = (function () {
-        var shadeHoldWidth = 50;
-        var shadeHoldHeight = 15;
-        var shadeRadius = 50;
-        var lightRadius = 400;
-        var rodLength = 120;
-        var rodWidth = 8;
-        var DEFAULT_BRIGHTNESS = 0;
-        
-        var baseColor = "#404035";
-        var lightColorRGB = "250, 240, 150";
-        var transparent = "rgba(255, 255, 255, 0)";
+    window.Sprites.RoomLight = (() => {
+        const SHADE_HOLD_WIDTH = 50;
+        const SHADE_HOLD_HEIGHT = 15;
+        const SHADE_RADIUS = 50;
+        const LIGHT_RADIUS = 400;
+        const ROD_LENGTH = 120;
+        const ROD_WIDTH = 8;
+        const DEFAULT_BRIGHTNESS = 0;
 
-        var drawLight = function (renderingContext, options) {
-            var brightness = +(options.brightness || DEFAULT_BRIGHTNESS);
-            
-            var radialGradient = renderingContext.createRadialGradient(
-                0, shadeRadius, 1, 
-                0, shadeRadius, lightRadius
+        const BASE_COLOR = "#404035";
+        const LIGHT_COLOR_RGB = "250, 240, 150";
+        const TRANSPARENT = "rgba(255, 255, 255, 0)";
+
+        let drawLight = (renderingContext, options) => {
+            let brightness = +(options.brightness || DEFAULT_BRIGHTNESS);
+
+            let radialGradient = renderingContext.createRadialGradient(
+                0, SHADE_RADIUS, 1,
+                0, SHADE_RADIUS, LIGHT_RADIUS
             );
 
-            radialGradient.addColorStop(0, "rgba(" + lightColorRGB + "," + brightness + ")");
-            radialGradient.addColorStop(1, transparent);
-            
+            radialGradient.addColorStop(0, "rgba(" + LIGHT_COLOR_RGB + "," + brightness + ")");
+            radialGradient.addColorStop(1, TRANSPARENT);
+
             renderingContext.fillStyle = radialGradient;
             renderingContext.beginPath();
             renderingContext.moveTo(0, 0);
-            renderingContext.arc(0, lightRadius, lightRadius, 0, Math.PI, false);
+            renderingContext.arc(0, LIGHT_RADIUS, LIGHT_RADIUS, 0, Math.PI, false);
             renderingContext.fill();
         }
-            
-        var drawShade = function (renderingContext) {
-            renderingContext.fillStyle = baseColor;
-            renderingContext.strokeStyle = baseColor;
-            
+
+        let drawShade = (renderingContext) => {
+            renderingContext.fillStyle = BASE_COLOR;
+            renderingContext.strokeStyle = BASE_COLOR;
+
             renderingContext.fillRect(
-                -(shadeHoldWidth / 2), -(shadeHoldHeight / 2), 
-                shadeHoldWidth, shadeHoldHeight
+                -(SHADE_HOLD_WIDTH / 2), -(SHADE_HOLD_HEIGHT / 2),
+                SHADE_HOLD_WIDTH, SHADE_HOLD_HEIGHT
             );
-            
+
             renderingContext.beginPath();
-            renderingContext.arc(0, shadeRadius, shadeRadius, 0, Math.PI, true);
+            renderingContext.arc(0, SHADE_RADIUS, SHADE_RADIUS, 0, Math.PI, true);
             renderingContext.fill();
-            
-            renderingContext.lineWidth = rodWidth;
+
+            renderingContext.lineWidth = ROD_WIDTH;
             renderingContext.beginPath();
             renderingContext.moveTo(0, 0);
-            renderingContext.lineTo(0, -rodLength);
+            renderingContext.lineTo(0, -ROD_LENGTH);
             renderingContext.closePath();
             renderingContext.stroke();
         };
 
-        var drawRoomLight = function (renderingContext, options) {
+        let drawRoomLight = (renderingContext, options) => {
             renderingContext.save();
             drawLight(renderingContext, options);
             drawShade(renderingContext);

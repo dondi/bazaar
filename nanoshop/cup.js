@@ -1,73 +1,73 @@
 // Graphics by Angela Elgar: https://github.com/aelgar
-(function () {
+(() => {
     window.Sprites = window.Sprites || { };
-    window.Sprites.Cup = (function () {
-        var cupHeight = 120;
-        var cupWidth = 200;
-        var handleThickness = 15;
-        var steamHeight = 60;
-        var steamThickness = handleThickness / 2;
-        var steamYOffset = -(cupHeight * 0.75);
+    window.Sprites.Cup = (() => {
+        const CUP_HEIGHT = 120;
+        const CUP_WIDTH = 200;
+        const HANDLE_THICKNESS = 15;
+        const STEAM_HEIGHT = 60;
+        const STEAM_THICKNESS = HANDLE_THICKNESS / 2;
+        const STEAM_Y_OFFSET = -(CUP_HEIGHT * 0.75);
 
-        var DEFAULT_COLOR = "SteelBlue";
-        var DEFAULT_STEAM_RGB = "170, 220, 230";
-        var DEFAULT_STEAM_OPACITY = 0;
+        const DEFAULT_COLOR = "SteelBlue";
+        const DEFAULT_STEAM_RGB = "170, 220, 230";
+        const DEFAULT_STEAM_OPACITY = 0;
 
-        var handleCurve = {
-            ctrlPt1: { x: cupWidth, y: cupHeight * -0.8 },
-            ctrlPt2: { x: cupWidth * 0.8, y: cupHeight * 0.7 },
-            endPt: { x: 0, y: cupHeight * 0.2 }
+        const HANDLE_CURVE = {
+            ctrlPt1: { x: CUP_WIDTH, y: CUP_HEIGHT * -0.8 },
+            ctrlPt2: { x: CUP_WIDTH * 0.8, y: CUP_HEIGHT * 0.7 },
+            endPt: { x: 0, y: CUP_HEIGHT * 0.2 }
         };
 
-        var steamCurve = {
-            ctrlPt1: { x: -20, y: steamYOffset - (steamHeight / 2) },
-            ctrlPt2: { x: 20, y: steamYOffset - steamHeight - (steamHeight / 2) }
+        const STEAM_CURVE = {
+            ctrlPt1: { x: -20, y: STEAM_Y_OFFSET - (STEAM_HEIGHT / 2) },
+            ctrlPt2: { x: 20, y: STEAM_Y_OFFSET - STEAM_HEIGHT - (STEAM_HEIGHT / 2) }
         };
 
-        var drawBase = function (renderingContext) {
+        let drawBase = (renderingContext) => {
             renderingContext.beginPath();
-            renderingContext.moveTo(-(cupWidth / 2), -(cupHeight / 2));
-            renderingContext.lineTo(cupWidth / 2, -(cupHeight / 2));
-            renderingContext.quadraticCurveTo(cupWidth / 2, cupHeight / 2, 0, cupHeight / 2);
-            renderingContext.quadraticCurveTo(-(cupWidth / 2), cupHeight / 2, -(cupWidth / 2), -(cupHeight / 2));
+            renderingContext.moveTo(-(CUP_WIDTH / 2), -(CUP_HEIGHT / 2));
+            renderingContext.lineTo(CUP_WIDTH / 2, -(CUP_HEIGHT / 2));
+            renderingContext.quadraticCurveTo(CUP_WIDTH / 2, CUP_HEIGHT / 2, 0, CUP_HEIGHT / 2);
+            renderingContext.quadraticCurveTo(-(CUP_WIDTH / 2), CUP_HEIGHT / 2, -(CUP_WIDTH / 2), -(CUP_HEIGHT / 2));
             renderingContext.fill();
         };
 
-        var drawHandle = function (renderingContext) {
+        let drawHandle = (renderingContext) => {
             renderingContext.save();
             renderingContext.beginPath();
             renderingContext.moveTo(0, 0);
             renderingContext.bezierCurveTo(
-                handleCurve.ctrlPt1.x, handleCurve.ctrlPt1.y, 
-                handleCurve.ctrlPt2.x, handleCurve.ctrlPt2.y, 
-                handleCurve.endPt.x, handleCurve.endPt.y
+                HANDLE_CURVE.ctrlPt1.x, HANDLE_CURVE.ctrlPt1.y,
+                HANDLE_CURVE.ctrlPt2.x, HANDLE_CURVE.ctrlPt2.y,
+                HANDLE_CURVE.endPt.x, HANDLE_CURVE.endPt.y
             );
-            renderingContext.lineWidth = handleThickness;
+            renderingContext.lineWidth = HANDLE_THICKNESS;
             renderingContext.stroke();
             renderingContext.closePath();
             renderingContext.restore();
         }
 
-        var drawSteamCurve = function (renderingContext, xOffset, yOffset) {
+        let drawSteamCurve = (renderingContext, xOffset, yOffset) => {
             renderingContext.beginPath();
-            renderingContext.moveTo(xOffset, steamYOffset + yOffset);
+            renderingContext.moveTo(xOffset, STEAM_Y_OFFSET + yOffset);
             renderingContext.quadraticCurveTo(
-                steamCurve.ctrlPt1.x + xOffset, steamCurve.ctrlPt1.y + yOffset, 
-                xOffset, steamYOffset - steamHeight + yOffset
+                STEAM_CURVE.ctrlPt1.x + xOffset, STEAM_CURVE.ctrlPt1.y + yOffset,
+                xOffset, STEAM_Y_OFFSET - STEAM_HEIGHT + yOffset
             );
             renderingContext.quadraticCurveTo(
-                steamCurve.ctrlPt2.x + xOffset, steamCurve.ctrlPt2.y + yOffset, 
-                xOffset, steamYOffset - steamHeight * 2 + yOffset
+                STEAM_CURVE.ctrlPt2.x + xOffset, STEAM_CURVE.ctrlPt2.y + yOffset,
+                xOffset, STEAM_Y_OFFSET - STEAM_HEIGHT * 2 + yOffset
             );
             renderingContext.stroke();
-            renderingContext.closePath()   
+            renderingContext.closePath()
         }
 
-        var drawSteamSet = function (renderingContext, options) {
-            opacity = options.steamOpacity || DEFAULT_STEAM_OPACITY;
+        let drawSteamSet = (renderingContext, options) => {
+            let opacity = options.steamOpacity || DEFAULT_STEAM_OPACITY;
             renderingContext.save();
             renderingContext.strokeStyle = "rgba(" + DEFAULT_STEAM_RGB + "," + opacity + ")";
-            renderingContext.lineWidth = steamThickness;
+            renderingContext.lineWidth = STEAM_THICKNESS;
             renderingContext.lineCap = "round";
             drawSteamCurve(renderingContext, 0, -10);
             drawSteamCurve(renderingContext, -50, +10);
@@ -75,16 +75,16 @@
             renderingContext.restore();
         }
 
-        var drawCup = function (renderingContext, options) {
+        let drawCup = (renderingContext, options) => {
             renderingContext.save();
 
-            var color = options.color || DEFAULT_COLOR;
+            let color = options.color || DEFAULT_COLOR;
             renderingContext.fillStyle = color;
             renderingContext.strokeStyle = color;
-            
+
             drawHandle(renderingContext);
             drawBase(renderingContext);
-            
+
             if (options.steam || options.steamOpacity){
                 drawSteamSet(renderingContext, options);
             }

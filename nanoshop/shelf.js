@@ -1,49 +1,49 @@
 // Graphics by Angela Elgar: https://github.com/aelgar
-(function () {
+(() => {
     window.Sprites = window.Sprites || { };
-    window.Sprites.Shelf = (function () {
-        var shelfHeight = 380;
-        var shelfWidth = 180;
-        var boardWidth = 10;
-        var levelHeight = 70;
-        var cabinetHeight = 100;
+    window.Sprites.Shelf = (() => {
+        const SHELF_HEIGHT = 380;
+        const SHELF_WIDTH = 180;
+        const BOARD_WIDTH = 10;
+        const LEVEL_HEIGHT = 70;
+        const CABINET_HEIGHT = 100;
 
-        var mainColor = "#7C6147";
-        var shadowColor = "#3E352D";
-            
-        var drawBase = function (renderingContext) {
-            renderingContext.fillStyle = mainColor;
-            renderingContext.fillRect(-(shelfWidth / 2), -(shelfHeight / 2), shelfWidth, shelfHeight);
-            
-            renderingContext.fillStyle = shadowColor;
+        const MAIN_COLOR = "#7C6147";
+        const SHADOW_COLOR = "#3E352D";
+
+        let drawBase = (renderingContext) => {
+            renderingContext.fillStyle = MAIN_COLOR;
+            renderingContext.fillRect(-(SHELF_WIDTH / 2), -(SHELF_HEIGHT / 2), SHELF_WIDTH, SHELF_HEIGHT);
+
+            renderingContext.fillStyle = SHADOW_COLOR;
             renderingContext.fillRect(
-                -(shelfWidth / 2) + boardWidth, -(shelfHeight / 2) + boardWidth,
-                shelfWidth - (boardWidth * 2), shelfHeight - cabinetHeight
+                -(SHELF_WIDTH / 2) + BOARD_WIDTH, -(SHELF_HEIGHT / 2) + BOARD_WIDTH,
+                SHELF_WIDTH - (BOARD_WIDTH * 2), SHELF_HEIGHT - CABINET_HEIGHT
             );
 
-            renderingContext.fillStyle = mainColor;
-            for (var i = 0; i < 4; i += 1){
+            renderingContext.fillStyle = MAIN_COLOR;
+            for (let i = 0; i < 4; i += 1){
                 renderingContext.fillRect(
-                    -(shelfWidth / 2), -(shelfHeight / 2) + (levelHeight * i),
-                    shelfWidth, boardWidth
+                    -(SHELF_WIDTH / 2), -(SHELF_HEIGHT / 2) + (LEVEL_HEIGHT * i),
+                    SHELF_WIDTH, BOARD_WIDTH
                 );
             }
-            
-            renderingContext.strokeStyle = shadowColor;
+
+            renderingContext.strokeStyle = SHADOW_COLOR;
             renderingContext.lineWidth = 4;
             renderingContext.lineJoin = "round";
             renderingContext.strokeRect(
-                -(shelfWidth / 2) + boardWidth, (shelfHeight / 2) - cabinetHeight + (boardWidth * 2),
-                shelfWidth - (boardWidth * 2), levelHeight
+                -(SHELF_WIDTH / 2) + BOARD_WIDTH, (SHELF_HEIGHT / 2) - CABINET_HEIGHT + (BOARD_WIDTH * 2),
+                SHELF_WIDTH - (BOARD_WIDTH * 2), LEVEL_HEIGHT
             );
-            
+
             renderingContext.beginPath();
-            renderingContext.moveTo(0, (shelfHeight / 2) - cabinetHeight + (boardWidth * 2));
-            renderingContext.lineTo(0, (shelfHeight / 2) - boardWidth);
+            renderingContext.moveTo(0, (SHELF_HEIGHT / 2) - CABINET_HEIGHT + (BOARD_WIDTH * 2));
+            renderingContext.lineTo(0, (SHELF_HEIGHT / 2) - BOARD_WIDTH);
             renderingContext.stroke();
         };
 
-        var drawShelf = function (renderingContext) {
+        let drawShelf = (renderingContext) => {
             renderingContext.save();
             drawBase(renderingContext);
             renderingContext.restore();
