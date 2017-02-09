@@ -70,12 +70,12 @@ window.NanoshopNeighborhood = {
         let destinationArray = result.data;
 
         // A convenience function for creating an rgba object.
-        let rgba = startIndex => {
+        let rgba = startIndex => ({
             r: sourceArray[startIndex],
             g: sourceArray[startIndex + 1],
             b: sourceArray[startIndex + 2],
             a: sourceArray[startIndex + 3]
-        };
+        });
 
         for (let i = 0, max = imageData.width * imageData.height * 4; i < max; i += 4) {
             // The 9-color array that we build must factor in image boundaries.
