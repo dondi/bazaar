@@ -3,6 +3,7 @@
  * operations.
  */
 (() => {
+
     /*
      * This is the cornerstone: we promise not to use any other graphics
      * operation but this one.
@@ -23,6 +24,8 @@
         let right = x + w;
         let leftColor = c1 ? [c1[0], c1[1], c1[2]] : c1;
         let rightColor = c2 ? [c2[0], c2[1], c2[2]] : c2;
+        let leftVDelta;
+        let rightVDelta;
 
         // We have four subcases: zero, one, two, or four colors
         // supplied.  The three-color case will be treated as if
@@ -68,10 +71,10 @@
         let fillRectFourColors = () => {
             for (let i = y; i < bottom; i += 1) {
                 // Move to the next "vertical" color level.
-                currentColor = [leftColor[0], leftColor[1], leftColor[2]];
-                hDelta = [(rightColor[0] - leftColor[0]) / w,
-                          (rightColor[1] - leftColor[1]) / w,
-                          (rightColor[2] - leftColor[2]) / w];
+                let currentColor = [leftColor[0], leftColor[1], leftColor[2]];
+                let hDelta = [(rightColor[0] - leftColor[0]) / w,
+                    (rightColor[1] - leftColor[1]) / w,
+                    (rightColor[2] - leftColor[2]) / w];
 
                 for (let j = x; j < right; j += 1) {
                     setPixel(context, j, i, ...currentColor);
@@ -101,8 +104,8 @@
         } else if (!c3) {
             // For this case, we set up the left vertical deltas.
             leftVDelta = [(c2[0] - c1[0]) / h,
-                          (c2[1] - c1[1]) / h,
-                          (c2[2] - c1[2]) / h];
+                (c2[1] - c1[1]) / h,
+                (c2[2] - c1[2]) / h];
             fillRectTwoColors();
         } else {
             // The four-color case, with a quick assignment in case
@@ -114,11 +117,11 @@
             // situation where function call overhead costs more
             // than repeated code.
             leftVDelta = [(c3[0] - c1[0]) / h,
-                          (c3[1] - c1[1]) / h,
-                          (c3[2] - c1[2]) / h];
+                (c3[1] - c1[1]) / h,
+                (c3[2] - c1[2]) / h];
             rightVDelta = [(c4[0] - c2[0]) / h,
-                           (c4[1] - c2[1]) / h,
-                           (c4[2] - c2[2]) / h];
+                (c4[1] - c2[1]) / h,
+                (c4[2] - c2[2]) / h];
             fillRectFourColors();
         }
     };
@@ -389,6 +392,7 @@
 
     // Now to the function itself.
     let fillPolygon = (context, polygon, color) => {
+
         /*
          * A useful helper function: this "snaps" a given y coordinate
          * to its nearest scan line.

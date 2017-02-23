@@ -59,7 +59,7 @@
                 -(WALL_WIDTH / 2), (WALL_HEIGHT / 2) - ACCENT_HEIGHT,
                 WALL_WIDTH, ACCENT_PANEL_WIDTH / 2
             );
-        }
+        };
 
         let drawWall = function (renderingContext, options) {
             renderingContext.save();

@@ -33,22 +33,22 @@
     renderingContext.translate(80, 88);
     renderingContext.scale(0.2, 0.2);
     renderingContext.rotate(Math.PI);
-    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
+    Sprites.Cup.draw(renderingContext, { color: "PapayaWhip" });
     renderingContext.translate(-180, 0);
-    Sprites.Cup.draw(renderingContext, { color:"DarkSalmon" });
+    Sprites.Cup.draw(renderingContext, { color: "DarkSalmon" });
     renderingContext.translate(-180, 0);
-    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
+    Sprites.Cup.draw(renderingContext, { color: "PapayaWhip" });
 
     renderingContext.translate(-690, 0);
     renderingContext.rotate(Math.PI);
-    Sprites.Cup.draw(renderingContext, { color:"SeaGreen" });
+    Sprites.Cup.draw(renderingContext, { color: "SeaGreen" });
     renderingContext.translate(250, 0);
     Sprites.Cup.draw(renderingContext, { });
 
     renderingContext.resetTransform();
     renderingContext.translate(70, 158);
     renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { color:"CadetBlue" });
+    Sprites.Cup.draw(renderingContext, { color: "CadetBlue" });
     renderingContext.translate(220, 0);
     Sprites.Cup.draw(renderingContext, { color: "Plum" });
     renderingContext.translate(220, 0);
@@ -71,7 +71,7 @@
     renderingContext.translate(540, 280);
     renderingContext.scale(0.2, 0.2);
     Sprites.Cup.draw(renderingContext, { steamOpacity: 0.3 });
-    renderingContext.translate(300,0);
+    renderingContext.translate(300, 0);
     Sprites.Cup.draw(renderingContext, { steamOpacity: 0.4, color: "SeaGreen" });
 
     renderingContext.setTransform(.5, 0, 0, .5, 60, 50);
@@ -131,8 +131,7 @@
             NanoshopNeighborhood.applyFilter(
                 renderingContext,
                 renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-                NanoshopNeighborhood.darkener
-                //NanoshopNeighborhood.averager // Convenience comment for easy switching.
+                NanoshopNeighborhood.averager
             ),
             0, 0
         );

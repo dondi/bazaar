@@ -30,7 +30,7 @@
             renderingContext.moveTo(0, 0);
             renderingContext.arc(0, LIGHT_RADIUS, LIGHT_RADIUS, 0, Math.PI, false);
             renderingContext.fill();
-        }
+        };
 
         let drawShade = (renderingContext) => {
             renderingContext.fillStyle = BASE_COLOR;

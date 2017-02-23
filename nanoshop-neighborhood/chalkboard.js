@@ -31,7 +31,7 @@
             renderingContext.lineWidth = BORDER_WIDTH;
             renderingContext.strokeRect(-(BOARD_WIDTH / 2), -(BOARD_HEIGHT / 2), BOARD_WIDTH, BOARD_HEIGHT);
 
-            menuItems = (options.variation !== "B") ? MENU_A : MENU_B;
+            let menuItems = (options.variation !== "B") ? MENU_A : MENU_B;
 
             renderingContext.strokeStyle = FONT_COLOR;
             renderingContext.lineWidth = 1;

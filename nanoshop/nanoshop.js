@@ -3,6 +3,7 @@
  * pixel-level image processing.
  */
 window.Nanoshop = {
+
     /*
      * A basic "darkener."
      */

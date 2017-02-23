@@ -46,7 +46,7 @@
             renderingContext.stroke();
             renderingContext.closePath();
             renderingContext.restore();
-        }
+        };
 
         let drawSteamCurve = (renderingContext, xOffset, yOffset) => {
             renderingContext.beginPath();
@@ -60,8 +60,8 @@
                 xOffset, STEAM_Y_OFFSET - STEAM_HEIGHT * 2 + yOffset
             );
             renderingContext.stroke();
-            renderingContext.closePath()
-        }
+            renderingContext.closePath();
+        };
 
         let drawSteamSet = (renderingContext, options) => {
             let opacity = options.steamOpacity || DEFAULT_STEAM_OPACITY;
@@ -73,7 +73,7 @@
             drawSteamCurve(renderingContext, -50, +10);
             drawSteamCurve(renderingContext, 50, +10);
             renderingContext.restore();
-        }
+        };
 
         let drawCup = (renderingContext, options) => {
             renderingContext.save();

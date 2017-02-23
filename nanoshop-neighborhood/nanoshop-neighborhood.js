@@ -3,6 +3,7 @@
  * pixel-level image processing using a pixel's "neighborhood."
  */
 window.NanoshopNeighborhood = {
+
     /*
      * A basic "darkener"---this one does not even use the entire pixel neighborhood;
      * just the exact current pixel like the original Nanoshop.
