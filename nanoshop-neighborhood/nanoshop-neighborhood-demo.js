@@ -6,6 +6,11 @@
     let canvas = $("#picture")[0];
     let renderingContext = canvas.getContext("2d");
 
+    // Polyfill: not all browsers have resetTransform.
+    if (!renderingContext.resetTransform) {
+        renderingContext.resetTransform = () => renderingContext.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
     // Scene created by Angela Elgar: https://github.com/aelgar
     renderingContext.save();
     renderingContext.translate(400, 200);
