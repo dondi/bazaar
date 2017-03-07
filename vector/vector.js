@@ -15,7 +15,7 @@ window.Vector = (function () {
     // A private method for checking dimensions,
     // throwing an exception when different.
     let checkDimensions = (v1, v2) => {
-        if (v1.dimensions() !== v2.dimensions()) {
+        if (v1.dimensions !== v2.dimensions) {
             throw "Vectors have different dimensions";
         }
     };
@@ -26,23 +26,23 @@ window.Vector = (function () {
             this.elements = [].slice.call(arguments);
         }
 
-        dimensions() {
+        get dimensions() {
             return this.elements.length;
         }
 
-        x() {
+        get x() {
             return this.elements[0];
         }
 
-        y() {
+        get y() {
             return this.elements[1];
         }
 
-        z() {
+        get z() {
             return this.elements[2];
         }
 
-        w() {
+        get w() {
             return this.elements[3];
         }
 
@@ -51,7 +51,7 @@ window.Vector = (function () {
 
             checkDimensions(this, v);
 
-            for (let i = 0, max = this.dimensions(); i < max; i += 1) {
+            for (let i = 0, max = this.dimensions; i < max; i += 1) {
                 result.elements[i] = this.elements[i] + v.elements[i];
             }
 
@@ -63,7 +63,7 @@ window.Vector = (function () {
 
             checkDimensions(this, v);
 
-            for (let i = 0, max = this.dimensions(); i < max; i += 1) {
+            for (let i = 0, max = this.dimensions; i < max; i += 1) {
                 result.elements[i] = this.elements[i] - v.elements[i];
             }
 
@@ -73,7 +73,7 @@ window.Vector = (function () {
         multiply(s) {
             let result = new Vector();
 
-            for (let i = 0, max = this.dimensions(); i < max; i += 1) {
+            for (let i = 0, max = this.dimensions; i < max; i += 1) {
                 result.elements[i] = this.elements[i] * s;
             }
 
@@ -83,7 +83,7 @@ window.Vector = (function () {
         divide(s) {
             let result = new Vector();
 
-            for (let i = 0, max = this.dimensions(); i < max; i += 1) {
+            for (let i = 0, max = this.dimensions; i < max; i += 1) {
                 result.elements[i] = this.elements[i] / s;
             }
 
@@ -95,7 +95,7 @@ window.Vector = (function () {
 
             checkDimensions(this, v);
 
-            for (let i = 0, max = this.dimensions(); i < max; i += 1) {
+            for (let i = 0, max = this.dimensions; i < max; i += 1) {
                 result += this.elements[i] * v.elements[i];
             }
 
@@ -103,25 +103,25 @@ window.Vector = (function () {
         }
 
         cross(v) {
-            if (this.dimensions() !== 3 || v.dimensions() !== 3) {
+            if (this.dimensions !== 3 || v.dimensions !== 3) {
                 throw "Cross product is for 3D vectors only.";
             }
 
             // With 3D vectors, we can just return the result directly.
             return new Vector(
-                (this.y() * v.z()) - (this.z() * v.y()),
-                (this.z() * v.x()) - (this.x() * v.z()),
-                (this.x() * v.y()) - (this.y() * v.x())
+                (this.y * v.z) - (this.z * v.y),
+                (this.z * v.x) - (this.x * v.z),
+                (this.x * v.y) - (this.y * v.x)
             );
         }
 
-        magnitude() {
+        get magnitude() {
             return Math.sqrt(this.dot(this));
         }
 
-        unit() {
+        get unit() {
             // At this point, we can leverage our more "primitive" methods.
-            return this.divide(this.magnitude());
+            return this.divide(this.magnitude);
         }
 
         projection(v) {
@@ -130,7 +130,7 @@ window.Vector = (function () {
             // Plug and chug :)
             // The projection of u onto v is u dot the unit vector of v
             // times the unit vector of v.
-            let unitv = v.unit();
+            let unitv = v.unit;
             return unitv.multiply(this.dot(unitv));
         }
     };
