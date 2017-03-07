@@ -1,11 +1,11 @@
 /*
  * Unit tests for our vector object.
  */
-$(function () {
+$(() => {
 
     // This suite checks instantiation basics.
-    test("Creation and Data Access", function () {
-        var v = new Vector(5, 6, 3);
+    test("Creation and Data Access", () => {
+        let v = new Vector(5, 6, 3);
 
         equal(v.dimensions(), 3, "Vector size");
         equal(v.elements[0], 5, "First element by index");
@@ -39,10 +39,10 @@ $(function () {
         equal(v.dimensions(), 0, "Empty vector (boundary case)");
     });
 
-    test("Addition and Subtraction", function () {
-        var v1 = new Vector(4, 5);
-        var v2 = new Vector(-10, 4);
-        var vresult = v1.add(v2);
+    test("Addition and Subtraction", () => {
+        let v1 = new Vector(4, 5);
+        let v2 = new Vector(-10, 4);
+        let vresult = v1.add(v2);
 
         equal(vresult.dimensions(), 2, "Vector sum size check");
         equal(vresult.x(), -6, "Vector sum first element");
@@ -64,16 +64,14 @@ $(function () {
         // We can actually check for a *specific* exception, but
         // we won't go that far for now.
         throws(
-            function () {
-                return v1.add(v2);
-            },
+            () => v1.add(v2),
             "Check for vectors of different sizes"
         );
     });
 
-    test("Scalar Multiplication and Division", function () {
-        var v = new Vector(8, 2, 3);
-        var vresult = v.multiply(2);
+    test("Scalar Multiplication and Division", () => {
+        let v = new Vector(8, 2, 3);
+        let vresult = v.multiply(2);
 
         equal(vresult.x(), 16, "Vector scalar multiplication first element");
         equal(vresult.y(), 4, "Vector scalar multiplication second element");
@@ -86,9 +84,9 @@ $(function () {
         equal(vresult.z(), 1.5, "Vector scalar division third element");
     });
 
-    test("Dot Product", function () {
-        var v1 = new Vector(-5, -2);
-        var v2 = new Vector(-3, 4);
+    test("Dot Product", () => {
+        let v1 = new Vector(-5, -2);
+        let v2 = new Vector(-3, 4);
 
         equal(v1.dot(v2), 7, "2D dot product");
 
@@ -114,23 +112,19 @@ $(function () {
         // We can actually check for a *specific* exception, but
         // we won't go that far for now.
         throws(
-            function () {
-                return v1.dot(v2);
-            },
+            () => v1.dot(v2),
             "Check for vectors of different sizes"
         );
     });
 
-    test("Cross Product", function () {
-        var v1 = new Vector(3, 4);
-        var v2 = new Vector(1, 2);
+    test("Cross Product", () => {
+        let v1 = new Vector(3, 4);
+        let v2 = new Vector(1, 2);
 
         // The cross product is restricted to 3D, so we start
         // with an error check.
         throws(
-            function () {
-                return v1.cross(v2);
-            },
+            () => v1.cross(v2),
             "Check for non-3D vectors"
         );
 
@@ -138,7 +132,7 @@ $(function () {
         // establishes the right-handedness of a cross-product.
         v1 = new Vector(1, 0, 0);
         v2 = new Vector(0, 1, 0);
-        var vresult = v1.cross(v2);
+        let vresult = v1.cross(v2);
 
         equal(vresult.x(), 0, "Cross product first element");
         equal(vresult.y(), 0, "Cross product second element");
@@ -153,8 +147,8 @@ $(function () {
         equal(vresult.z(), -1, "Cross product third element");
     });
 
-    test("Magnitude and Unit Vectors", function () {
-        var v = new Vector(3, 4);
+    test("Magnitude and Unit Vectors", () => {
+        let v = new Vector(3, 4);
 
         // The classic example.
         equal(v.magnitude(), 5, "2D magnitude check");
@@ -178,9 +172,9 @@ $(function () {
         equal(v.z(), 24 / 25, "3D unit vector third element");
     });
 
-    test("Projection", function () {
-        var v = new Vector(3, 3, 0);
-        var vresult = v.projection(new Vector(5, 0, 0));
+    test("Projection", () => {
+        let v = new Vector(3, 3, 0);
+        let vresult = v.projection(new Vector(5, 0, 0));
 
         equal(vresult.magnitude(), 3, "3D vector projection magnitude check");
         equal(vresult.x(), 3, "3D vector projection first element");
@@ -190,9 +184,7 @@ $(function () {
         // Error check: projection only applies to vectors with the same
         // number of dimensions.
         throws(
-            function () {
-                (new Vector(5, 2)).projection(new Vector(9, 8, 1));
-            },
+            () => (new Vector(5, 2)).projection(new Vector(9, 8, 1)),
             "Ensure that projection applies only to vectors with the same number of dimensions"
         );
     });
