@@ -109,9 +109,9 @@ window.Vector = (function () {
 
             // With 3D vectors, we can just return the result directly.
             return new Vector(
-                (this.y * v.z) - (this.z * v.y),
-                (this.z * v.x) - (this.x * v.z),
-                (this.x * v.y) - (this.y * v.x)
+                this.y * v.z - this.z * v.y,
+                this.z * v.x - this.x * v.z,
+                this.x * v.y - this.y * v.x
             );
         }
 
