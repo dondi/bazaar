@@ -3,14 +3,14 @@
  * The "shapes" are returned as indexed vertices, with utility functions for
  * converting these into "raw" coordinate arrays.
  */
-var Shapes = {
+(() => {
     /*
      * Returns the vertices for a small icosahedron.
      */
-    icosahedron: function () {
-        // These variables are actually "constants" for icosahedron coordinates.
-        var X = 0.525731112119133606;
-        var Z = 0.850650808352039932;
+    let icosahedron = () => {
+        // The core icosahedron coordinates.
+        const X = 0.525731112119133606;
+        const Z = 0.850650808352039932;
 
         return {
             vertices: [
@@ -51,17 +51,17 @@ var Shapes = {
                 [ 11, 2, 7 ]
             ]
         };
-    },
+    };
 
     /*
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as triangles.
      */
-    toRawTriangleArray: function (indexedVertices) {
-        var result = [];
+    let toRawTriangleArray = (indexedVertices) => {
+        let result = [];
 
-        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (let i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (let j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
@@ -71,17 +71,17 @@ var Shapes = {
         }
 
         return result;
-    },
+    };
 
     /*
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as line segments.
      */
-    toRawLineArray: function (indexedVertices) {
-        var result = [];
+    let toRawLineArray = (indexedVertices) => {
+        let result = [];
 
-        for (var i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (var j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (let i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (let j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
                     indexedVertices.vertices[
                         indexedVertices.indices[i][j]
@@ -95,6 +95,11 @@ var Shapes = {
         }
 
         return result;
-    }
+    };
 
-};
+    window.Shapes = {
+        icosahedron,
+        toRawTriangleArray,
+        toRawLineArray
+    };
+})();

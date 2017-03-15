@@ -2,7 +2,7 @@
  * For maximum modularity, we place everything within a single function that
  * takes the canvas that it will need.
  */
-(function (canvas) {
+((canvas) => {
     /*
      * This code does not really belong here: it should live
      * in a separate library of matrix and transformation
@@ -10,15 +10,15 @@
      * can be used with GLSL.
      *
      * Based on the original glRotate reference:
-     *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
+     *     https://www.khronos.org/registry/OpenGL-Refpages/es1.1/xhtml/glRotate.xml
      */
-    var getRotationMatrix = function (angle, x, y, z) {
+    let getRotationMatrix = (angle, x, y, z) => {
         // In production code, this function should be associated
         // with a matrix object with associated functions.
-        var axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
-        var s = Math.sin(angle * Math.PI / 180.0);
-        var c = Math.cos(angle * Math.PI / 180.0);
-        var oneMinusC = 1.0 - c;
+        let axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
+        let s = Math.sin(angle * Math.PI / 180.0);
+        let c = Math.cos(angle * Math.PI / 180.0);
+        let oneMinusC = 1.0 - c;
 
         // Normalize the axis vector of rotation.
         x /= axisLength;
@@ -27,15 +27,15 @@
 
         // Now we can calculate the other terms.
         // "2" for "squared."
-        var x2 = x * x;
-        var y2 = y * y;
-        var z2 = z * z;
-        var xy = x * y;
-        var yz = y * z;
-        var xz = x * z;
-        var xs = x * s;
-        var ys = y * s;
-        var zs = z * s;
+        let x2 = x * x;
+        let y2 = y * y;
+        let z2 = z * z;
+        let xy = x * y;
+        let yz = y * z;
+        let xz = x * z;
+        let xs = x * s;
+        let ys = y * s;
+        let zs = z * s;
 
         // GL expects its matrices in column major order.
         return [
@@ -62,7 +62,7 @@
     };
 
     // Grab the WebGL rendering context.
-    var gl = GLSLUtilities.getGL(canvas);
+    let gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
         alert("No WebGL context found...sorry.");
 
@@ -78,7 +78,46 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.
-    var objectsToDraw = [
+    let objectsToDraw = [
+        {
+            color: { r: 0.5, g: 0, b: 0 },
+            vertices: [
+                1.0, 0.0, 0.0,
+                0.9, 0.1, 0.0,
+                1.0, 0.0, 0.0,
+                0.9, -0.1, 0.0,
+                1.0, 0.0, 0.0,
+                -1.0, 0.0, 0.0
+            ],
+            mode: gl.LINES
+        },
+
+        {
+            color: { r: 0, g: 0.5, b: 0 },
+            vertices: [
+                0.0, 1.0, 0.0,
+                -0.1, 0.9, 0.0,
+                0.0, 1.0, 0.0,
+                0.1, 0.9, 0.0,
+                0.0, 1.0, 0.0,
+                0.0, -1.0, 0.0
+            ],
+            mode: gl.LINES
+        },
+
+        {
+            color: { r: 0, g: 0, b: 0.5 },
+            vertices: [
+                0.0, 0.0, 1.0,
+                0.0, 0.1, 0.9,
+                0.0, 0.0, 1.0,
+                0.0, -0.1, 0.9,
+                0.0, 0.0, 1.0,
+                0.0, 0.0, -1.0
+            ],
+            mode: gl.LINES
+        },
+
         {
             vertices: [].concat(
                 [ 0.0, 0.0, 0.0 ],
@@ -132,43 +171,41 @@
     ];
 
     // Pass the vertices to WebGL.
-    for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].vertices);
+    objectsToDraw.forEach((objectToDraw) => {
+        objectToDraw.buffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.vertices);
 
-        if (!objectsToDraw[i].colors) {
+        if (!objectToDraw.colors) {
             // If we have a single color, we expand that into an array
             // of the same color over and over.
-            objectsToDraw[i].colors = [];
-            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3;
-                    j < maxj; j += 1) {
-                objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
-                    objectsToDraw[i].color.r,
-                    objectsToDraw[i].color.g,
-                    objectsToDraw[i].color.b
+            objectToDraw.colors = [];
+            for (let i = 0, maxi = objectToDraw.vertices.length / 3; i < maxi; i += 1) {
+                objectToDraw.colors = objectToDraw.colors.concat(
+                    objectToDraw.color.r,
+                    objectToDraw.color.g,
+                    objectToDraw.color.b
                 );
             }
         }
-        objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].colors);
-    }
+
+        objectToDraw.colorBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.colors);
+    });
 
     // Initialize the shaders.
-    var abort = false;
-    var shaderProgram = GLSLUtilities.initSimpleShaderProgram(
+    let abort = false;
+    let shaderProgram = GLSLUtilities.initSimpleShaderProgram(
         gl,
         $("#vertex-shader").text(),
         $("#fragment-shader").text(),
 
         // Very cursory error-checking here...
-        function (shader) {
+        (shader) => {
             abort = true;
             alert("Shader problem: " + gl.getShaderInfoLog(shader));
         },
 
         // Another simplistic error check: we don't even access the faulty
         // shader program.
-        function (shaderProgram) {
+        (shaderProgram) => {
             abort = true;
             alert("Could not link shaders...sorry.");
         }
@@ -184,16 +221,16 @@
     gl.useProgram(shaderProgram);
 
     // Hold on to the important variables within the shaders.
-    var vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
+    let vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    var vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
+    let vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
-    var rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
+    let rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
 
     /*
      * Displays an individual object.
      */
-    var drawObject = function (object) {
+    let drawObject = (object) => {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
@@ -207,7 +244,7 @@
     /*
      * Displays the scene.
      */
-    var drawScene = function () {
+    let drawScene = () => {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -215,9 +252,7 @@
         gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 0, 1, 0)));
 
         // Display the objects.
-        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-            drawObject(objectsToDraw[i]);
-        }
+        objectsToDraw.forEach(drawObject);
 
         // All done.
         gl.flush();
@@ -226,11 +261,17 @@
     /*
      * Animates the scene.
      */
-    var animationActive = false;
-    var currentRotation = 0.0;
-    var previousTimestamp = null;
+    let animationActive = false;
+    let currentRotation = 0.0;
+    let previousTimestamp = null;
 
-    var advanceScene = function (timestamp) {
+    const FRAMES_PER_SECOND = 60;
+    const MILLISECONDS_PER_FRAME = 1000 / FRAMES_PER_SECOND;
+
+    const DEGREES_PER_MILLISECOND = 0.033;
+    const FULL_CIRCLE = 360.0;
+
+    let advanceScene = (timestamp) => {
         // Check if the user has turned things off.
         if (!animationActive) {
             return;
@@ -245,17 +286,17 @@
 
         // Check if it's time to advance.
         var progress = timestamp - previousTimestamp;
-        if (progress < 30) {
+        if (progress < MILLISECONDS_PER_FRAME) {
             // Do nothing if it's too soon.
             window.requestAnimationFrame(advanceScene);
             return;
         }
 
         // All clear.
-        currentRotation += 0.033 * progress;
+        currentRotation += DEGREES_PER_MILLISECOND * progress;
         drawScene();
-        if (currentRotation >= 360.0) {
-            currentRotation -= 360.0;
+        if (currentRotation >= FULL_CIRCLE) {
+            currentRotation -= FULL_CIRCLE;
         }
 
         // Request the next frame.
@@ -267,7 +308,7 @@
     drawScene();
 
     // Set up the rotation toggle: clicking on the canvas does it.
-    $(canvas).click(function () {
+    $(canvas).click(() => {
         animationActive = !animationActive;
         if (animationActive) {
             previousTimestamp = null;
@@ -275,4 +316,4 @@
         }
     });
 
-}(document.getElementById("hello-webgl")));
+})(document.getElementById("hello-webgl"));
