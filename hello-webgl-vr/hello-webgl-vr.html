@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Hello WebGL (cheap VR version)!</title>
+    <link rel="stylesheet" href="hello-webgl-vr.css" />
+  </head>
+  <body>
+    <h1>Hello WebGL (cheap VR version)</h1>
+
+    <p>You’ll need a WebGL-capable web browser to see anything here;
+      instructions can be found in this
+      <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">official
+      WebGL wiki page</a>.</p>
+
+    <p>This page demonstrates a super-cheap form of VR. If you look closely, note how each scene is
+      just a tiny bit off-center, in different directions—the key technique behind stereoscopic vision.</p>
+
+    <p>Because we don’t have goggles to isolate what each eye is seeing, you’ll need to fool your brain a bit.
+      Try holding your hand between you and the display first, then focus on your hand. Without changing how your
+      eyes are configured, move your hand away. It takes some practice, and you might need to adjust your distance
+      from the display. Also, some folks do better when the scene is stationary; others when it is in motion.</p>
+
+    <p>The result won’t be perfect, but you get the idea. Now go get a VR headset 🕶</p>
+
+    <canvas id="hello-webgl-vr" width="1536" height="512">
+      Sorry, your web browser does not appear to support
+      the <code>canvas</code> element, either.
+    </canvas>
+
+    <!-- jQuery makes some things more convenient. -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- GLSLUtilities is a starting point for holding functionality that
+         is common to many WebGL programs. -->
+    <script src="glsl-utilities.js"></script>
+
+    <!-- Shapes is a library that generates "canned" shapes. -->
+    <script src="shapes.js"></script>
+
+    <!-- Set up shaders: we've placed the source in script elements for
+        simplicity.  Shaders are ideally kept in separate files for easier
+        maintenance, but in that situation, additional code and security
+        constraints are involved. -->
+
+    <!-- The vertex shader is a complete pass-through. -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+      #ifdef GL_ES
+      precision highp float;
+      #endif
+
+      attribute vec3 vertexPosition;
+
+      // Note this new additional output.
+      attribute vec3 vertexColor;
+      varying vec4 finalVertexColor;
+      uniform mat4 rotationMatrix;
+      uniform mat4 translationMatrix;
+
+      void main(void) {
+          vec4 rotatedVertex = rotationMatrix * vec4(vertexPosition, 1.0);
+
+          // Super-cheap, highly non-generalizable perspective effect.
+          float foreshortening = 0.6 + (1.0 - rotatedVertex.z) / 5.0;
+          mat4 foreshorteningMatrix = mat4(
+              foreshortening,
+              0.0,
+              0.0,
+              0.0,
+
+              0.0,
+              foreshortening,
+              0.0,
+              0.0,
+
+              0.0,
+              0.0,
+              foreshortening,
+              0.0,
+
+              0.0,
+              0.0,
+              0.0,
+              1.0
+          );
+
+          gl_Position = translationMatrix * foreshorteningMatrix * rotatedVertex;
+          finalVertexColor = vec4(vertexColor, 1.0);
+      }
+    </script>
+
+    <!-- The fragment shader produces a single unconditional color. -->
+    <script id="fragment-shader" type="x-shader/x-fragment">
+      #ifdef GL_ES
+      precision highp float;
+      #endif
+
+      varying vec4 finalVertexColor;
+
+      void main(void) {
+          // We vary the color based on the fragment's z coordinate,
+          // which, at this point, ranges from 0 (near) to 1 (far).
+          // Note the ".rgb" subselector.
+          gl_FragColor = vec4((1.0 - gl_FragCoord.z) * finalVertexColor.rgb, 1.0);
+      }
+    </script>
+
+    <!-- This script sets up the specific scene for this page. -->
+    <script src="hello-webgl-vr.js"></script>
+  </body>
+</html>
