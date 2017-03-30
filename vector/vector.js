@@ -11,7 +11,7 @@
  * vectors. Specific Vector2D and Vector3D implementations can be much
  * more compact, while sacrificing generality.
  */
-window.Vector = (function () {
+window.Vector = (() => {
     // A private method for checking dimensions,
     // throwing an exception when different.
     let checkDimensions = (v1, v2) => {
