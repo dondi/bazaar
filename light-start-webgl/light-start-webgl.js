@@ -2,7 +2,7 @@
  * For maximum modularity, we place everything within a single function that
  * takes the canvas that it will need.
  */
-(function (canvas) {
+((canvas) => {
     /*
      * This code does not really belong here: it should live
      * in a separate library of matrix and transformation
@@ -10,15 +10,15 @@
      * can be used with GLSL.
      *
      * Based on the original glRotate reference:
-     *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
+     *     https://www.khronos.org/registry/OpenGL-Refpages/es1.1/xhtml/glRotate.xml
      */
-    var getRotationMatrix = function (angle, x, y, z) {
+    let getRotationMatrix = (angle, x, y, z) => {
         // In production code, this function should be associated
         // with a matrix object with associated functions.
-        var axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
-        var s = Math.sin(angle * Math.PI / 180.0);
-        var c = Math.cos(angle * Math.PI / 180.0);
-        var oneMinusC = 1.0 - c;
+        let axisLength = Math.sqrt((x * x) + (y * y) + (z * z));
+        let s = Math.sin(angle * Math.PI / 180.0);
+        let c = Math.cos(angle * Math.PI / 180.0);
+        let oneMinusC = 1.0 - c;
 
         // Normalize the axis vector of rotation.
         x /= axisLength;
@@ -27,15 +27,15 @@
 
         // Now we can calculate the other terms.
         // "2" for "squared."
-        var x2 = x * x;
-        var y2 = y * y;
-        var z2 = z * z;
-        var xy = x * y;
-        var yz = y * z;
-        var xz = x * z;
-        var xs = x * s;
-        var ys = y * s;
-        var zs = z * s;
+        let x2 = x * x;
+        let y2 = y * y;
+        let z2 = z * z;
+        let xy = x * y;
+        let yz = y * z;
+        let xz = x * z;
+        let xs = x * s;
+        let ys = y * s;
+        let zs = z * s;
 
         // GL expects its matrices in column major order.
         return [
@@ -67,10 +67,10 @@
      * is part of the student course work, we leave it here for
      * later refactoring and adaptation by students.
      */
-    var getOrthoMatrix = function (left, right, bottom, top, zNear, zFar) {
-        var width = right - left;
-        var height = top - bottom;
-        var depth = zFar - zNear;
+    let getOrthoMatrix = (left, right, bottom, top, zNear, zFar) => {
+        let width = right - left;
+        let height = top - bottom;
+        let depth = zFar - zNear;
 
         return [
             2.0 / width,
@@ -96,7 +96,7 @@
     };
 
     // Grab the WebGL rendering context.
-    var gl = GLSLUtilities.getGL(canvas);
+    let gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
         alert("No WebGL context found...sorry.");
 
@@ -112,7 +112,7 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.  We stay with a single cube here.
-    var objectsToDraw = [
+    let objectsToDraw = [
         {
             vertices: Shapes.toRawTriangleArray(Shapes.cube()),
             // 12 triangles in all.
@@ -205,43 +205,44 @@
     ];
 
     // Pass the vertices to WebGL.
-    for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].vertices);
+    objectsToDraw.forEach((objectToDraw) => {
+        objectToDraw.vertexBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.vertices);
 
-        if (!objectsToDraw[i].colors) {
+        if (!objectToDraw.colors) {
             // If we have a single color, we expand that into an array
             // of the same color over and over.
-            objectsToDraw[i].colors = [];
-            for (var j = 0, maxj = objectsToDraw[i].vertices.length / 3; j < maxj; j += 1) {
-                objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
-                    objectsToDraw[i].color.r,
-                    objectsToDraw[i].color.g,
-                    objectsToDraw[i].color.b
+            objectToDraw.colors = [];
+            for (let i = 0, maxi = objectToDraw.vertices.length / 3; i < maxi; i += 1) {
+                objectToDraw.colors = objectToDraw.colors.concat(
+                    objectToDraw.color.r,
+                    objectToDraw.color.g,
+                    objectToDraw.color.b
                 );
             }
         }
-        objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].colors);
+
+        objectToDraw.colorBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.colors);
 
         // One more buffer: normals.
-        objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw[i].normals);
-    }
+        objectToDraw.normalBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.normals);
+    });
 
     // Initialize the shaders.
-    var abort = false;
-    var shaderProgram = GLSLUtilities.initSimpleShaderProgram(
+    let abort = false;
+    let shaderProgram = GLSLUtilities.initSimpleShaderProgram(
         gl,
         $("#vertex-shader").text(),
         $("#fragment-shader").text(),
 
         // Very cursory error-checking here...
-        function (shader) {
+        (shader) => {
             abort = true;
             alert("Shader problem: " + gl.getShaderInfoLog(shader));
         },
 
         // Another simplistic error check: we don't even access the faulty
         // shader program.
-        function (shaderProgram) {
+        (shaderProgram) => {
             abort = true;
             alert("Could not link shaders...sorry.");
         }
@@ -257,29 +258,29 @@
     gl.useProgram(shaderProgram);
 
     // Hold on to the important variables within the shaders.
-    var vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
+    let vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    var vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
+    let vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
-    var normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
+    let normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
     gl.enableVertexAttribArray(normalVector);
 
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
-    var modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
-    var xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
-    var yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
-    var projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
+    let modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
+    let xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
+    let yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
+    let projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
 
     // Note the additional variables.
-    var lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
-    var lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
+    let lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
+    let lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
 
     /*
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
      */
-    var drawObject = function (object) {
+    let drawObject = (object) => {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
@@ -287,20 +288,19 @@
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(object.rotation ?
-                getRotationMatrix(object.rotation.theta,
-                        object.rotation.x, object.rotation.y, object.rotation.z) :
-                [1, 0, 0, 0, // N.B. In a full-fledged matrix library, the identity
-                 0, 1, 0, 0, //      matrix should be available as a function.
-                 0, 0, 1, 0,
-                 0, 0, 0, 1]
-            ));
+            getRotationMatrix(object.rotation.theta, object.rotation.x, object.rotation.y, object.rotation.z) :
+            [1, 0, 0, 0, // N.B. In a full-fledged matrix library, the identity
+             0, 1, 0, 0, //      matrix should be available as a function.
+             0, 0, 1, 0,
+             0, 0, 0, 1]
+        ));
 
         // Set the varying normal vectors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
         gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
 
         // Set the varying vertex coordinates.
-        gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.vertexBuffer);
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(object.mode, 0, object.vertices.length / 3);
     };
@@ -308,24 +308,21 @@
     /*
      * Displays the scene.
      */
-    var rotationAroundX = 0.0;
-    var rotationAroundY = 0.0;
-    var drawScene = function () {
+    let rotationAroundX = 0.0;
+    let rotationAroundY = 0.0;
+    let drawScene = () => {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Set the overall rotation.
         gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
-                getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
+            getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
         ));
         gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
-                getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
+            getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
         ));
 
-        // Display the objects.
-        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-            drawObject(objectsToDraw[i]);
-        }
+        objectsToDraw.forEach(drawObject);
 
         // All done.
         gl.flush();
@@ -334,7 +331,12 @@
     /*
      * Performs rotation calculations.
      */
-    var rotateScene = function (event) {
+    let xDragStart;
+    let yDragStart;
+    let xRotationStart;
+    let yRotationStart;
+
+    let rotateScene = (event) => {
         rotationAroundX = xRotationStart - yDragStart + event.clientY;
         rotationAroundY = yRotationStart - xDragStart + event.clientX;
         drawScene();
@@ -360,21 +362,17 @@
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
 
     // Instead of animation, we do interaction: let the mouse control rotation.
-    var xDragStart;
-    var yDragStart;
-    var xRotationStart;
-    var yRotationStart;
-    $(canvas).mousedown(function (event) {
+    $(canvas).mousedown((event) => {
         xDragStart = event.clientX;
         yDragStart = event.clientY;
         xRotationStart = rotationAroundX;
         yRotationStart = rotationAroundY;
         $(canvas).mousemove(rotateScene);
-    }).mouseup(function (event) {
+    }).mouseup((event) => {
         $(canvas).unbind("mousemove");
     });
 
     // Draw the initial scene.
     drawScene();
 
-}(document.getElementById("light-start-webgl")));
+})(document.getElementById("light-start-webgl"));
