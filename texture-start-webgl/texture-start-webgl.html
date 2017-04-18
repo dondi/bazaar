@@ -76,17 +76,15 @@
 
       // Not surprisingly, we have varying texture coordinates for the fragment shader.
       varying vec2 fragmentTextureCoordinate;
-      
+
       void main(void) {
           // Texture coordinates are a pass-through.
           fragmentTextureCoordinate = textureCoordinate;
 
-          // We "merely" relay these vectors to the fragment shader.  However,
-          // we get a cool trick: they get interpolated for us!
-          fragmentNormal = vec3(xRotationMatrix * yRotationMatrix *
-                  modelViewMatrix * vec4(normalVector, 0.0));
-          fragmentEye = vec3(xRotationMatrix * yRotationMatrix *
-                  modelViewMatrix * vec4(2.0 * vertexPosition, 1.0));
+          // A new trick: we pretend to hold the light "steady." This is done by applying the object transforms
+          // to the vertices and their normals but _not_ to the lights.
+          fragmentNormal = vec3(xRotationMatrix * yRotationMatrix * modelViewMatrix * vec4(normalVector, 0.0));
+          fragmentEye = vec3(xRotationMatrix * yRotationMatrix * modelViewMatrix * vec4(2.0 * vertexPosition, 1.0));
           fragmentLight = lightPosition.xyz;
 
           // No conditional expressions in GLSL, unfortunately.  We have to

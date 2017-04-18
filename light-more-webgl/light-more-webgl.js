@@ -124,8 +124,7 @@
             specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             shininess: 16,
 
-            // Like colors, one normal per vertex.  This can be simplified
-            // with helper functions, of course.
+            // Like colors, one normal per vertex. Now simplified with a helper function.
             normals: Shapes.toNormalArray(mesh),
 
             mode: gl.TRIANGLES
