@@ -309,9 +309,9 @@
     )));
 
     // Set up our one light source and its colors.
-    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
+    gl.uniform4fv(lightPosition, [0.0, 0.0, 1000.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
-    gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightSpecular, [0.0, 0.0, 0.0]);
 
     // Instead of animation, we do interaction: let the mouse control rotation.
     var xDragStart;

@@ -7,27 +7,43 @@
     /*
      * Returns the vertices for a small icosahedron.
      */
-    let icosahedron = () => {
+    let cube = () => {
         // The core icosahedron coordinates.
         const X = 0.525731112119133606;
         const Z = 0.850650808352039932;
 
         return {
             vertices: [
-                [ -X, 0.0, Z ],
-                [ X, 0.0, Z ],
-                [ -X, 0.0, -Z ],
-                [ X, 0.0, -Z ],
-                [ 0.0, Z, X ],
-                [ 0.0, Z, -X ],
-                [ 0.0, -Z, X ],
-                [ 0.0, -Z, -X ],
-                [ Z, X, 0.0 ],
-                [ -Z, X, 0.0 ],
-                [ Z, -X, 0.0 ],
-                [ -Z, -X, 0.0 ]
+
             ],
 
+            indices: [
+
+            ]
+        };
+    };
+
+    let icosahedron = () => {
+        // The core icosahedron coordinates.
+        const X = 0.5;
+        const Y = 0;
+        const Z = 0.85;
+
+        return {
+            vertices: [
+                [ -X, Y, Z ],
+                [ X, Y, Z ],
+                [ -X, Y, -Z ],
+                [ X, Y, -Z ],
+                [ Y, Z, X ],
+                [ Y, Z, -X ],
+                [ Y, -Z, X ],
+                [ Y, -Z, -X ],
+                [ Z, X, Y ],
+                [ -Z, X, Y ],
+                [ Z, -X, Y ],
+                [ -Z, -X, Y ]
+            ],
             indices: [
                 [ 1, 4, 0 ],
                 [ 4, 9, 0 ],
