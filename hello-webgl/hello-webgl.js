@@ -114,7 +114,7 @@
 
     // Pass the vertices to WebGL.
     objectsToDraw.forEach((objectToDraw) => {
-        objectToDraw.buffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.vertices);
+        objectToDraw.verticesBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.vertices);
     });
 
     // Initialize the shaders.
@@ -156,7 +156,7 @@
      */
     let drawObject = (object) => {
         gl.uniform3f(gl.getUniformLocation(shaderProgram, "color"), object.color.r, object.color.g, object.color.b);
-        gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.verticesBuffer);
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(object.mode, 0, object.vertices.length / 3);
     };

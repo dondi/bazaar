@@ -172,7 +172,7 @@
 
     // Pass the vertices to WebGL.
     objectsToDraw.forEach((objectToDraw) => {
-        objectToDraw.buffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.vertices);
+        objectToDraw.verticesBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.vertices);
 
         if (!objectToDraw.colors) {
             // If we have a single color, we expand that into an array
@@ -187,7 +187,7 @@
             }
         }
 
-        objectToDraw.colorBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.colors);
+        objectToDraw.colorsBuffer = GLSLUtilities.initVertexBuffer(gl, objectToDraw.colors);
     });
 
     // Initialize the shaders.
@@ -232,11 +232,11 @@
      */
     let drawObject = (object) => {
         // Set the varying colors.
-        gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.colorsBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
 
         // Set the varying vertex coordinates.
-        gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.verticesBuffer);
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(object.mode, 0, object.vertices.length / 3);
     };
