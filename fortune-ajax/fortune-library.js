@@ -1,18 +1,15 @@
-var FortuneLibrary = {
-    setupFortuneButton : function (buttonId, outputId, feedbackId, fortuneServiceUrl) {
-        var buttonIdSelector = "#" + buttonId,
-            outputIdSelector = "#" + outputId,
-            feedbackIdSelector = "#" + feedbackId;
+window.FortuneLibrary = {
+    setupFortuneButton: (buttonId, outputId, feedbackId, fortuneServiceUrl) => {
+        let buttonIdSelector = "#" + buttonId;
+        let outputIdSelector = "#" + outputId;
+        let feedbackIdSelector = "#" + feedbackId;
 
-        return function () {
-            $(buttonIdSelector).click(function () {
+        return () => {
+            $(buttonIdSelector).click(() => {
                 $(feedbackIdSelector).show();
-                $.ajax({
-                    url : fortuneServiceUrl,
-                    success : function (data) {
-                        $(outputIdSelector).html(data);
-                        $(feedbackIdSelector).hide();
-                    }
+                $.get(fortuneServiceUrl).done(data => {
+                    $(outputIdSelector).html(data);
+                    $(feedbackIdSelector).hide();
                 });
             });
 
