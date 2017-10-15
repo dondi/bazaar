@@ -1,26 +1,27 @@
 <!doctype html>
 <html>
-    <!-- This page demonstrates a rudimentary Ajax connection using
-         jQuery's API. -->
-    <head>
-        <meta charset="UTF-8" />
-        <title>Your Fortune!</title>
-    </head>
-    <body>
-        <h1>Your Fortune</h1>
-        
-        <p>Click on the button below to see your fortune.</p>
-        
-        <button id="getFortuneButton">Get My Fortune</button>
-        <span id="loadingFeedbackElement">Loading...</span>
-        
-        <p id="fortune"></p>
+  <!-- This page demonstrates a rudimentary Ajax connection using jQuery's API.
+       For simplicity, we do this with completely plain HTML/CSS. -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Your Fortune!</title>
+  </head>
 
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="fortune-library.js"></script>
-        <script>
-            $(FortuneLibrary.setupFortuneButton("getFortuneButton", "fortune",
-                "loadingFeedbackElement", "http://javascript.cs.lmu.edu/php/fortune.php"));
-        </script>
-    </body>
+  <body>
+    <h1>Your Fortune</h1>
+
+    <p>Click on the button below to see your fortune.</p>
+
+    <button id="getFortuneButton">Get My Fortune</button>
+    <span id="loadingFeedbackElement">Loading...</span>
+
+    <p id="fortune"></p>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="fortune-library.js"></script>
+    <script>
+      $(FortuneLibrary.setupFortuneButton("getFortuneButton", "fortune",
+        "loadingFeedbackElement", "http://javascript.cs.lmu.edu/php/fortune.php"));
+    </script>
+  </body>
 </html>
