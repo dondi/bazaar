@@ -1,27 +1,22 @@
-$(function () {
-
-    $("#getFortuneButton").click(function () {
+(() => {
+    $("#getFortuneButton").click(() => {
         // Hide the fortune area.
         $("#fortune").hide();
 
         // Show the feedback message.
-        $("#loadingFeedbackElement").show("slow");
+        $("#loadingFeedbackElement").show();
 
         // Make the connection.
-        $.ajax({
-            url: "http://javascript.cs.lmu.edu/php/fortune.php",
-            success: function (data) {
-                // Note that #fortune is still invisible here.
-                $("#fortune").text(data);
+        $.get("http://javascript.cs.lmu.edu/php/fortune.php").done(data => {
+            // Note that #fortune is still invisible here.
+            $("#fortune").text(data);
 
-                // Now we update everything.
-                $("#fortune").fadeIn();
-                $("#loadingFeedbackElement").hide("slow");
-            }
+            // Now we update everything.
+            $("#fortune").show();
+            $("#loadingFeedbackElement").hide();
         });
     });
 
     // Hide our output elements for now.
     $("#loadingFeedbackElement, #fortune").hide();
-
-});
+})();
