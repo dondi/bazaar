@@ -5,7 +5,7 @@
   "description": "A web front end sample",
   "main": "",
   "scripts": {
-    "test": "eslint *.js test/*.js && ./node_modules/karma/bin/karma start --single-run"
+    "test": "eslint '**/*.js' && ./node_modules/karma/bin/karma start --single-run"
   },
   "author": "",
   "license": "MIT",
