@@ -12,38 +12,34 @@
 // uses for a [single!] top-level name.
 //
 // Module managers address even this issue, for web apps of sufficient complexity.
-window.GiphySearchController = (() => {
-    return {
+(() => {
+    window.GiphySearchController = {
         init: () => {
-            var searchButton = $("#search-button");
-            var searchTerm = $("#search-term");
-            var imageResultContainer = $(".image-result-container");
+            let searchButton = $("#search-button");
+            let searchTerm = $("#search-term");
+            let imageResultContainer = $(".image-result-container");
 
-            searchButton.click(() => {
+            searchButton.click(() =>
                 // The getJSON function initiates a connection to the web service.
+                //
+                // The design of jQuery’s functions allows this entire sequence to be
+                // rendered in a _single statement_, thus obviating the need for curly
+                // braces but resulting in what many will view to be a decrease in readability
+                // (for those who aren’t used to functional-style programming). YMMV
                 $.getJSON("http://api.giphy.com/v1/gifs/search", {
                     rating: "pg-13", // Exercise: Hook this up to the front end.
                     q: searchTerm.val(),
                     api_key: "dc6zaTOxFJmzC" // Giphy's public beta key (thank you Giphy).
-                }).done((result) => {
-                    // Receiving the response renders it in an HTML element tree then
-                    // appends it to the element(s) with the class image-result-container.
-                    imageResultContainer.empty().append(
-                        result.data.map((image) => {
-                            return $("<div></div>").addClass("col-xs-2").append(
-                                $("<img/>").attr({
-                                    src: image.images.fixed_width.url,
-                                    alt: image.source_tld
-                                })
-                            );
-                        })
-                    );
-                });
-            });
+                }).done(result => imageResultContainer.empty().append(
+                    // Receiving the response renders it in an HTML element tree then appends
+                    // it to the element(s) with the class image-result-container.
+                    result.data.map(image => $("<div></div>").addClass("col-xs-2").append(
+                        $("<img/>").attr({ src: image.images.fixed_width.url, alt: image.source_tld })
+                    ))
+                ))
+            );
 
-            searchTerm.bind("input", () => {
-                searchButton.prop("disabled", !searchTerm.val());
-            });
+            searchTerm.bind("input", () => searchButton.prop("disabled", !searchTerm.val()));
         }
     };
 })();
