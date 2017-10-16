@@ -1,44 +1,24 @@
 <!doctype html>
 <html>
-    <!-- This page demonstrates a rudimentary Ajax connection using
-         jQuery's API, with setup being done through a settings
-         object a la the jQuery.ajax function. -->
-    <head>
-        <meta charset="UTF-8" />
-        <title>Your Fortune!</title>
-    </head>
-    <body>
-        <h1>Your Fortune</h1>
-        
-        <p>Click on the button below to see your fortune.</p>
-        
-        <button id="getFortuneButton">Get My Fortune</button>
-        <span id="loadingFeedbackElement">Loading...</span>
-        
-        <p id="fortune"></p>
-        
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="fortune-library-settings.js"></script>
-        <script>
-            /*
-             * Watch out for the same-origin policy: open this as a local file,
-             * plus make sure that your browser allows local files to connect
-             * anywhere also.
-             *
-             * If your browser does not allow local corrections, you can adapt
-             * this code for use with the JavaScript Runner page at:
-             *
-             *     http://javascript.cs.lmu.edu/runner
-             *
-             * Since that page is on the same server as the fortune service,
-             * code that you type in there should connect OK.
-             */
-            $(FortuneLibrary.setupFortuneButton({
-                buttonId: "getFortuneButton",
-                outputId: "fortune",
-                feedbackId: "loadingFeedbackElement",
-                fortuneServiceUrl: "http://javascript.cs.lmu.edu/php/fortune.php"
-            }));
-        </script>
-    </body>
+  <!-- This page demonstrates a rudimentary Ajax connection with setup being done through a settings
+       object (a common practice for functions with many parameters, such as jQuery.ajax). -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Your Fortune!</title>
+  </head>
+
+  <body>
+    <h1>Your Fortune</h1>
+
+    <p>Click on the button below to see your fortune.</p>
+
+    <button id="getFortuneButton">Get My Fortune</button>
+    <span id="loadingFeedbackElement">Loading...</span>
+
+    <p id="fortune"></p>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="fortune-library-settings.js"></script>
+    <script src="fortune.js"></script>
+  </body>
 </html>
