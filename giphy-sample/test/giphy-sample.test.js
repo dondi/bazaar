@@ -5,21 +5,14 @@ describe("Giphy search example", () => {
         window.GiphySearchController.init();
     });
 
-    afterEach(() => {
-        fixture.cleanup();
-    });
+    afterEach(() => fixture.cleanup());
 
-    it("should start with an empty search field", () => {
-        expect($("#search-term").val()).toBe("");
-    });
-
-    it("should start with a disabled search button", () => {
-        expect($("#search-button").prop("disabled")).toBe(true);
-    });
+    it("should start with an empty search field", () => expect($("#search-term").val()).toBe(""));
+    it("should start with a disabled search button", () => expect($("#search-button").prop("disabled")).toBe(true));
 
     describe("search button", () => {
-        var searchTerm;
-        var searchButton;
+        let searchTerm;
+        let searchButton;
 
         beforeEach(() => {
             searchTerm = $("#search-term");
@@ -40,7 +33,7 @@ describe("Giphy search example", () => {
     });
 
     describe("API calls", () => {
-        var request;
+        let request;
 
         beforeEach(() => {
             jasmine.Ajax.install();
