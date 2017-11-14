@@ -1,4 +1,5 @@
 ($ => {
+
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
      * Note how we can use arrow function notation here because we don't need
