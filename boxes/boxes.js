@@ -1,4 +1,4 @@
-(($) => {
+($ => {
     /**
      * Constant for the left mouse button.
      */
@@ -13,12 +13,12 @@
     /**
      * Indicates that an element is highlighted.
      */
-    let highlight = (event) => $(event.currentTarget).addClass("box-highlight");
+    let highlight = event => $(event.currentTarget).addClass("box-highlight");
 
     /**
      * Indicates that an element is unhighlighted.
      */
-    let unhighlight = (event) => $(event.currentTarget).removeClass("box-highlight");
+    let unhighlight = event => $(event.currentTarget).removeClass("box-highlight");
 
     /**
      * Begins a box draw sequence.
@@ -32,10 +32,13 @@
             // use arrow function notation here).
             this.anchorX = event.pageX;
             this.anchorY = event.pageY;
+            let position = { left: this.anchorX, top: this.anchorY };
+
             this.drawingBox = $("<div></div>")
                 .appendTo(this)
                 .addClass("box")
-                .offset({ left: this.anchorX, top: this.anchorY });
+                .data({ position }) // This is our model.
+                .offset(position); // This is our view. We keep them separate because the browser might change this.
 
             // Take away the highlight behavior while the draw is
             // happening.
@@ -51,21 +54,26 @@
         if (this.drawingBox) {
             // Calculate the new box location and dimensions.  Note how
             // this might require a "corner switch."
-            let newOffset = {
+            let newPosition = {
                 left: (this.anchorX < event.pageX) ? this.anchorX : event.pageX,
                 top: (this.anchorY < event.pageY) ? this.anchorY : event.pageY
             };
 
             this.drawingBox
-                .offset(newOffset)
+                .data({ position: newPosition })
+                .offset(newPosition)
                 .width(Math.abs(event.pageX - this.anchorX))
                 .height(Math.abs(event.pageY - this.anchorY));
         } else if (this.movingBox) {
             // Reposition the object.
-            this.movingBox.offset({
+            let newPosition = {
                 left: event.pageX - this.deltaX,
                 top: event.pageY - this.deltaY
-            });
+            };
+
+            this.movingBox
+                .data({ position: newPosition })
+                .offset(newPosition);
         }
     };
 
@@ -76,17 +84,17 @@
         // We only move using the left mouse button.
         if (event.which === LEFT_BUTTON) {
             // Take note of the box's current (global) location.
-            let jThis = $(this);
-            let startOffset = jThis.offset();
+            let targetBox = $(this);
+            let startOffset = targetBox.offset();
 
             // Grab the drawing area (this element's parent).
             // We want the actual element, and not the jQuery wrapper
             // that usually comes with it.
-            let parent = jThis.parent().get(0);
+            let parent = targetBox.parent().get(0);
 
             // Set the drawing area's state to indicate that it is
             // in the middle of a move.
-            parent.movingBox = jThis;
+            parent.movingBox = targetBox;
             parent.deltaX = event.pageX - startOffset.left;
             parent.deltaY = event.pageY - startOffset.top;
 
@@ -110,7 +118,7 @@
                 .mousemove(highlight)
                 .mouseleave(unhighlight)
                 .mousedown(startMove);
-            
+
             // All done.
             this.drawingBox = null;
         } else if (this.movingBox) {
@@ -135,7 +143,7 @@
             .addClass("drawing-area")
             .mousedown(startDraw)
             .mousemove(trackDrag)
-            
+
             // We conclude drawing on either a mouseup or a mouseleave.
             .mouseup(endDrag)
             .mouseleave(endDrag);

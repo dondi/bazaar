@@ -1,8 +1,10 @@
-(($) => {
+($ => {
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
+     * Note how we can use arrow function notation here because we don't need
+     * the `this` variable in this implementation.
      */
-    let trackDrag = (event) => {
+    let trackDrag = event => {
         $.each(event.changedTouches, function (index, touch) {
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
@@ -12,6 +14,7 @@
                     top: touch.pageY - touch.target.deltaY
                 };
 
+                // This form of `data` allows us to update values one attribute at a time.
                 $(touch.target).data('position', newPosition);
                 touch.target.movingBox.offset(newPosition);
             }
@@ -24,7 +27,7 @@
     /**
      * Concludes a drawing or moving sequence.
      */
-    let endDrag = (event) => {
+    let endDrag = event => {
         $.each(event.changedTouches, (index, touch) => {
             if (touch.target.movingBox) {
                 // Change state to "not-moving-anything" by clearing out
@@ -37,21 +40,21 @@
     /**
      * Indicates that an element is unhighlighted.
      */
-    let unhighlight = (event) => $(event.currentTarget).removeClass("box-highlight");
+    let unhighlight = event => $(event.currentTarget).removeClass("box-highlight");
 
     /**
      * Begins a box move sequence.
      */
-    let startMove = (event) => {
+    let startMove = event => {
         $.each(event.changedTouches, (index, touch) => {
             // Highlight the element.
             $(touch.target).addClass("box-highlight");
 
             // Take note of the box's current (global) location. Also, set its velocity and acceleration to
             // nothing because, well, _finger_.
-            let jThis = $(touch.target);
-            let startOffset = jThis.offset();
-            jThis.data({
+            let targetBox = $(touch.target);
+            let startOffset = targetBox.offset();
+            targetBox.data({
                 position: startOffset,
                 velocity: { x: 0, y: 0, z: 0 },
                 acceleration: { x: 0, y: 0, z: 0 }
@@ -59,7 +62,7 @@
 
             // Set the drawing area's state to indicate that it is
             // in the middle of a move.
-            touch.target.movingBox = jThis;
+            touch.target.movingBox = targetBox;
             touch.target.deltaX = touch.pageX - startOffset.left;
             touch.target.deltaY = touch.pageY - startOffset.top;
         });
@@ -78,7 +81,7 @@
     const FRAME_DURATION = 1000 / FRAME_RATE;
 
     let lastTimestamp = 0;
-    let updateBoxes = (timestamp) => {
+    let updateBoxes = timestamp => {
         if (!lastTimestamp) {
             lastTimestamp = timestamp;
         }
@@ -97,6 +100,7 @@
                 return;
             }
 
+            // Note how we base all of our calculations from the _model_...
             let s = $element.data('position');
             let v = $element.data('velocity');
             let a = $element.data('acceleration');
@@ -132,6 +136,7 @@
                 v.y = -v.y;
             }
 
+            // ...and the final result is sent on a one-way trip to the _view_.
             $(element).offset(s);
         });
 
@@ -142,7 +147,7 @@
     /**
      * Sets up the given jQuery collection as the drawing area(s).
      */
-    let setDrawingArea = (jQueryElements) => {
+    let setDrawingArea = jQueryElements => {
         // Set up any pre-existing box elements for touch behavior.
         jQueryElements
             .addClass("drawing-area")
@@ -150,23 +155,24 @@
             // Event handler setup must be low-level because jQuery
             // doesn't relay touch-specific event properties.
             .each((index, element) => {
-                element.addEventListener("touchmove", trackDrag, false);
-                element.addEventListener("touchend", endDrag, false);
+                $(element)
+                    .bind("touchmove", trackDrag)
+                    .bind("touchend", endDrag);
             })
 
             .find("div.box").each((index, element) => {
-                element.addEventListener("touchstart", startMove, false);
-                element.addEventListener("touchend", unhighlight, false);
-
-                $(element).data({
-                    position: $(element).offset(),
-                    velocity: { x: 0, y: 0, z: 0 },
-                    acceleration: { x: 0, y: 0, z: 0 }
-                });
+                $(element)
+                    .bind("touchstart", startMove)
+                    .bind("touchend", unhighlight)
+                    .data({
+                        position: $(element).offset(),
+                        velocity: { x: 0, y: 0, z: 0 },
+                        acceleration: { x: 0, y: 0, z: 0 }
+                    });
             });
 
         // In this sample, device acceleration is the _sole_ determiner of a box's acceleration.
-        window.ondevicemotion = (event) => {
+        window.ondevicemotion = event => {
             let a = event.accelerationIncludingGravity;
             $("div.box").each((index, element) => {
                 $(element).data('acceleration', a);

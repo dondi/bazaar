@@ -1,16 +1,24 @@
-(($) => {
+($ => {
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
+     * Note how we can use arrow function notation here because we don't need
+     * the `this` variable in this implementation.
      */
-    let trackDrag = (event) => {
+    let trackDrag = event => {
+        // The touch lists are not arrays so they don’t have `forEach`. Fortunately, jQuery has an `each` function
+        // that can work with touch lists in nearly the same way.
         $.each(event.changedTouches, (index, touch) => {
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
                 // Reposition the object.
-                touch.target.movingBox.offset({
+                let newPosition = {
                     left: touch.pageX - touch.target.deltaX,
                     top: touch.pageY - touch.target.deltaY
-                });
+                };
+
+                touch.target.movingBox
+                    .data({ position: newPosition })
+                    .offset(newPosition);
             }
         });
 
@@ -21,7 +29,7 @@
     /**
      * Concludes a drawing or moving sequence.
      */
-    let endDrag = (event) => {
+    let endDrag = event => {
         $.each(event.changedTouches, (index, touch) => {
             if (touch.target.movingBox) {
                 // Change state to "not-moving-anything" by clearing out
@@ -34,23 +42,24 @@
     /**
      * Indicates that an element is unhighlighted.
      */
-    let unhighlight = (event) => $(event.currentTarget).removeClass("box-highlight");
+    let unhighlight = event => $(event.currentTarget).removeClass("box-highlight");
 
     /**
      * Begins a box move sequence.
      */
-    let startMove = (event) => {
+    let startMove = event => {
         $.each(event.changedTouches, (index, touch) => {
             // Highlight the element.
             $(touch.target).addClass("box-highlight");
 
             // Take note of the box's current (global) location.
-            let jThis = $(touch.target);
-            let startOffset = jThis.offset();
+            let targetBox = $(touch.target);
+            let startOffset = targetBox.offset();
+            targetBox.data({ position: startOffset });
 
             // Set the drawing area's state to indicate that it is
             // in the middle of a move.
-            touch.target.movingBox = jThis;
+            touch.target.movingBox = targetBox;
             touch.target.deltaX = touch.pageX - startOffset.left;
             touch.target.deltaY = touch.pageY - startOffset.top;
         });
@@ -63,21 +72,23 @@
     /**
      * Sets up the given jQuery collection as the drawing area(s).
      */
-    let setDrawingArea = (jQueryElements) => {
+    let setDrawingArea = jQueryElements => {
         // Set up any pre-existing box elements for touch behavior.
         jQueryElements
             .addClass("drawing-area")
-            
+
             // Event handler setup must be low-level because jQuery
             // doesn't relay touch-specific event properties.
             .each((index, element) => {
-                element.addEventListener("touchmove", trackDrag, false);
-                element.addEventListener("touchend", endDrag, false);
+                $(element)
+                    .bind("touchmove", trackDrag)
+                    .bind("touchend", endDrag);
             })
 
             .find("div.box").each((index, element) => {
-                element.addEventListener("touchstart", startMove, false);
-                element.addEventListener("touchend", unhighlight, false);
+                $(element)
+                    .bind("touchstart", startMove)
+                    .bind("touchend", unhighlight);
             });
     };
 
