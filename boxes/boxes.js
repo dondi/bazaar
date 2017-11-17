@@ -138,7 +138,7 @@
     /**
      * Sets up the given jQuery collection as the drawing area(s).
      */
-    let setDrawingArea = (jQueryElements) => {
+    let setDrawingArea = jQueryElements => {
         jQueryElements
             .addClass("drawing-area")
             .mousedown(startDraw)
