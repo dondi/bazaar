@@ -9,22 +9,23 @@
 */
 (($) => {
     $.fn.swivel = function (options) {
-        let $this = this;
+        const $this = this;
+
         let $current = null;
         let anchorX = 0;
 
-        $this.addClass("swivel").mousedown((event) => {
-            $current = $(event.currentTarget);
+        $this.addClass("swivel").mousedown(function (event) {
+            $current = $(this);
             anchorX = event.screenX - ($current.data('swivel-angle') || 0);
         });
 
         // Other mouse events go at the level of the document because
         // they might leave the element's bounding box.
-        $(document).mousemove((event) => {
+        $(document).mousemove(event => {
             if ($current) {
-                let currentAngle = $current.data('swivel-angle') || 0;
-                let newAngle = event.screenX - anchorX;
-                let newCss = "perspective(500px) rotateY(" + newAngle + "deg)";
+                const currentAngle = $current.data('swivel-angle') || 0;
+                const newAngle = event.screenX - anchorX;
+                const newCss = "perspective(500px) rotateY(" + newAngle + "deg)";
 
                 $current.css({
                     'transform': newCss
@@ -34,7 +35,7 @@
 
                 // Invoke the callback. We want jQuery-like behavior that binds `this` to the component
                 // that change, so we use `call` instead of plain parentheses.
-                if ($.isFunction(options.change)) {
+                if ($.isPlainObject(options) && $.isFunction(options.change)) {
                     options.change.call($current, currentAngle, newAngle);
                 }
             }

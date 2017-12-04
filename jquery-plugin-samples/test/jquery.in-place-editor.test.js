@@ -1,5 +1,5 @@
 describe("In-place editor jQuery plugin", () => {
-    let options = {
+    const options = {
         change: () => {
             // No-op; Jasmine spy will check on whether this got called.
         }
@@ -13,8 +13,8 @@ describe("In-place editor jQuery plugin", () => {
     afterEach(() => fixture.cleanup());
 
     it("should return itself when the plugin is installed", () => {
-        let $target = $(".in-place-editor-test");
-        let $pluginResult = $target.inPlaceEditor(options);
+        const $target = $(".in-place-editor-test");
+        const $pluginResult = $target.inPlaceEditor(options);
 
         expect($pluginResult).toBe($target);
     });
@@ -36,19 +36,17 @@ describe("In-place editor jQuery plugin", () => {
            http://stackoverflow.com/questions/21926083/failed-to-execute-removechild-on-node
         */
 
-        /*
-        it("should update the original element's text", () => {
+        xit("should update the original element's text", () => {
             $(".in-place-editor-test").click();
             $(".editor-overlay > input").val("Zing!").blur();
             expect($(".in-place-editor-test").text()).toBe("Zing!");
         });
 
-        it("should invoke the callback correctly", () => {
+        xit("should invoke the callback correctly", () => {
             spyOn(options, 'change');
             $(".in-place-editor-test").click();
             $(".editor-overlay > input").val("Zoom!").blur();
             expect(options.change).toHaveBeenCalled();
         });
-        */
     });
 });

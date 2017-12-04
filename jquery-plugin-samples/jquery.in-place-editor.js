@@ -14,23 +14,23 @@
     const INPUT_MARGIN_LEFT = 3;
     const INPUT_HEIGHT_PADDING = 6;
 
-    let $overlay = $("<div></div>").addClass("editor-overlay");
+    const $overlay = $("<div></div>").addClass("editor-overlay");
 
     $.fn.inPlaceEditor = function (options) {
         let $this = this;
         $this.addClass("in-place-editor").hover(
-            (event) => $(event.currentTarget).append($("<span></span>").addClass("in-place glyphicon glyphicon-edit")),
-            (event) => $(event.currentTarget).find("span.in-place.glyphicon.glyphicon-edit").remove()
-        ).click((event) => {
-            let $receiver = $(event.currentTarget);
-            let receiverOffset = $receiver.offset();
+            event => $(event.currentTarget).append($("<span></span>").addClass("in-place glyphicon glyphicon-edit")),
+            event => $(event.currentTarget).find("span.in-place.glyphicon.glyphicon-edit").remove()
+        ).click(event => {
+            const $receiver = $(event.currentTarget);
+            const receiverOffset = $receiver.offset();
 
             // Note: This plugin handles one-line entry fields only.  Support
             //       for textarea would be nice.
-            let $input = $("<input>")
+            const $input = $("<input>")
                 .val($receiver.text())
-                .blur((event) => {
-                    let $thisInput = $(event.currentTarget);
+                .blur(event => {
+                    const $thisInput = $(event.currentTarget);
 
                     // Transfer the new text over.
                     $receiver.text($thisInput.val());
