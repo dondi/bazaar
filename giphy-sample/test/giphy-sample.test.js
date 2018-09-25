@@ -1,16 +1,3 @@
-// Helper function for creating mock JSON responses.
-// Thank you https://rjzaworski.com/2015/06/testing-api-requests-from-window-fetch
-const jsonOk = body => {
-  const mockResponse = new Response(JSON.stringify(body), {
-    status: 200,
-    headers: {
-      'Content-type': 'application/json'
-    }
-  })
-
-  return Promise.resolve(mockResponse)
-}
-
 describe('Giphy search example', () => {
   beforeEach(() => {
     fixture.setBase('test')
@@ -53,11 +40,11 @@ describe('Giphy search example', () => {
 
   describe('API calls', () => {
     beforeEach(() => {
-      sinon.stub(window, 'fetch')
+      sinon.stub(window.ApiService, 'searchGifs')
 
       // To manage size, we supply a mock response that contains _only_ what the app will need. This does mean
       // that we need to revise the mock response if our app starts using more (or different) data.
-      window.fetch.returns(jsonOk({
+      window.ApiService.searchGifs.returns(Promise.resolve({
         data: [
           {
             source_tld: 'tumblr.com',
@@ -74,11 +61,14 @@ describe('Giphy search example', () => {
       $('#search-button').click()
     })
 
-    afterEach(() => window.fetch.restore())
+    afterEach(() => window.ApiService.searchGifs.restore())
 
     it('should trigger a Giphy search when the search button is clicked', () =>
-      expect(window.fetch.firstCall.args[0]).toBe(
-        'http://api.giphy.com/v1/gifs/search?rating=pg-13&q=hello&api_key=dc6zaTOxFJmzC')
+      expect(window.ApiService.searchGifs.firstCall.args[0]).toEqual({
+        rating: 'pg-13',
+        q: 'hello', // Our test search term.
+        api_key: 'dc6zaTOxFJmzC'
+      })
     )
 
     it('should populate the image container when search results arrive', done => setTimeout(() => {
