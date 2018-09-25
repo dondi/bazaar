@@ -1,31 +1,30 @@
-/* eslint indent: ["error", 2] */
-module.exports = function (config) {
+module.exports = config => {
   config.set({
     frameworks: [
-      "jasmine-ajax",
-      "jasmine",
-      "fixture"
+      'fixture',
+      'jasmine',
+      'jquery-3.3.1', // Matches the jQuery version used by our app.
+      'sinon',
     ],
 
     files: [
-      "https://code.jquery.com/jquery-1.11.3.min.js",
-      "*.js",
-      "test/**/*.js",
-      "test/**/*.html"
+      '*.js',
+      'test/**/*.js',
+      'test/**/*.html'
     ],
 
     preprocessors: {
-      "test/**/*.html": ["html2js"],
-      "*.js": ["coverage"]
+      'test/**/*.html': ['html2js'],
+      '*.js': ['coverage']
     },
 
     browsers: [
-      "Chrome", "Firefox"
+      'Chrome', 'Firefox'
     ],
 
     reporters: [
-      "dots",
-      "coverage"
+      'dots',
+      'coverage'
     ]
-  });
-};
+  })
+}
