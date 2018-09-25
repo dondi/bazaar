@@ -8,7 +8,8 @@ module.exports = config => {
     ],
 
     files: [
-      '*.js',
+      'api.js',
+      'giphy-sample.js',
       'test/**/*.js',
       'test/**/*.html'
     ],
