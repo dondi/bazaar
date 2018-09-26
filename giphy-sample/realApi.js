@@ -3,6 +3,7 @@
 // to be aware of this older mechanism.
 (() => {
   let api = 'https://misconfigured-app.com/'
+  const API_KEY = 'dc6zaTOxFJmzC' // Giphy's public beta key (thank you Giphy).
 
   const apiHost = host => { api = host }
   const urlFor = resource => `${api}${resource}`
@@ -33,6 +34,12 @@
     'Content-Type': 'application/json'
   }
 
+  const paramsWithApiKey = params => {
+    const result = new URLSearchParams(params)
+    result.set('api_key', API_KEY)
+    return result
+  }
+
   // The fetch function initiates a connection to the web service.
   // fetch returns a _promise_: an object that represents a future result.
   // Thus, the function actually returns right away. However, when the
@@ -49,7 +56,7 @@
   // _single statement_, thus obviating the need for curly braces but
   // resulting in what many will view to be a decrease in readability
   // (for those who aren’t used to functional-style programming). YMMV
-  const query = (resource, params) => fetch(`${urlFor(resource)}?${new URLSearchParams(params)}`, {
+  const query = (resource, params) => fetch(`${urlFor(resource)}?${paramsWithApiKey(params)}`, {
     headers
   }).then(okCheck, emitNativeError)
     .then(response => response.json())

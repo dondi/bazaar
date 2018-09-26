@@ -19,8 +19,7 @@
     searchButton.click(
       () => window.ApiService.searchGifs({
         rating: 'pg-13', // Exercise: Hook this up to the front end.
-        q: searchTerm.val(),
-        api_key: 'dc6zaTOxFJmzC' // Giphy's public beta key (thank you Giphy).
+        q: searchTerm.val()
       }).then(result => displayImages(result.data))
         .catch(() => alert('Sorry, but something went wrong.'))
     )

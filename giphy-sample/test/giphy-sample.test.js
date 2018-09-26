@@ -66,8 +66,7 @@ describe('Giphy search example', () => {
     it('should trigger a Giphy search when the search button is clicked', () =>
       expect(window.ApiService.searchGifs.firstCall.args[0]).toEqual({
         rating: 'pg-13',
-        q: 'hello', // Our test search term.
-        api_key: 'dc6zaTOxFJmzC'
+        q: 'hello' // Our test search term.
       })
     )
 
