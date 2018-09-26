@@ -1,0 +1,13 @@
+.SearchForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.SearchForm > .ButtonBar {
+  display: flex;
+}
+
+.SearchForm > .ButtonBar > button {
+  margin-left: auto;
+  margin-top: 1rem;
+}
