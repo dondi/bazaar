@@ -1,5 +1,6 @@
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
+import ReactTestUtils from 'react-dom/test-utils'
 
 import sinon from 'sinon'
 
@@ -35,6 +36,14 @@ it('should start with a disabled search button', () => {
   const component = TestRenderer.create(<SearchForm />)
   const tree = component.toJSON()
   expect(tree).toMatchSnapshot()
+})
+
+it('should update its state when the search field value changes', () => {
+  const component = ReactTestUtils.renderIntoDocument(<SearchForm />)
+  const input = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'input')
+  input.value = 'presto change-o'
+  ReactTestUtils.Simulate.change(input)
+  expect(component.state.query).toEqual('presto change-o')
 })
 
 describe('search button', () => {

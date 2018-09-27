@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactTestUtils from 'react-dom/test-utils'
 
 import './SearchForm.css'
 
