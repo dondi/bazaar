@@ -16,5 +16,15 @@
   "devDependencies": {
     "react-test-renderer": "^16.5.2",
     "sinon": "^6.3.4"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/src/index.js",
+      "!**/src/realApi.js",
+      "!**/src/registerServiceWorker.js"
+    ]
   }
 }
