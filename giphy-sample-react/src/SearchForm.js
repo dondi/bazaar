@@ -39,7 +39,7 @@ class SearchForm extends Component {
         <input name="query" type="text" value={this.state.query} onChange={this.handleChange} />
 
         <div className="ButtonBar">
-          <button onClick={this.performQuery}>Search Giphy!</button>
+          <button disabled={!this.state.query} onClick={this.performQuery}>Search Giphy!</button>
         </div>
 
         <SearchResults results={this.state.images} />
