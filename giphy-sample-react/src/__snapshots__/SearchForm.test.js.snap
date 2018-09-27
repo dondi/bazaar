@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search button should be disabled when the search field is blank 1`] = `
+<div
+  className="SearchForm"
+>
+  <p>
+    Enter a search term:
+  </p>
+  <input
+    name="query"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <div
+    className="ButtonBar"
+  >
+    <button
+      disabled={true}
+      onClick={[Function]}
+    >
+      Search Giphy!
+    </button>
+  </div>
+  <div
+    className="SearchResults"
+  />
+</div>
+`;
+
+exports[`search button should be enabled when the search field is not blank 1`] = `
+<div
+  className="SearchForm"
+>
+  <p>
+    Enter a search term:
+  </p>
+  <input
+    name="query"
+    onChange={[Function]}
+    type="text"
+    value="i can haz unit tests"
+  />
+  <div
+    className="ButtonBar"
+  >
+    <button
+      disabled={false}
+      onClick={[Function]}
+    >
+      Search Giphy!
+    </button>
+  </div>
+  <div
+    className="SearchResults"
+  />
+</div>
+`;
+
+exports[`should start with a disabled search button 1`] = `
+<div
+  className="SearchForm"
+>
+  <p>
+    Enter a search term:
+  </p>
+  <input
+    name="query"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <div
+    className="ButtonBar"
+  >
+    <button
+      disabled={true}
+      onClick={[Function]}
+    >
+      Search Giphy!
+    </button>
+  </div>
+  <div
+    className="SearchResults"
+  />
+</div>
+`;
+
+exports[`should start with an empty search field 1`] = `
+<div
+  className="SearchForm"
+>
+  <p>
+    Enter a search term:
+  </p>
+  <input
+    name="query"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <div
+    className="ButtonBar"
+  >
+    <button
+      disabled={true}
+      onClick={[Function]}
+    >
+      Search Giphy!
+    </button>
+  </div>
+  <div
+    className="SearchResults"
+  />
+</div>
+`;
