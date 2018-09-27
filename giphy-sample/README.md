@@ -18,3 +18,7 @@ Python’s `SimpleHTTPServer` also does the job just fine, for example:
     $ python -m SimpleHTTPServer
 
 The test suite can be run with `npm test`. This includes a _linting_ step which will _not_ run the unit tests if your code has formatting issues. This is intentional, meant to make you fix linting errors before you move on to additional testing.
+
+## Possible Add-Ons
+
+You might consider adding [Font Awesome](https://fontawesome.com) to this application. It’s a convenient and powerful collection of icons and glyphs, and they have a free set which anyone may use.
