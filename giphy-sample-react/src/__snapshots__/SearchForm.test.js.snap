@@ -38,6 +38,40 @@ exports[`API calls should populate the image container when search results arriv
 </div>
 `;
 
+exports[`failed API calls should display an alert when the API call fails 1`] = `
+<div
+  className="SearchForm"
+>
+  <p>
+    Enter a search term:
+  </p>
+  <input
+    name="query"
+    onChange={[Function]}
+    type="text"
+    value="hello"
+  />
+  <div
+    className="ButtonBar"
+  >
+    <button
+      disabled={false}
+      onClick={[Function]}
+    >
+      Search Giphy!
+    </button>
+  </div>
+  <div
+    className="error"
+  >
+    Sorry, but something went wrong.
+  </div>
+  <div
+    className="SearchResults"
+  />
+</div>
+`;
+
 exports[`search button should be disabled when the search field is blank 1`] = `
 <div
   className="SearchForm"

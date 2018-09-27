@@ -105,3 +105,26 @@ describe('API calls', () => {
     expect(tree).toMatchSnapshot()
   })
 })
+
+describe('failed API calls', () => {
+  const component = TestRenderer.create(<SearchForm />)
+
+  beforeEach(() => {
+    sinon.stub(api, 'searchGifs')
+    api.searchGifs.returns(Promise.reject('Mock failure'))
+
+    component.getInstance().setState({
+      query: 'hello'
+    })
+
+    component.getInstance().performQuery()
+  })
+
+  afterEach(() => api.searchGifs.restore())
+
+  it('should display an alert when the API call fails', () => {
+    // The snapshot should contain the error div.
+    const tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})
