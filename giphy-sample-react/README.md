@@ -17,3 +17,9 @@ Run tests with `npm test`. Look at your test coverage with `npm test -- --covera
 ## Build/Deploy
 
 Create a deployment-ready build with `npm run build`.
+
+## Style/Component Libraries
+
+If you don’t feel like styling your components yourself, you might consider the following:
+- [Material UI](https://material-ui.com/): React components that implement Google’s Material Design
+- [reactstrap](https://reactstrap.github.io/): React components that mimic Bootstrap 4
