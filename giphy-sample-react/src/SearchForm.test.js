@@ -1,6 +1,11 @@
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
+
+import sinon from 'sinon'
+
 import SearchForm from './SearchForm'
+
+import * as api from './api'
 
 // This test suite uses a distinct testing technique called _snapshot testing_. Go take
 // a peek at the code then come back here for more commentary.
@@ -49,6 +54,53 @@ describe('search button', () => {
       query: ''
     })
 
+    const tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})
+
+describe('API calls', () => {
+  const component = TestRenderer.create(<SearchForm />)
+
+  beforeEach(() => {
+    sinon.stub(api, 'searchGifs')
+
+    // To manage size, we supply a mock response that contains _only_ what the app will need. This does mean
+    // that we need to revise the mock response if our app starts using more (or different) data.
+    api.searchGifs.returns(Promise.resolve({
+      data: [
+        {
+          id: 'FiGiRei2ICzzG',
+          source_tld: 'tumblr.com',
+          images: {
+            fixed_width: {
+              url: 'http://media2.giphy.com/media/FiGiRei2ICzzG/200w.gif'
+            }
+          }
+        }
+      ]
+    }))
+
+    component.getInstance().setState({
+      query: 'hello'
+    })
+
+    component.getInstance().performQuery()
+  })
+
+  afterEach(() => api.searchGifs.restore())
+
+  it('should trigger a Giphy search when the search button is clicked', () => {
+    // Note how this _isn’t_ a snapshot test because we’re checking whether a function was called with
+    // the right arguments.
+    expect(api.searchGifs.firstCall.args[0]).toEqual({
+      rating: 'pg-13',
+      q: 'hello' // Our test search term.
+    })
+  })
+
+  it('should populate the image container when search results arrive', () => {
+    // Yay, no janky async issues this time around! (see equivalent test in giphy-sample)
     const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
   })

@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`API calls should populate the image container when search results arrive 1`] = `
+<div
+  className="SearchForm"
+>
+  <p>
+    Enter a search term:
+  </p>
+  <input
+    name="query"
+    onChange={[Function]}
+    type="text"
+    value="hello"
+  />
+  <div
+    className="ButtonBar"
+  >
+    <button
+      disabled={false}
+      onClick={[Function]}
+    >
+      Search Giphy!
+    </button>
+  </div>
+  <div
+    className="SearchResults"
+  >
+    <div
+      className="GiphyImage"
+    >
+      <img
+        alt="tumblr.com"
+        src="http://media2.giphy.com/media/FiGiRei2ICzzG/200w.gif"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`search button should be disabled when the search field is blank 1`] = `
 <div
   className="SearchForm"
