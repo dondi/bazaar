@@ -21,5 +21,9 @@ Create a deployment-ready build with `npm run build`.
 ## Style/Component Libraries
 
 If you don’t feel like styling your components yourself, you might consider the following:
+- [Font Awesome](https://fontawesome.com): A convenient and powerful collection of icons and glyphs—they have a free set which anyone may use
 - [Material UI](https://material-ui.com/): React components that implement Google’s Material Design
 - [reactstrap](https://reactstrap.github.io/): React components that mimic Bootstrap 4
+
+Not style-related, but still potentially useful, is [React Router](https://reacttraining.com/react-router/). This allows your application to serve up multiple URLs while still retaining a unified code base:
+- [React Router](https://reacttraining.com/react-router/)
