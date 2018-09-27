@@ -80,4 +80,24 @@ describe('Giphy search example', () => {
       done()
     }, FETCH_COMPLETION_DELAY))
   })
+
+  describe('failed API calls', () => {
+    beforeEach(() => {
+      sinon.stub(window.ApiService, 'searchGifs')
+      window.ApiService.searchGifs.returns(Promise.reject('Mock failure'))
+
+      $('#search-term').val('hello failure')
+      $('#search-button').click()
+    })
+
+    afterEach(() => window.ApiService.searchGifs.restore())
+
+    it('should trigger an alert when the API call fails', done => setTimeout(() => {
+      // In this test, we have chosen not to a specific message; we’re just making sure that an alert-danger
+      // element showed up. Of course, we _may_ choose to expect a particular message, especially if we want
+      // it to say something specific to the user.
+      expect($('.image-result-container').find('.alert.alert-danger').length).toBe(1)
+      done()
+    }, FETCH_COMPLETION_DELAY))
+  })
 })
