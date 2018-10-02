@@ -34,6 +34,9 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="vHc-1O-xss">
                                         <rect key="frame" x="0.0" y="27.5" width="288" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="searchTextField">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -43,6 +46,9 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y43-F9-uId">
                                         <rect key="frame" x="0.0" y="65.5" width="96" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="searchButton">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <state key="normal" title="Search Giphy!"/>
                                     </button>
                                 </subviews>

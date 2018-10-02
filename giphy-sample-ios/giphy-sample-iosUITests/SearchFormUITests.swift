@@ -18,9 +18,44 @@ class SearchFormUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // Use recording to get started writing UI tests.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testAppShouldStartWithAnEmptySearchField() {
+        let app = XCUIApplication()
+        let searchTextField = app.textFields["searchTextField"]
+        XCTAssertEqual(searchTextField.value as? String ?? "", "")
     }
 
+    func testAppShouldStartWithADisabledSearchButton() {
+        let app = XCUIApplication()
+        let searchButton = app.buttons["searchButton"]
+        XCTAssert(!searchButton.isEnabled)
+    }
+
+    func testSearchButtonShouldBeEnabledWhenTheSearchFieldIsNotBlank() {
+        let app = XCUIApplication()
+        let searchTextField = app.textFields["searchTextField"]
+        searchTextField.tap()
+        searchTextField.typeText("i can haz unit tests")
+
+        let searchButton = app.buttons["searchButton"]
+        XCTAssert(searchButton.isEnabled)
+    }
+
+    func testSearchButtonShouldBeDisabledWhenTheSearchFieldIsBlank() {
+        testSearchButtonShouldBeEnabledWhenTheSearchFieldIsNotBlank()
+
+        let app = XCUIApplication()
+        let searchTextField = app.textFields["searchTextField"]
+        // Search text field is tapped at this point.
+
+        let searchText = searchTextField.value as? String ?? ""
+
+        // Yes, this is the Delete key repeated for the number of characters that we entered!
+        let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: searchText.count)
+        searchTextField.typeText(deleteString)
+
+        let searchButton = app.buttons["searchButton"]
+        XCTAssert(!searchButton.isEnabled)
+    }
 }
