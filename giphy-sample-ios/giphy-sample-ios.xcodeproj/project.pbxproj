@@ -14,6 +14,8 @@
 		F71390162162C87D002B158F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F71390142162C87D002B158F /* LaunchScreen.storyboard */; };
 		F71390212162C87D002B158F /* giphy_sample_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71390202162C87D002B158F /* giphy_sample_iosTests.swift */; };
 		F713902C2162C87D002B158F /* SearchFormUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713902B2162C87D002B158F /* SearchFormUITests.swift */; };
+		F728C27B216330E000B97379 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C27A216330E000B97379 /* Api.swift */; };
+		F728C27D216332FB00B97379 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C27C216332FB00B97379 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		F71390272162C87D002B158F /* giphy-sample-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "giphy-sample-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F713902B2162C87D002B158F /* SearchFormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormUITests.swift; sourceTree = "<group>"; };
 		F713902D2162C87D002B158F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F728C27A216330E000B97379 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		F728C27C216332FB00B97379 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 		F713900A2162C87C002B158F /* giphy-sample-ios */ = {
 			isa = PBXGroup;
 			children = (
+				F728C27A216330E000B97379 /* Api.swift */,
+				F728C27C216332FB00B97379 /* Model.swift */,
 				F713900B2162C87C002B158F /* AppDelegate.swift */,
 				F713900D2162C87C002B158F /* ViewController.swift */,
 				F713900F2162C87C002B158F /* Main.storyboard */,
@@ -256,8 +262,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F728C27B216330E000B97379 /* Api.swift in Sources */,
 				F713900E2162C87C002B158F /* ViewController.swift in Sources */,
 				F713900C2162C87C002B158F /* AppDelegate.swift in Sources */,
+				F728C27D216332FB00B97379 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
