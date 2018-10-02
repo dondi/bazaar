@@ -17,6 +17,10 @@
 		F728C27B216330E000B97379 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C27A216330E000B97379 /* Api.swift */; };
 		F728C27D216332FB00B97379 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C27C216332FB00B97379 /* Model.swift */; };
 		F728C27F21634A8700B97379 /* SearchResultCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C27E21634A8700B97379 /* SearchResultCollectionViewController.swift */; };
+		F728C2B22163BF6600B97379 /* Siesta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F728C28E2163BDBF00B97379 /* Siesta.framework */; };
+		F728C2B32163BF6600B97379 /* SiestaUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F728C2962163BDBF00B97379 /* SiestaUI.framework */; };
+		F728C2B42163BF7400B97379 /* Siesta.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F728C28E2163BDBF00B97379 /* Siesta.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F728C2B52163BF7400B97379 /* SiestaUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F728C2962163BDBF00B97379 /* SiestaUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +38,105 @@
 			remoteGlobalIDString = F71390072162C87C002B158F;
 			remoteInfo = "giphy-sample-ios";
 		};
+		F728C28D2163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA336E4F1B2E6DDB006F702A;
+			remoteInfo = "Siesta iOS";
+		};
+		F728C28F2163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9F2FB51E1C28645E0068DFFA;
+			remoteInfo = "Siesta macOS";
+		};
+		F728C2912163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDCCAF651E6A313800860D18;
+			remoteInfo = "Siesta watchOS";
+		};
+		F728C2932163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDCCAF721E6A31D900860D18;
+			remoteInfo = "Siesta tvOS";
+		};
+		F728C2952163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAC0B3AA1D651CB500D25C44;
+			remoteInfo = "SiestaUI iOS";
+		};
+		F728C2972163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAC0B3D61D651CC700D25C44;
+			remoteInfo = "SiestaUI macOS";
+		};
+		F728C2992163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA336E591B2E6DDB006F702A;
+			remoteInfo = "SiestaTests iOS";
+		};
+		F728C29B2163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9F0FAFAC1D033FCD00CE1B61;
+			remoteInfo = "SiestaTests macOS";
+		};
+		F728C29D2163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDCCAF7A1E6A31DA00860D18;
+			remoteInfo = "SiestaTests tvOS";
+		};
+		F728C29F2163BDBF00B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA19D06E1D9ADC1800D15F3A;
+			remoteInfo = "SiestaPerformanceTests macOS";
+		};
+		F728C2A12163BDE300B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DA336E4E1B2E6DDB006F702A;
+			remoteInfo = "Siesta iOS";
+		};
+		F728C2A32163BDE300B97379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DAC0B37D1D651CB500D25C44;
+			remoteInfo = "SiestaUI iOS";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F728C2A52163BDF000B97379 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F728C2B42163BF7400B97379 /* Siesta.framework in CopyFiles */,
+				F728C2B52163BF7400B97379 /* SiestaUI.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F71390082162C87C002B158F /* giphy-sample-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "giphy-sample-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +155,7 @@
 		F728C27A216330E000B97379 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		F728C27C216332FB00B97379 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		F728C27E21634A8700B97379 /* SearchResultCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewController.swift; sourceTree = "<group>"; };
+		F728C2802163BDBF00B97379 /* Siesta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Siesta.xcodeproj; path = "Third-Party/Siesta/Siesta.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +163,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F728C2B22163BF6600B97379 /* Siesta.framework in Frameworks */,
+				F728C2B32163BF6600B97379 /* SiestaUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +192,8 @@
 				F713901F2162C87D002B158F /* giphy-sample-iosTests */,
 				F713902A2162C87D002B158F /* giphy-sample-iosUITests */,
 				F71390092162C87C002B158F /* Products */,
+				F728C2802163BDBF00B97379 /* Siesta.xcodeproj */,
+				F728C2B12163BF6600B97379 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +241,30 @@
 			path = "giphy-sample-iosUITests";
 			sourceTree = "<group>";
 		};
+		F728C2812163BDBF00B97379 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F728C28E2163BDBF00B97379 /* Siesta.framework */,
+				F728C2902163BDBF00B97379 /* Siesta.framework */,
+				F728C2922163BDBF00B97379 /* Siesta.framework */,
+				F728C2942163BDBF00B97379 /* Siesta.framework */,
+				F728C2962163BDBF00B97379 /* SiestaUI.framework */,
+				F728C2982163BDBF00B97379 /* SiestaUI.framework */,
+				F728C29A2163BDBF00B97379 /* SiestaTests.xctest */,
+				F728C29C2163BDBF00B97379 /* SiestaTests.xctest */,
+				F728C29E2163BDBF00B97379 /* SiestaTests tvOS.xctest */,
+				F728C2A02163BDBF00B97379 /* SiestaPerformanceTests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F728C2B12163BF6600B97379 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,10 +275,13 @@
 				F71390042162C87C002B158F /* Sources */,
 				F71390052162C87C002B158F /* Frameworks */,
 				F71390062162C87C002B158F /* Resources */,
+				F728C2A52163BDF000B97379 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F728C2A22163BDE300B97379 /* PBXTargetDependency */,
+				F728C2A42163BDE300B97379 /* PBXTargetDependency */,
 			);
 			name = "giphy-sample-ios";
 			productName = "giphy-sample-ios";
@@ -224,6 +358,12 @@
 			mainGroup = F7138FFF2162C87C002B158F;
 			productRefGroup = F71390092162C87C002B158F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F728C2812163BDBF00B97379 /* Products */;
+					ProjectRef = F728C2802163BDBF00B97379 /* Siesta.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F71390072162C87C002B158F /* giphy-sample-ios */,
@@ -232,6 +372,79 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F728C28E2163BDBF00B97379 /* Siesta.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Siesta.framework;
+			remoteRef = F728C28D2163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C2902163BDBF00B97379 /* Siesta.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Siesta.framework;
+			remoteRef = F728C28F2163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C2922163BDBF00B97379 /* Siesta.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Siesta.framework;
+			remoteRef = F728C2912163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C2942163BDBF00B97379 /* Siesta.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Siesta.framework;
+			remoteRef = F728C2932163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C2962163BDBF00B97379 /* SiestaUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SiestaUI.framework;
+			remoteRef = F728C2952163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C2982163BDBF00B97379 /* SiestaUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SiestaUI.framework;
+			remoteRef = F728C2972163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C29A2163BDBF00B97379 /* SiestaTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SiestaTests.xctest;
+			remoteRef = F728C2992163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C29C2163BDBF00B97379 /* SiestaTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SiestaTests.xctest;
+			remoteRef = F728C29B2163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C29E2163BDBF00B97379 /* SiestaTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SiestaTests tvOS.xctest";
+			remoteRef = F728C29D2163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F728C2A02163BDBF00B97379 /* SiestaPerformanceTests macOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SiestaPerformanceTests macOS.xctest";
+			remoteRef = F728C29F2163BDBF00B97379 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F71390062162C87C002B158F /* Resources */ = {
@@ -301,6 +514,16 @@
 			isa = PBXTargetDependency;
 			target = F71390072162C87C002B158F /* giphy-sample-ios */;
 			targetProxy = F71390282162C87D002B158F /* PBXContainerItemProxy */;
+		};
+		F728C2A22163BDE300B97379 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Siesta iOS";
+			targetProxy = F728C2A12163BDE300B97379 /* PBXContainerItemProxy */;
+		};
+		F728C2A42163BDE300B97379 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SiestaUI iOS";
+			targetProxy = F728C2A32163BDE300B97379 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

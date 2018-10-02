@@ -125,3 +125,6 @@ fastlane/test_output
 # It turns out that the entire Carthage directory can be ignored as long as every developer does
 # `carthage bootstrap`
 Carthage
+
+# The way that this sample code is to be used, we will need Siesta to be installed on a case-by-case basis.
+Third-Party/Siesta
