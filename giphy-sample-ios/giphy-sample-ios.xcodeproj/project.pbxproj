@@ -13,7 +13,7 @@
 		F71390132162C87D002B158F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F71390122162C87D002B158F /* Assets.xcassets */; };
 		F71390162162C87D002B158F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F71390142162C87D002B158F /* LaunchScreen.storyboard */; };
 		F71390212162C87D002B158F /* giphy_sample_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71390202162C87D002B158F /* giphy_sample_iosTests.swift */; };
-		F713902C2162C87D002B158F /* giphy_sample_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713902B2162C87D002B158F /* giphy_sample_iosUITests.swift */; };
+		F713902C2162C87D002B158F /* SearchFormUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713902B2162C87D002B158F /* SearchFormUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +45,7 @@
 		F71390202162C87D002B158F /* giphy_sample_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = giphy_sample_iosTests.swift; sourceTree = "<group>"; };
 		F71390222162C87D002B158F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F71390272162C87D002B158F /* giphy-sample-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "giphy-sample-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F713902B2162C87D002B158F /* giphy_sample_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = giphy_sample_iosUITests.swift; sourceTree = "<group>"; };
+		F713902B2162C87D002B158F /* SearchFormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormUITests.swift; sourceTree = "<group>"; };
 		F713902D2162C87D002B158F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +119,7 @@
 		F713902A2162C87D002B158F /* giphy-sample-iosUITests */ = {
 			isa = PBXGroup;
 			children = (
-				F713902B2162C87D002B158F /* giphy_sample_iosUITests.swift */,
+				F713902B2162C87D002B158F /* SearchFormUITests.swift */,
 				F713902D2162C87D002B158F /* Info.plist */,
 			);
 			path = "giphy-sample-iosUITests";
@@ -273,7 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F713902C2162C87D002B158F /* giphy_sample_iosUITests.swift in Sources */,
+				F713902C2162C87D002B158F /* SearchFormUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
