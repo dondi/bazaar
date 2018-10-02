@@ -4,7 +4,7 @@ protocol Api {
     func api(host: String)
     func searchGifs(with params: SearchParams,
             then: ((SearchResult) -> Void)?,
-            catch: ((Error) -> Void)?)
+            fail: ((Error) -> Void)?) // catch is a reserved word so we can't use that.
 }
 
 class ApiService: Api {
@@ -14,7 +14,7 @@ class ApiService: Api {
 
     func searchGifs(with params: SearchParams,
             then: ((SearchResult) -> Void)?,
-            catch: ((Error) -> Void)?) {
+            fail: ((Error) -> Void)?) {
         if let callback = then {
             callback(SearchResult(data: [
                 Gif(id: "26BRBupa6nRXMGBP2", source_tld: "", images: Images(
