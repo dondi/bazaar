@@ -23,6 +23,7 @@
 		F728C2B52163BF7400B97379 /* SiestaUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F728C2962163BDBF00B97379 /* SiestaUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F728C2B7216484E400B97379 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */; };
 		F728C2BA2164932900B97379 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2B92164932900B97379 /* SearchResultViewController.swift */; };
+		F728C2C42164A1FA00B97379 /* RealApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2C32164A1FA00B97379 /* RealApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 		F728C2802163BDBF00B97379 /* Siesta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Siesta.xcodeproj; path = "Third-Party/Siesta/Siesta.xcodeproj"; sourceTree = "<group>"; };
 		F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		F728C2B92164932900B97379 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		F728C2C32164A1FA00B97379 /* RealApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,9 +224,10 @@
 				F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */,
 				F728C2B92164932900B97379 /* SearchResultViewController.swift */,
 				F713900F2162C87C002B158F /* Main.storyboard */,
+				F71390172162C87D002B158F /* Info.plist */,
 				F71390122162C87D002B158F /* Assets.xcassets */,
 				F71390142162C87D002B158F /* LaunchScreen.storyboard */,
-				F71390172162C87D002B158F /* Info.plist */,
+				F728C2C32164A1FA00B97379 /* RealApiService.swift */,
 			);
 			path = "giphy-sample-ios";
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				F728C27F21634A8700B97379 /* SearchResultCollectionViewController.swift in Sources */,
 				F713900E2162C87C002B158F /* SearchFormViewController.swift in Sources */,
 				F713900C2162C87C002B158F /* AppDelegate.swift in Sources */,
+				F728C2C42164A1FA00B97379 /* RealApiService.swift in Sources */,
 				F728C27D216332FB00B97379 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

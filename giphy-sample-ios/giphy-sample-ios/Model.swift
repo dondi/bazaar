@@ -14,23 +14,23 @@ struct SearchParams {
 }
 
 // Similarly, this is a subset of everything that comes back.
-struct SearchResult {
+struct SearchResult: Codable, Equatable {
     let data: [Gif]
 }
 
 // You know the drill: another subset.
 //     https://developers.giphy.com/docs/#gif-object
-struct Gif {
+struct Gif: Codable, Equatable {
     let id: String
     let source_tld: String
     let images: Images
 }
 
 // https://developers.giphy.com/docs/#images-object
-struct Images {
+struct Images: Codable, Equatable {
     let fixed_width: FixedWidth
 }
 
-struct FixedWidth {
+struct FixedWidth: Codable, Equatable {
     let url: String
 }
