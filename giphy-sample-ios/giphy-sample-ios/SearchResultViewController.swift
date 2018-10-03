@@ -3,8 +3,9 @@ import WebKit
 
 // Displaying an animated GIF natively can be tricky (see StackOverflow!) so we take advantage of the availability
 // of a web view component and use _that_ component's inherent GIF animation capability to display the GIF.
-class SearchResultViewController: UIViewController {
+class SearchResultViewController: UIViewController, WKNavigationDelegate {
 
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var webView: WKWebView!
 
     var url: String? {
@@ -17,7 +18,23 @@ class SearchResultViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.navigationDelegate = self
         refreshWebView()
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        progressView.progress = 0.25
+    }
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        progressView.progress = 0.75
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        progressView.progress = 1.0
+        DispatchQueue.main.async { [weak self] in
+            self?.progressView.isHidden = true
+        }
     }
 
     private func refreshWebView() {
@@ -49,7 +66,8 @@ class SearchResultViewController: UIViewController {
             </html>
             """
 
-        // TODO Some feedback while the HTML is loading would be nice.
+        progressView.progress = 0.0
+        progressView.isHidden = false
         webView.loadHTMLString(html, baseURL: nil)
     }
 }

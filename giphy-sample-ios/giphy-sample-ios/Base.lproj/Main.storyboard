@@ -146,25 +146,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-3p-qTK">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JSz-YE-4Aj">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                                <subviews>
+                                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="svV-a2-qah">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="gMn-6w-hdI"/>
+                                        </constraints>
+                                    </progressView>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-3p-qTK">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <wkWebViewConfiguration key="configuration">
+                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkPreferences key="preferences"/>
+                                        </wkWebViewConfiguration>
+                                    </wkWebView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="svV-a2-qah" firstAttribute="leading" secondItem="JSz-YE-4Aj" secondAttribute="leading" id="9BX-Gq-tDh"/>
+                                    <constraint firstAttribute="trailing" secondItem="T2v-3p-qTK" secondAttribute="trailing" id="C3R-xj-SPG"/>
+                                    <constraint firstAttribute="trailing" secondItem="svV-a2-qah" secondAttribute="trailing" id="Mm7-mE-ucC"/>
+                                    <constraint firstAttribute="bottom" secondItem="T2v-3p-qTK" secondAttribute="bottom" id="uSt-Fh-6is"/>
+                                    <constraint firstItem="T2v-3p-qTK" firstAttribute="leading" secondItem="JSz-YE-4Aj" secondAttribute="leading" id="zem-bW-GfP"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Hha-Z0-Cfi" firstAttribute="trailing" secondItem="T2v-3p-qTK" secondAttribute="trailing" id="6h8-Jk-6os"/>
-                            <constraint firstItem="T2v-3p-qTK" firstAttribute="top" secondItem="Hha-Z0-Cfi" secondAttribute="top" id="SNB-FQ-FyL"/>
-                            <constraint firstItem="Hha-Z0-Cfi" firstAttribute="bottom" secondItem="T2v-3p-qTK" secondAttribute="bottom" id="m3w-rG-64V"/>
-                            <constraint firstItem="T2v-3p-qTK" firstAttribute="leading" secondItem="Hha-Z0-Cfi" secondAttribute="leading" id="v8l-iD-FxC"/>
+                            <constraint firstItem="Hha-Z0-Cfi" firstAttribute="trailing" secondItem="JSz-YE-4Aj" secondAttribute="trailing" id="3qh-Lb-2uo"/>
+                            <constraint firstItem="JSz-YE-4Aj" firstAttribute="top" secondItem="Hha-Z0-Cfi" secondAttribute="top" id="HHo-mW-8yK"/>
+                            <constraint firstAttribute="bottom" secondItem="JSz-YE-4Aj" secondAttribute="bottom" id="Qe4-b0-77L"/>
+                            <constraint firstItem="JSz-YE-4Aj" firstAttribute="leading" secondItem="tB0-Zi-Tl7" secondAttribute="leading" id="dYF-ii-sT4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Hha-Z0-Cfi"/>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="svV-a2-qah" id="5is-p5-yaZ"/>
                         <outlet property="webView" destination="T2v-3p-qTK" id="fR8-mT-RLK"/>
                     </connections>
                 </viewController>
