@@ -9,6 +9,8 @@ class SearchResultCollectionViewController: UICollectionViewController {
     var searchParams = SearchParams(rating: .PG13, query: "")
     var searchResultGifs: [Gif] = []
 
+    var selectedRow = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,11 +20,16 @@ class SearchResultCollectionViewController: UICollectionViewController {
         api.searchGifs(with: searchParams, then: display, fail: report)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let searchResultViewController = segue.destination as? SearchResultViewController {
+            searchResultViewController.url = searchResultGifs[selectedRow].images.fixed_width.url
+        }
+    }
+
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchResultGifs.count
@@ -39,7 +46,6 @@ class SearchResultCollectionViewController: UICollectionViewController {
     }
 
     // MARK: UICollectionViewDelegate
-
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -47,12 +53,10 @@ class SearchResultCollectionViewController: UICollectionViewController {
     }
     */
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        selectedRow = indexPath.row
         return true
     }
-    */
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item

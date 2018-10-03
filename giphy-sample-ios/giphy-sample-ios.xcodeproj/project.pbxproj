@@ -22,6 +22,7 @@
 		F728C2B42163BF7400B97379 /* Siesta.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F728C28E2163BDBF00B97379 /* Siesta.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F728C2B52163BF7400B97379 /* SiestaUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F728C2962163BDBF00B97379 /* SiestaUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F728C2B7216484E400B97379 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */; };
+		F728C2BA2164932900B97379 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2B92164932900B97379 /* SearchResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		F728C27E21634A8700B97379 /* SearchResultCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewController.swift; sourceTree = "<group>"; };
 		F728C2802163BDBF00B97379 /* Siesta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Siesta.xcodeproj; path = "Third-Party/Siesta/Siesta.xcodeproj"; sourceTree = "<group>"; };
 		F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		F728C2B92164932900B97379 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 				F713900D2162C87C002B158F /* SearchFormViewController.swift */,
 				F728C27E21634A8700B97379 /* SearchResultCollectionViewController.swift */,
 				F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */,
+				F728C2B92164932900B97379 /* SearchResultViewController.swift */,
 				F713900F2162C87C002B158F /* Main.storyboard */,
 				F71390122162C87D002B158F /* Assets.xcassets */,
 				F71390142162C87D002B158F /* LaunchScreen.storyboard */,
@@ -482,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F728C27B216330E000B97379 /* Api.swift in Sources */,
+				F728C2BA2164932900B97379 /* SearchResultViewController.swift in Sources */,
 				F728C2B7216484E400B97379 /* SearchResultCollectionViewCell.swift in Sources */,
 				F728C27F21634A8700B97379 /* SearchResultCollectionViewController.swift in Sources */,
 				F713900E2162C87C002B158F /* SearchFormViewController.swift in Sources */,

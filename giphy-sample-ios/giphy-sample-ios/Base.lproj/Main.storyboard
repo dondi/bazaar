@@ -106,7 +106,14 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YxB-gJ-u4v" customClass="RemoteImageView" customModule="SiestaUI">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <connections>
+                                                <outlet property="loadingView" destination="6ft-Rb-WKw" id="ADb-hq-zjf"/>
+                                            </connections>
                                         </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6ft-Rb-WKw">
+                                            <rect key="frame" x="40" y="40" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                 </view>
                                 <constraints>
@@ -117,6 +124,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="remoteImageView" destination="YxB-gJ-u4v" id="oL9-ix-z9e"/>
+                                    <segue destination="CvE-Cs-FxN" kind="show" id="9Af-vC-Qc9"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -129,6 +137,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4v-he-Dat" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2070" y="42"/>
+        </scene>
+        <!--Search Result View Controller-->
+        <scene sceneID="NOa-RG-lhi">
+            <objects>
+                <viewController id="CvE-Cs-FxN" customClass="SearchResultViewController" customModule="giphy_sample_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tB0-Zi-Tl7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-3p-qTK">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Hha-Z0-Cfi" firstAttribute="trailing" secondItem="T2v-3p-qTK" secondAttribute="trailing" id="6h8-Jk-6os"/>
+                            <constraint firstItem="T2v-3p-qTK" firstAttribute="top" secondItem="Hha-Z0-Cfi" secondAttribute="top" id="SNB-FQ-FyL"/>
+                            <constraint firstItem="Hha-Z0-Cfi" firstAttribute="bottom" secondItem="T2v-3p-qTK" secondAttribute="bottom" id="m3w-rG-64V"/>
+                            <constraint firstItem="T2v-3p-qTK" firstAttribute="leading" secondItem="Hha-Z0-Cfi" secondAttribute="leading" id="v8l-iD-FxC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hha-Z0-Cfi"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="T2v-3p-qTK" id="fR8-mT-RLK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cSY-Y5-0gP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3090" y="40"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Ls-xY-ejs">
