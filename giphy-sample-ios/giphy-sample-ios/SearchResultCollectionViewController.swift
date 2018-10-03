@@ -12,12 +12,6 @@ class SearchResultCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: REUSE_IDENTIFIER)
-
         // Invoke our query upon loading.
         api.api(host: "http://api.giphy.com/v1/")
         // ^^^^^ This should probably go somewhere else eventually but it will do here for now.
@@ -34,8 +28,13 @@ class SearchResultCollectionViewController: UICollectionViewController {
         return searchResultGifs.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) ->
+            UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: REUSE_IDENTIFIER, for: indexPath)
+            as! SearchResultCollectionViewCell
+
+        cell.remoteImageView.imageURL = searchResultGifs[indexPath.row].images.fixed_width.url
+
         return cell
     }
 
