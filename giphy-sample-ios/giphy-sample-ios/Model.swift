@@ -6,6 +6,8 @@ enum Rating: String {
     case R = "r"
 }
 
+let TESTING_UI = "UI_TESTING"
+
 // For now, this is just a subset of what's available:
 //     https://developers.giphy.com/docs/#operation--gifs-search-get
 struct SearchParams {

@@ -24,6 +24,7 @@
 		F728C2B7216484E400B97379 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */; };
 		F728C2BA2164932900B97379 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2B92164932900B97379 /* SearchResultViewController.swift */; };
 		F728C2C42164A1FA00B97379 /* RealApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F728C2C32164A1FA00B97379 /* RealApiService.swift */; };
+		F758FDE22165FBC1008A0136 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F758FDE12165FBC1008A0136 /* MockApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +163,7 @@
 		F728C2B6216484E400B97379 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		F728C2B92164932900B97379 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		F728C2C32164A1FA00B97379 /* RealApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealApiService.swift; sourceTree = "<group>"; };
+		F758FDE12165FBC1008A0136 /* MockApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				F728C27A216330E000B97379 /* Api.swift */,
+				F758FDE12165FBC1008A0136 /* MockApiService.swift */,
 				F728C27C216332FB00B97379 /* Model.swift */,
 				F713900B2162C87C002B158F /* AppDelegate.swift */,
 				F713900D2162C87C002B158F /* SearchFormViewController.swift */,
@@ -487,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F758FDE22165FBC1008A0136 /* MockApiService.swift in Sources */,
 				F728C27B216330E000B97379 /* Api.swift in Sources */,
 				F728C2BA2164932900B97379 /* SearchResultViewController.swift in Sources */,
 				F728C2B7216484E400B97379 /* SearchResultCollectionViewCell.swift in Sources */,

@@ -3,10 +3,14 @@ import UIKit
 private let REUSE_IDENTIFIER = "gifThumbnailCell"
 
 class SearchResultCollectionViewController: UICollectionViewController {
-    // We declare the Api as a var so that we can reassign it in tests or mockups.
-    var api: Api = ApiService()
+    // We check for the presence of a "UI-TESTING" argument to see if we are in a test, and if so we
+    // instantiate a mock service rather than the real one. In addition, we declare the Api as a var so
+    // that we can reassign it in tests or mockups.
+    var api: Api = ProcessInfo.processInfo.arguments.contains(TESTING_UI) ?
+            MockApiService() : ApiService()
 
     // Same strategy for the network failure callback function.
+    // Yes, we are devoting some extra code here _solely_ to accommodate testing, but it is worth it.
     var failureCallback: ((Error) -> Void)?
 
     var searchParams = SearchParams(rating: .PG13, query: "")
