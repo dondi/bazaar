@@ -85,7 +85,7 @@
         <!--Search Result Collection View Controller-->
         <scene sceneID="kD7-do-hDK">
             <objects>
-                <collectionViewController id="yRf-Bx-hDd" customClass="SearchResultCollectionViewController" customModule="giphy_sample_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="SearchResultCollectionViewController" id="yRf-Bx-hDd" customClass="SearchResultCollectionViewController" customModule="giphy_sample_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="spatial" dataMode="prototypes" id="MHc-YC-eg1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -3,8 +3,11 @@ import UIKit
 private let REUSE_IDENTIFIER = "gifThumbnailCell"
 
 class SearchResultCollectionViewController: UICollectionViewController {
+    // We declare the Api as a var so that we can reassign it in tests or mockups.
+    var api: Api = ApiService()
 
-    let api = ApiService()
+    // Same strategy for the network failure callback function.
+    var failureCallback: ((Error) -> Void)?
 
     var searchParams = SearchParams(rating: .PG13, query: "")
     var searchResultGifs: [Gif] = []
@@ -17,7 +20,7 @@ class SearchResultCollectionViewController: UICollectionViewController {
         // Invoke our query upon loading.
         api.api(host: "http://api.giphy.com/v1/")
         // ^^^^^ This should probably go somewhere else eventually but it will do here for now.
-        api.searchGifs(with: searchParams, then: display, fail: report)
+        api.searchGifs(with: searchParams, then: display, fail: failureCallback ?? report)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
