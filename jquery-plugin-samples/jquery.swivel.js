@@ -25,7 +25,7 @@
             if ($current) {
                 const currentAngle = $current.data('swivel-angle') || 0;
                 const newAngle = event.screenX - anchorX;
-                const newCss = "perspective(500px) rotateY(" + newAngle + "deg)";
+                const newCss = `perspective(500px) rotateY(${newAngle}deg)`;
 
                 $current.css({
                     'transform': newCss

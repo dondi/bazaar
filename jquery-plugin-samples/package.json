@@ -5,6 +5,7 @@
   "description": "A collection sample jQuery plugins",
   "main": "",
   "scripts": {
+    "start": "superstatic",
     "test": "eslint *.js test/*.js && ./node_modules/karma/bin/karma start --single-run"
   },
   "author": "",
@@ -14,11 +15,12 @@
     "jasmine-core": "^2.3.4",
     "karma": "latest",
     "karma-chrome-launcher": "latest",
-    "karma-coverage": "^1.1.1",
+    "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "latest",
     "karma-fixture": "latest",
     "karma-html2js-preprocessor": "latest",
-    "karma-jasmine": "latest"
+    "karma-jasmine": "latest",
+    "superstatic": "latest"
   },
   "eslintConfig": {
     "env": {

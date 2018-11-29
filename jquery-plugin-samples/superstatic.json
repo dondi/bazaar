@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/plugin-demo.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/plugin-demo.html"
+    }
+  ]
+}
