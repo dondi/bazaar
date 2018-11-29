@@ -9,5 +9,17 @@
 }
 
 .Demo-container {
+  flex-grow: 1;
   margin-right: 1rem;
+  width: 66%;
+}
+
+.Event-log-container {
+  flex-grow: 1;
+  width: 33%;
+}
+
+.Event-log {
+  height: 64em;
+  overflow: scroll
 }

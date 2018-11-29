@@ -19,9 +19,10 @@ class SwivelDemo extends Component {
           <h5>Samples</h5>
 
           <div>
-            <Swivel className="Swivel" label="&nbsp;" />
-            <Swivel className="Swivel" label="And it’s a regular component" />
-            <Swivel className="Swivel" label="So you can set whatever properties you like" />
+            <Swivel className="Swivel" label="&nbsp;" onChange={this.props.onChange} />
+            <Swivel className="Swivel" label="And it’s a regular component" onChange={this.props.onChange} />
+            <Swivel className="Swivel" label="So you can set whatever properties you like"
+              onChange={this.props.onChange} />
           </div>
         </div>
       </div>

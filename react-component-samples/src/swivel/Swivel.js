@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import './Swivel.css'
 
@@ -30,6 +31,10 @@ class Swivel extends Component {
       this.setState({
         swivelAngle: newAngle
       })
+
+      if (this.props.onChange) {
+        this.props.onChange(currentAngle, newAngle)
+      }
     }
   }
 
@@ -58,7 +63,7 @@ class Swivel extends Component {
   }
 
   render() {
-    const {label, change} = this.props
+    const {label} = this.props
 
     return (
       <div className="Swivel" onMouseDown={this.handleMouseDown} style={this.currentStyle()}>
@@ -66,6 +71,11 @@ class Swivel extends Component {
       </div>
     )
   }
+}
+
+Swivel.propTypes = {
+  label: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 export default Swivel
