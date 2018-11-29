@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "start": "superstatic",
-    "test": "eslint *.js test/*.js && ./node_modules/karma/bin/karma start --single-run"
+    "test": "eslint '*.js' 'test/*.js' && ./node_modules/karma/bin/karma start --single-run"
   },
   "author": "",
   "license": "MIT",
@@ -63,7 +63,10 @@
       "comma-spacing": 2,
       "computed-property-spacing": 2,
       "func-call-spacing": 2,
-      "indent": 2,
+      "indent": [
+        "error",
+        2
+      ],
       "key-spacing": 2,
       "keyword-spacing": 2,
       "semi-spacing": 2,
@@ -85,7 +88,7 @@
       "no-console": 1,
       "semi": [
         2,
-        "always"
+        "never"
       ]
     }
   }

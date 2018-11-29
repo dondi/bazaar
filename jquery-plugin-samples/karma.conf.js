@@ -29,5 +29,5 @@ module.exports = function (config) {
       "dots",
       "coverage"
     ]
-  });
-};
+  })
+}
