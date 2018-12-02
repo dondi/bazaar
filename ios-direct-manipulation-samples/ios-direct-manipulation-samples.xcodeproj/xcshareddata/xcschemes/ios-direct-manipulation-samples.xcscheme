@@ -27,28 +27,18 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F71F6B6921B35D0F0093EDDB"
+            BuildableName = "ios-direct-manipulation-samples.app"
+            BlueprintName = "ios-direct-manipulation-samples"
+            ReferencedContainer = "container:ios-direct-manipulation-samples.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F71F6B7D21B35D110093EDDB"
-               BuildableName = "ios-direct-manipulation-samplesTests.xctest"
-               BlueprintName = "ios-direct-manipulation-samplesTests"
-               ReferencedContainer = "container:ios-direct-manipulation-samples.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F71F6B8821B35D110093EDDB"
-               BuildableName = "ios-direct-manipulation-samplesUITests.xctest"
-               BlueprintName = "ios-direct-manipulation-samplesUITests"
-               ReferencedContainer = "container:ios-direct-manipulation-samples.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference

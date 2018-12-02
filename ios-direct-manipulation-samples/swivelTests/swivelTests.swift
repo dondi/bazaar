@@ -59,8 +59,45 @@ class swivelTests: XCTestCase {
 
         swivel.endTracking(touch, with: nil)
     }
+
+    func testSwivelControlUpdatesTransformCorrectly() {
+        let swivel = SwivelControl()
+        let touch = MockTouch(withMockLocation: CGPoint(x: 20, y: 0))
+
+        XCTAssertTrue(swivel.beginTracking(touch, with: nil), "Initial track should return true")
+
+        touch.mockLocation.x = 10
+        XCTAssertTrue(swivel.continueTracking(touch, with: nil), "Track movement should return true")
+
+        // This part looks very involved solely because of swivel's 3D effect. For other types of controls,
+        // verifying how they draw themselves should be more straightforward.
+        //
+        // P.S. Want to understand what the Keck is going on? Pay attention when you take CMSI 371.
+        var rotatedX = cos(CGFloat(-10) * .pi / 180)
+        var rotatedZ = sin(CGFloat(-10) * .pi / 180)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m11, rotatedX)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m13, -rotatedZ)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m31, rotatedZ)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m33, rotatedX)
+
+        touch.mockLocation.x = 30
+        XCTAssertTrue(swivel.continueTracking(touch, with: nil), "Track movement should return true")
+
+        rotatedX = cos(CGFloat(10) * .pi / 180)
+        rotatedZ = sin(CGFloat(10) * .pi / 180)
+
+        swivel.endTracking(touch, with: nil)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m11, rotatedX)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m13, -rotatedZ)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m31, rotatedZ)
+        XCTAssertEqual(swivel.layer.sublayerTransform.m33, rotatedX)
+
+        swivel.endTracking(touch, with: nil)
+    }
 }
 
+// A real UITouch object is pretty involved, so we instead define this mock touch class in order to set
+// just the values that we need.
 class MockTouch: UITouch {
     var mockLocation: CGPoint = CGPoint(x: 0, y: 0)
 
