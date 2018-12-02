@@ -18,8 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swivel Demo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTi-4t-uSd">
+                                <rect key="frame" x="138.5" y="40" width="98.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="jNe-6J-Y2v">
-                                <rect key="frame" x="67.5" y="239" width="240" height="189"/>
+                                <rect key="frame" x="67.5" y="159.5" width="240" height="348"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3J-tr-dwK" customClass="SwivelControl" customModule="ios_direct_manipulation_samples" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
@@ -27,41 +33,57 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="Uqn-3d-fr8"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="swivelValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fqr-I8-0Jf"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gm6-1a-CIV" customClass="SwivelControl" customModule="ios_direct_manipulation_samples" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="73" width="240" height="43"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="TRl-R7-2sd"/>
                                             <constraint firstAttribute="height" constant="43" id="sHU-VF-GMB"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="swivelValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="L8R-Pu-UJt"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hny-Oj-aPK" customClass="SwivelControl" customModule="ios_direct_manipulation_samples" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="146" width="240" height="43"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="OwV-I4-WE3"/>
                                             <constraint firstAttribute="height" constant="43" id="z9P-L8-BQ1"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="swivelValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="xfn-HX-haC"/>
+                                        </connections>
                                     </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IiM-tY-Li9">
+                                        <rect key="frame" x="0.0" y="219" width="240" height="129"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ia3-Bv-MCC"/>
+                                </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swivel Demo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YTi-4t-uSd">
-                                <rect key="frame" x="138.5" y="40" width="98.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YTi-4t-uSd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1bS-KR-sBU"/>
                             <constraint firstItem="jNe-6J-Y2v" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1cj-Qi-K6X"/>
+                            <constraint firstItem="jNe-6J-Y2v" firstAttribute="top" secondItem="YTi-4t-uSd" secondAttribute="bottom" constant="99" id="3nt-az-HIU"/>
+                            <constraint firstItem="jNe-6J-Y2v" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="C0R-ly-2xd"/>
+                            <constraint firstItem="jNe-6J-Y2v" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Lv4-zS-nlq"/>
                             <constraint firstItem="YTi-4t-uSd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="iMV-bm-TQv"/>
-                            <constraint firstItem="jNe-6J-Y2v" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lu7-ka-29o"/>
+                            <constraint firstItem="jNe-6J-Y2v" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ysi-Qu-Gw4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="log" destination="IiM-tY-Li9" id="Ett-an-Mo5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
