@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable class SwivelControl: UIView {
+@IBDesignable class SwivelControl: UIControl {
     // The component's model.
     var currentTouch: UITouch? = nil
     var anchorX: CGFloat = 0
@@ -47,42 +47,43 @@ import UIKit
         layer.addSublayer(swivelLayer)
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        currentTouch = touches.first
-        if let initiator = currentTouch {
-            anchorX = initiator.location(in: self).x - swivelAngle
-        }
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        currentTouch = touch
+        anchorX = touch.location(in: self).x - swivelAngle
+        return true
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            // Make sure we are following the same finger.
-            if touch != currentTouch {
-                continue
-            }
-
-            let newAngle = touch.location(in: self).x - anchorX
-            swivelAngle = newAngle
-
-            // Thank you https://stackoverflow.com/questions/347721/how-do-i-apply-a-perspective-transform-to-a-uiview
-            var rotationAndPerspectiveTransform = CATransform3DIdentity
-            rotationAndPerspectiveTransform.m34 = 1.0 / -500
-            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform,
-                swivelAngle * .pi / 180.0, 0.0, 1.0, 0.0)
-
-            layer.sublayerTransform = rotationAndPerspectiveTransform
-            setNeedsDisplay()
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        // Make sure we are following the same finger.
+        if touch != currentTouch {
+            return false
         }
+
+        let newAngle = touch.location(in: self).x - anchorX
+        swivelAngle = newAngle
+
+        // Thank you https://stackoverflow.com/questions/347721/how-do-i-apply-a-perspective-transform-to-a-uiview
+        var rotationAndPerspectiveTransform = CATransform3DIdentity
+        rotationAndPerspectiveTransform.m34 = 1.0 / -500
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform,
+            swivelAngle * .pi / 180.0, 0.0, 1.0, 0.0)
+
+        layer.sublayerTransform = rotationAndPerspectiveTransform
+
+        // Model changed, so we update the view and send out updates to other controllers.
+        setNeedsDisplay()
+        sendActions(for: .valueChanged)
+        return true
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            if touch != currentTouch {
-                continue
-            }
-
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        if touch == currentTouch {
             // Release the touch, indicating the end of this particular touch sequence.
-            currentTouch = nil
+            cancelTracking(with: event)
         }
+    }
+
+    override func cancelTracking(with event: UIEvent?) {
+        currentTouch = nil
     }
 }
