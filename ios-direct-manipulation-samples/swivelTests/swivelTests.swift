@@ -94,6 +94,32 @@ class swivelTests: XCTestCase {
 
         swivel.endTracking(touch, with: nil)
     }
+
+    // Action function for use in the next test.
+    var swivelDependentValue: CGFloat = 0
+    func swivelChanged(swivel: SwivelControl) {
+        // Perform some arbitrary computation based on the latest swivel angle.
+        swivelDependentValue = swivel.swivelAngle * 2
+    }
+
+    func testSwivelControlInvokesValueChangedCorrectly() {
+        let swivel = SwivelControl()
+        let touch = MockTouch(withMockLocation: CGPoint(x: 20, y: 0))
+
+        swivel.addTarget(self, action: #selector(swivelTests.swivelChanged(swivel:)), for: .valueChanged)
+
+        XCTAssertTrue(swivel.beginTracking(touch, with: nil), "Initial track should return true")
+
+        touch.mockLocation.x = 10
+        XCTAssertTrue(swivel.continueTracking(touch, with: nil), "Track movement should return true")
+        XCTAssertEqual(swivelDependentValue, -20, "Dependent value should change due to valueChanged action")
+
+        touch.mockLocation.x = 30
+        XCTAssertTrue(swivel.continueTracking(touch, with: nil), "Track movement should return true")
+        XCTAssertEqual(swivelDependentValue, 20, "Dependent value should change due to valueChanged action")
+
+        swivel.endTracking(touch, with: nil)
+    }
 }
 
 // A real UITouch object is pretty involved, so we instead define this mock touch class in order to set
