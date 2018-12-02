@@ -12,20 +12,12 @@
 		F71F6B7321B35D0F0093EDDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F71F6B7121B35D0F0093EDDB /* Main.storyboard */; };
 		F71F6B7521B35D110093EDDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F71F6B7421B35D110093EDDB /* Assets.xcassets */; };
 		F71F6B7821B35D110093EDDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F71F6B7621B35D110093EDDB /* LaunchScreen.storyboard */; };
-		F71F6B8321B35D110093EDDB /* ios_direct_manipulation_samplesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71F6B8221B35D110093EDDB /* ios_direct_manipulation_samplesTests.swift */; };
-		F71F6B8E21B35D110093EDDB /* ios_direct_manipulation_samplesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71F6B8D21B35D110093EDDB /* ios_direct_manipulation_samplesUITests.swift */; };
 		F71F6B9C21B383640093EDDB /* SwivelControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71F6B9B21B383640093EDDB /* SwivelControl.swift */; };
+		F71F6BA421B48B5E0093EDDB /* swivelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71F6BA321B48B5E0093EDDB /* swivelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F71F6B7F21B35D110093EDDB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F71F6B6221B35D0F0093EDDB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F71F6B6921B35D0F0093EDDB;
-			remoteInfo = "ios-direct-manipulation-samples";
-		};
-		F71F6B8A21B35D110093EDDB /* PBXContainerItemProxy */ = {
+		F71F6BA621B48B5E0093EDDB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F71F6B6221B35D0F0093EDDB /* Project object */;
 			proxyType = 1;
@@ -42,13 +34,10 @@
 		F71F6B7421B35D110093EDDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F71F6B7721B35D110093EDDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F71F6B7921B35D110093EDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F71F6B7E21B35D110093EDDB /* ios-direct-manipulation-samplesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-direct-manipulation-samplesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F71F6B8221B35D110093EDDB /* ios_direct_manipulation_samplesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_direct_manipulation_samplesTests.swift; sourceTree = "<group>"; };
-		F71F6B8421B35D110093EDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F71F6B8921B35D110093EDDB /* ios-direct-manipulation-samplesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-direct-manipulation-samplesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F71F6B8D21B35D110093EDDB /* ios_direct_manipulation_samplesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_direct_manipulation_samplesUITests.swift; sourceTree = "<group>"; };
-		F71F6B8F21B35D110093EDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F71F6B9B21B383640093EDDB /* SwivelControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwivelControl.swift; path = swivel/SwivelControl.swift; sourceTree = SOURCE_ROOT; };
+		F71F6BA121B48B5E0093EDDB /* swivelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swivelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F71F6BA321B48B5E0093EDDB /* swivelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swivelTests.swift; sourceTree = "<group>"; };
+		F71F6BA521B48B5E0093EDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,14 +48,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F71F6B7B21B35D110093EDDB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F71F6B8621B35D110093EDDB /* Frameworks */ = {
+		F71F6B9E21B48B5E0093EDDB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -80,8 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				F71F6B6C21B35D0F0093EDDB /* ios-direct-manipulation-samples */,
-				F71F6B8121B35D110093EDDB /* ios-direct-manipulation-samplesTests */,
-				F71F6B8C21B35D110093EDDB /* ios-direct-manipulation-samplesUITests */,
+				F71F6BA221B48B5E0093EDDB /* swivelTests */,
 				F71F6B6B21B35D0F0093EDDB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,8 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				F71F6B6A21B35D0F0093EDDB /* ios-direct-manipulation-samples.app */,
-				F71F6B7E21B35D110093EDDB /* ios-direct-manipulation-samplesTests.xctest */,
-				F71F6B8921B35D110093EDDB /* ios-direct-manipulation-samplesUITests.xctest */,
+				F71F6BA121B48B5E0093EDDB /* swivelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,22 +90,13 @@
 			path = "ios-direct-manipulation-samples";
 			sourceTree = "<group>";
 		};
-		F71F6B8121B35D110093EDDB /* ios-direct-manipulation-samplesTests */ = {
+		F71F6BA221B48B5E0093EDDB /* swivelTests */ = {
 			isa = PBXGroup;
 			children = (
-				F71F6B8221B35D110093EDDB /* ios_direct_manipulation_samplesTests.swift */,
-				F71F6B8421B35D110093EDDB /* Info.plist */,
+				F71F6BA321B48B5E0093EDDB /* swivelTests.swift */,
+				F71F6BA521B48B5E0093EDDB /* Info.plist */,
 			);
-			path = "ios-direct-manipulation-samplesTests";
-			sourceTree = "<group>";
-		};
-		F71F6B8C21B35D110093EDDB /* ios-direct-manipulation-samplesUITests */ = {
-			isa = PBXGroup;
-			children = (
-				F71F6B8D21B35D110093EDDB /* ios_direct_manipulation_samplesUITests.swift */,
-				F71F6B8F21B35D110093EDDB /* Info.plist */,
-			);
-			path = "ios-direct-manipulation-samplesUITests";
+			path = swivelTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,41 +119,23 @@
 			productReference = F71F6B6A21B35D0F0093EDDB /* ios-direct-manipulation-samples.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F71F6B7D21B35D110093EDDB /* ios-direct-manipulation-samplesTests */ = {
+		F71F6BA021B48B5E0093EDDB /* swivelTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F71F6B9521B35D110093EDDB /* Build configuration list for PBXNativeTarget "ios-direct-manipulation-samplesTests" */;
+			buildConfigurationList = F71F6BA821B48B5E0093EDDB /* Build configuration list for PBXNativeTarget "swivelTests" */;
 			buildPhases = (
-				F71F6B7A21B35D110093EDDB /* Sources */,
-				F71F6B7B21B35D110093EDDB /* Frameworks */,
-				F71F6B7C21B35D110093EDDB /* Resources */,
+				F71F6B9D21B48B5E0093EDDB /* Sources */,
+				F71F6B9E21B48B5E0093EDDB /* Frameworks */,
+				F71F6B9F21B48B5E0093EDDB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F71F6B8021B35D110093EDDB /* PBXTargetDependency */,
+				F71F6BA721B48B5E0093EDDB /* PBXTargetDependency */,
 			);
-			name = "ios-direct-manipulation-samplesTests";
-			productName = "ios-direct-manipulation-samplesTests";
-			productReference = F71F6B7E21B35D110093EDDB /* ios-direct-manipulation-samplesTests.xctest */;
+			name = swivelTests;
+			productName = swivelTests;
+			productReference = F71F6BA121B48B5E0093EDDB /* swivelTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		F71F6B8821B35D110093EDDB /* ios-direct-manipulation-samplesUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F71F6B9821B35D110093EDDB /* Build configuration list for PBXNativeTarget "ios-direct-manipulation-samplesUITests" */;
-			buildPhases = (
-				F71F6B8521B35D110093EDDB /* Sources */,
-				F71F6B8621B35D110093EDDB /* Frameworks */,
-				F71F6B8721B35D110093EDDB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F71F6B8B21B35D110093EDDB /* PBXTargetDependency */,
-			);
-			name = "ios-direct-manipulation-samplesUITests";
-			productName = "ios-direct-manipulation-samplesUITests";
-			productReference = F71F6B8921B35D110093EDDB /* ios-direct-manipulation-samplesUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -197,11 +150,7 @@
 					F71F6B6921B35D0F0093EDDB = {
 						CreatedOnToolsVersion = 10.1;
 					};
-					F71F6B7D21B35D110093EDDB = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = F71F6B6921B35D0F0093EDDB;
-					};
-					F71F6B8821B35D110093EDDB = {
+					F71F6BA021B48B5E0093EDDB = {
 						CreatedOnToolsVersion = 10.1;
 						TestTargetID = F71F6B6921B35D0F0093EDDB;
 					};
@@ -221,8 +170,7 @@
 			projectRoot = "";
 			targets = (
 				F71F6B6921B35D0F0093EDDB /* ios-direct-manipulation-samples */,
-				F71F6B7D21B35D110093EDDB /* ios-direct-manipulation-samplesTests */,
-				F71F6B8821B35D110093EDDB /* ios-direct-manipulation-samplesUITests */,
+				F71F6BA021B48B5E0093EDDB /* swivelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -238,14 +186,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F71F6B7C21B35D110093EDDB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F71F6B8721B35D110093EDDB /* Resources */ = {
+		F71F6B9F21B48B5E0093EDDB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -265,34 +206,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F71F6B7A21B35D110093EDDB /* Sources */ = {
+		F71F6B9D21B48B5E0093EDDB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F71F6B8321B35D110093EDDB /* ios_direct_manipulation_samplesTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F71F6B8521B35D110093EDDB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F71F6B8E21B35D110093EDDB /* ios_direct_manipulation_samplesUITests.swift in Sources */,
+				F71F6BA421B48B5E0093EDDB /* swivelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F71F6B8021B35D110093EDDB /* PBXTargetDependency */ = {
+		F71F6BA721B48B5E0093EDDB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F71F6B6921B35D0F0093EDDB /* ios-direct-manipulation-samples */;
-			targetProxy = F71F6B7F21B35D110093EDDB /* PBXContainerItemProxy */;
-		};
-		F71F6B8B21B35D110093EDDB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F71F6B6921B35D0F0093EDDB /* ios-direct-manipulation-samples */;
-			targetProxy = F71F6B8A21B35D110093EDDB /* PBXContainerItemProxy */;
+			targetProxy = F71F6BA621B48B5E0093EDDB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -468,20 +396,19 @@
 			};
 			name = Release;
 		};
-		F71F6B9621B35D110093EDDB /* Debug */ = {
+		F71F6BA921B48B5E0093EDDB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3CWQTF6K7P;
-				INFOPLIST_FILE = "ios-direct-manipulation-samplesTests/Info.plist";
+				INFOPLIST_FILE = swivelTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.lmu.ios-direct-manipulation-samplesTests";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.lmu.swivelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -489,64 +416,23 @@
 			};
 			name = Debug;
 		};
-		F71F6B9721B35D110093EDDB /* Release */ = {
+		F71F6BAA21B48B5E0093EDDB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3CWQTF6K7P;
-				INFOPLIST_FILE = "ios-direct-manipulation-samplesTests/Info.plist";
+				INFOPLIST_FILE = swivelTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.lmu.ios-direct-manipulation-samplesTests";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.lmu.swivelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-direct-manipulation-samples.app/ios-direct-manipulation-samples";
-			};
-			name = Release;
-		};
-		F71F6B9921B35D110093EDDB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3CWQTF6K7P;
-				INFOPLIST_FILE = "ios-direct-manipulation-samplesUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.lmu.ios-direct-manipulation-samplesUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "ios-direct-manipulation-samples";
-			};
-			name = Debug;
-		};
-		F71F6B9A21B35D110093EDDB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3CWQTF6K7P;
-				INFOPLIST_FILE = "ios-direct-manipulation-samplesUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.lmu.ios-direct-manipulation-samplesUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "ios-direct-manipulation-samples";
 			};
 			name = Release;
 		};
@@ -571,20 +457,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F71F6B9521B35D110093EDDB /* Build configuration list for PBXNativeTarget "ios-direct-manipulation-samplesTests" */ = {
+		F71F6BA821B48B5E0093EDDB /* Build configuration list for PBXNativeTarget "swivelTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F71F6B9621B35D110093EDDB /* Debug */,
-				F71F6B9721B35D110093EDDB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F71F6B9821B35D110093EDDB /* Build configuration list for PBXNativeTarget "ios-direct-manipulation-samplesUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F71F6B9921B35D110093EDDB /* Debug */,
-				F71F6B9A21B35D110093EDDB /* Release */,
+				F71F6BA921B48B5E0093EDDB /* Debug */,
+				F71F6BAA21B48B5E0093EDDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
