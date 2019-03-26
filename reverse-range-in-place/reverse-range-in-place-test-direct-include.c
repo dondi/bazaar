@@ -5,4 +5,5 @@
 
 int main() {
   test_reverse_range_in_place();
+  return 0;
 }
