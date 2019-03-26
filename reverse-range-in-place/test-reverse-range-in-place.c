@@ -1,9 +1,7 @@
 #include <assert.h>
 #include <string.h>
 
-// This inline forward declaration ensures that the compiler knows about
-// reverse_range_in_place regardless of how this file is used.
-void reverse_range_in_place(char* string, int start_index, int end_index);
+#include "reverse-range-in-place.h"
 
 #define MAX_TEST_STRING_LENGTH 20
 
