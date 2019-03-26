@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdio.h>
 
 /*
  * Technically, this function is "private." In C, "privacy" is by convention
