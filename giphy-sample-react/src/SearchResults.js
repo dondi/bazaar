@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
+import React from "react";
 
-import './SearchResults.css'
+import "./SearchResults.css";
 
-import GiphyImage from './GiphyImage'
+import GiphyImage from "./GiphyImage";
 
-class SearchResults extends Component {
-  render() {
-    return (
-      <div className="SearchResults">
-        {this.props.results.map(image => <GiphyImage key={image.id} image={image} />)}
-      </div>
-    )
-  }
-}
+const SearchResults = props => {
+  return (
+    <div className="SearchResults">
+      {props.results.map(image => (
+        <GiphyImage key={image.id} image={image} />
+      ))}
+    </div>
+  );
+};
 
-export default SearchResults
+export default SearchResults;

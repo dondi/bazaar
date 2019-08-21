@@ -1,16 +1,14 @@
-import React, { Component } from 'react'
+import React from "react";
 
-import './GiphyImage.css'
+import "./GiphyImage.css";
 
-class GiphyImage extends Component {
-  render() {
-    const { image } = this.props
-    return (
-      <div className="GiphyImage">
-        <img src={image.images.fixed_width.url} alt={image.source_tld} />
-      </div>
-    )
-  }
-}
+const GiphyImage = props => {
+  const { image } = props;
+  return (
+    <div className="GiphyImage">
+      <img src={image.images.fixed_width.url} alt={image.source_tld} />
+    </div>
+  );
+};
 
-export default GiphyImage
+export default GiphyImage;

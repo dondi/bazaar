@@ -1,62 +1,55 @@
-import React, { Component } from 'react'
+import React, { useState } from "react";
 
-import './SearchForm.css'
+import "./SearchForm.css";
 
-import SearchResults from './SearchResults'
+import SearchResults from "./SearchResults";
 
-import { searchGifs } from './api'
+import { searchGifs } from "./api";
 
-class SearchForm extends Component {
-  constructor(props) {
-    super(props)
+const SearchForm = () => {
+  const [error, setError] = useState(null);
+  const [query, setQuery] = useState("");
+  const [images, setImages] = useState([]);
 
-    this.state = {
-      error: null,
-      query: '',
-      images: []
+  const performQuery = async () => {
+    try {
+      setError(false);
+      const result = await searchGifs({
+        rating: "pg-13",
+        q: query,
+      });
+      if (result) {
+        setImages(result.data);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      console.log("Query has completed");
     }
-  }
+  };
 
-  handleChange = event => this.setState({
-    [event.target.name]: event.target.value
-  })
+  return (
+    <div className="SearchForm">
+      <p>Enter a search term:</p>
 
-  performQuery = () => {
-    this.setState({
-      error: null
-    })
+      <input
+        name="query"
+        type="text"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+      />
 
-    searchGifs({
-      rating: 'pg-13',
-      q: this.state.query
-    }).then(result => this.setState({
-      images: result.data
-    })).catch(() => this.setState({
-      error: 'Sorry, but something went wrong.'
-    }))
-  }
-
-  render() {
-    return (
-      <div className="SearchForm">
-        <p>Enter a search term:</p>
-
-        <input name="query" type="text" value={this.state.query} onChange={this.handleChange} />
-
-        <div className="ButtonBar">
-          <button disabled={!this.state.query} onClick={this.performQuery}>Search Giphy!</button>
-        </div>
-
-        {this.state.error && (
-          <div className="error">
-            {this.state.error}
-          </div>
-        )}
-
-        <SearchResults results={this.state.images} />
+      <div className="ButtonBar">
+        <button disabled={!query} onClick={performQuery}>
+          Search Giphy!
+        </button>
       </div>
-    )
-  }
-}
 
-export default SearchForm
+      {error && <div className="error">{error}</div>}
+
+      <SearchResults results={images} />
+    </div>
+  );
+};
+
+export default SearchForm;
