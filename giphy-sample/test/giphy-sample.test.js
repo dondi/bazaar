@@ -58,7 +58,7 @@ describe('Giphy search example', () => {
       }))
 
       $('#search-term').val('hello')
-      $('#search-button').click()
+      $('form.search-form').submit()
     })
 
     afterEach(() => window.ApiService.searchGifs.restore())
@@ -87,7 +87,7 @@ describe('Giphy search example', () => {
       window.ApiService.searchGifs.returns(Promise.reject('Mock failure'))
 
       $('#search-term').val('hello failure')
-      $('#search-button').click()
+      $('form.search-form').submit()
     })
 
     afterEach(() => window.ApiService.searchGifs.restore())

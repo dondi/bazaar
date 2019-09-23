@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "start": "superstatic",
-    "test": "eslint '**/*.js' && ./node_modules/karma/bin/karma start --single-run"
+    "test": "eslint 'src/**/*.js' && ./node_modules/karma/bin/karma start --single-run"
   },
   "author": "",
   "license": "MIT",
@@ -32,6 +32,9 @@
       "jquery": true,
       "node": true,
       "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2017
     },
     "extends": "eslint:recommended",
     "globals": {

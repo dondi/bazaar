@@ -13,22 +13,30 @@
 // Module managers address even this issue, for web apps of sufficient complexity.
 (() => {
   const setupEventListeners = () => {
+    const searchForm = $('form.search-form')
     const searchButton = $('#search-button')
     const searchTerm = $('#search-term')
 
-    searchButton.click(
-      () => window.ApiService.searchGifs({
-        rating: 'pg-13', // Exercise: Hook this up to the front end.
-        q: searchTerm.val()
-      }).then(result => displayImages(result.data))
-        .catch(() => $('.image-result-container').empty().append(
+    searchForm.submit(async event => {
+      event.preventDefault()
+
+      try {
+        const result = await window.ApiService.searchGifs({
+          rating: 'pg-13', // Exercise: Hook this up to the front end.
+          q: searchTerm.val()
+        })
+
+        displayImages(result.data)
+      } catch (error) {
+        $('.image-result-container').empty().append(
           // This doesn’t really have the requisite three ingredients of a good error message, but this
           // is just starter code after all.
           $('<div></div>')
             .addClass('col alert alert-danger')
             .text('Sorry, but something went wrong.')
-        ))
-    )
+        )
+      }
+    })
 
     searchTerm.bind('input', () => searchButton.prop('disabled', !searchTerm.val()))
   }

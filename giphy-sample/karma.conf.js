@@ -8,15 +8,14 @@ module.exports = config => {
     ],
 
     files: [
-      'api.js',
-      'giphy-sample.js',
+      'src/**/*.js',
       'test/**/*.js',
       'test/**/*.html'
     ],
 
     preprocessors: {
       'test/**/*.html': ['html2js'],
-      '*.js': ['coverage']
+      'src/**/*.js': ['coverage']
     },
 
     browsers: [
