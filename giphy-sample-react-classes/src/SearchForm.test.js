@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import TestRenderer from 'react-test-renderer'
 import ReactTestUtils from 'react-dom/test-utils'
 
@@ -47,31 +48,63 @@ it('should update its state when the search field value changes', () => {
 })
 
 describe('search button', () => {
+  let div
+  beforeEach(() => {
+    div = document.createElement('div')
+    ReactTestUtils.act(() => {
+      ReactDOM.render(<SearchForm />, div)
+    })
+  })
+
+  afterEach(() => ReactDOM.unmountComponentAtNode(div))
+
   it('should be enabled when the search field is not blank', () => {
-    const component = TestRenderer.create(<SearchForm />)
-    component.getInstance().setState({
-      query: 'i can haz unit tests'
+    const searchInput = div.querySelector('input')
+    ReactTestUtils.act(() => {
+      searchInput.value = 'i can haz unit tests'
+      ReactTestUtils.Simulate.change(searchInput)
     })
 
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const searchButton = div.querySelector('button')
+    expect(searchButton.disabled).toBe(false)
   })
 
   it('should be disabled when the search field is blank', () => {
-    const component = TestRenderer.create(<SearchForm />)
-    component.getInstance().setState({
-      query: ''
+    const searchInput = div.querySelector('input')
+    ReactTestUtils.act(() => {
+      searchInput.value = ''
+      ReactTestUtils.Simulate.change(searchInput)
     })
 
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const searchButton = div.querySelector('button')
+    expect(searchButton.disabled).toBe(true)
   })
 })
 
-describe('API calls', () => {
-  const component = TestRenderer.create(<SearchForm />)
+// Helper function for the next two test collections.
+const setupAndQuerySearchForm = async () => {
+  const div = document.createElement('div')
+  ReactTestUtils.act(() => {
+    ReactDOM.render(<SearchForm />, div)
+  })
 
-  beforeEach(() => {
+  const searchInput = div.querySelector('input')
+  ReactTestUtils.act(() => {
+    searchInput.value = 'hello'
+    ReactTestUtils.Simulate.change(searchInput)
+  })
+
+  const searchForm = div.querySelector('form')
+  await ReactTestUtils.act(async () => {
+    await ReactTestUtils.Simulate.submit(searchForm)
+  })
+
+  return div
+}
+
+describe('API calls', () => {
+  let div
+  beforeEach(async () => {
     sinon.stub(api, 'searchGifs')
 
     // To manage size, we supply a mock response that contains _only_ what the app will need. This does mean
@@ -90,14 +123,13 @@ describe('API calls', () => {
       ]
     }))
 
-    component.getInstance().setState({
-      query: 'hello'
-    })
-
-    component.getInstance().performQuery(new Event('submit'))
+    div = await setupAndQuerySearchForm()
   })
 
-  afterEach(() => api.searchGifs.restore())
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(div)
+    api.searchGifs.restore()
+  })
 
   it('should trigger a Giphy search when the search button is clicked', () => {
     // Note how this _isn’t_ a snapshot test because we’re checking whether a function was called with
@@ -109,31 +141,29 @@ describe('API calls', () => {
   })
 
   it('should populate the image container when search results arrive', () => {
-    // Yay, no janky async issues this time around! (see equivalent test in giphy-sample)
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    // Our mock search results yield one image, so we expect our results container to have one child.
+    const searchResults = div.querySelector('div.SearchResults')
+    expect(searchResults.children.length).toEqual(1)
   })
 })
 
 describe('failed API calls', () => {
-  const component = TestRenderer.create(<SearchForm />)
-
-  beforeEach(() => {
+  let div
+  beforeEach(async () => {
     sinon.stub(api, 'searchGifs')
     api.searchGifs.returns(Promise.reject('Mock failure'))
 
-    component.getInstance().setState({
-      query: 'hello'
-    })
-
-    component.getInstance().performQuery(new Event('submit'))
+    div = await setupAndQuerySearchForm()
   })
 
-  afterEach(() => api.searchGifs.restore())
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(div)
+    api.searchGifs.restore()
+  })
 
   it('should display an alert when the API call fails', () => {
-    // The snapshot should contain the error div.
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    // The document should contain the error div.
+    const searchError = div.querySelector('div.error')
+    expect(searchError.textContent).toEqual('Sorry, but something went wrong.')
   })
 })
