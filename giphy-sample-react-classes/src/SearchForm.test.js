@@ -94,7 +94,7 @@ describe('API calls', () => {
       query: 'hello'
     })
 
-    component.getInstance().performQuery()
+    component.getInstance().performQuery(new Event('submit'))
   })
 
   afterEach(() => api.searchGifs.restore())
@@ -126,7 +126,7 @@ describe('failed API calls', () => {
       query: 'hello'
     })
 
-    component.getInstance().performQuery()
+    component.getInstance().performQuery(new Event('submit'))
   })
 
   afterEach(() => api.searchGifs.restore())

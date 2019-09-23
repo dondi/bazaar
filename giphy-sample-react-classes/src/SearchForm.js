@@ -21,7 +21,9 @@ class SearchForm extends Component {
     [event.target.name]: event.target.value
   })
 
-  performQuery = () => {
+  performQuery = event => {
+    event.preventDefault()
+
     this.setState({
       error: null
     })
@@ -38,13 +40,13 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <div className="SearchForm">
+      <form className="SearchForm" onSubmit={this.performQuery}>
         <p>Enter a search term:</p>
 
         <input name="query" type="text" value={this.state.query} onChange={this.handleChange} />
 
         <div className="ButtonBar">
-          <button disabled={!this.state.query} onClick={this.performQuery}>Search Giphy!</button>
+          <button type="submit" disabled={!this.state.query}>Search Giphy!</button>
         </div>
 
         {this.state.error && (
@@ -54,7 +56,7 @@ class SearchForm extends Component {
         )}
 
         <SearchResults results={this.state.images} />
-      </div>
+      </form>
     )
   }
 }
