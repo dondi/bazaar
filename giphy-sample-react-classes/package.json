@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -14,8 +14,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-test-renderer": "^16.5.2",
-    "sinon": "^6.3.4"
+    "react-test-renderer": "^16.9.0",
+    "sinon": "^7.4.2"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -26,6 +26,18 @@
       "!**/src/index.js",
       "!**/src/realApi.js",
       "!**/src/registerServiceWorker.js"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }
