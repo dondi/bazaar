@@ -1,0 +1,21 @@
+.SearchForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.SearchForm > .ButtonBar {
+  display: flex;
+}
+
+.SearchForm > .ButtonBar > button {
+  margin-left: auto;
+  margin-top: 1rem;
+}
+
+.SearchForm .error {
+  background-color: pink;
+  border: solid 1px red;
+  color: maroon;
+  margin: 1rem;
+  padding: 1rem;
+}
