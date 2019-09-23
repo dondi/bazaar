@@ -1,6 +1,8 @@
-# React Web Front End Sample
+# React Web Front End Sample Using Classes
 
 This folder contains a very simple React-based web front end sample that uses the [Giphy API](https://api.giphy.com) to search for then display matching animated GIFs. The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The most recent version of its guide can be found [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+The “style” of component used here is class-based: i.e., components are defined via the definition of a React `Component` subclass.
 
 ## Setup
 
