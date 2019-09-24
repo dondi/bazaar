@@ -77,8 +77,7 @@ class SearchFormUITests: XCTestCase {
         let collectionView = app.collectionViews["resultCollectionView"]
         collectionView.cells.element(boundBy: 0).tap()
 
-        // Oddly, the web view is found in `otherElements` and not `webViews`.
-        let webView = app.otherElements["resultWebView"]
+        let webView = app.webViews["resultWebView"]
         XCTAssert(webView.exists)
     }
 }
