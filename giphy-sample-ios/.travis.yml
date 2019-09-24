@@ -1,5 +1,0 @@
-os: osx
-osx_image: xcode11
-language: swift
-xcode_project: giphy-sample-ios.xcodeproj
-xcode_scheme: giphy-sample-ios
