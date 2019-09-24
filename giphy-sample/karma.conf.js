@@ -19,7 +19,7 @@ module.exports = config => {
     },
 
     browsers: [
-      'Chrome', 'Firefox'
+      'Firefox'
     ],
 
     reporters: [
