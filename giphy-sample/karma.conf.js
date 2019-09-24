@@ -25,6 +25,14 @@ module.exports = config => {
     reporters: [
       'dots',
       'coverage'
-    ]
+    ],
+
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [
+        { type: 'html', subdir: 'html' },
+        { type: 'text-summary' }
+      ]
+    }
   })
 }
