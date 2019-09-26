@@ -9,4 +9,5 @@
 
 ## Basic Code-Reading Tips
 * Use the `import` statements to figure out where to find what source code
+* React with classes defines a React component as a `class` that extends `Component` with, at a minimum, a `render` method whose return value is the content of that component
 * Use browser tools (particularly element inspector) to understand how React code eventually becomes web code
