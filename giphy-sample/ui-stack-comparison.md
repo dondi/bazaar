@@ -2,4 +2,7 @@
 
 | Platform | Building Block | Entry Point | MVC Touch Points | Async Mechanism |
 | -------- | -------------- | ----------- | ---------------- | --------------- |
-| | | | | |
+| Traditional web | | | | |
+| React (classes) | | | | |
+| React (hooks) | | | | |
+| iOS | | | | |
