@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ReactTestUtils from 'react-dom/test-utils'
-import ReactTestRenderer from 'react-test-renderer'
 
 import SwivelWithHooks from './SwivelWithHooks'
 
