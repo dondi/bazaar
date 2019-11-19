@@ -149,9 +149,11 @@
 				TargetAttributes = {
 					F71F6B6921B35D0F0093EDDB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1120;
 					};
 					F71F6BA021B48B5E0093EDDB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1120;
 						TestTargetID = F71F6B6921B35D0F0093EDDB;
 					};
 				};
@@ -373,7 +375,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.lmu.ios-direct-manipulation-samples";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -391,7 +393,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.lmu.ios-direct-manipulation-samples";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -410,7 +412,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.lmu.swivelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-direct-manipulation-samples.app/ios-direct-manipulation-samples";
 			};
@@ -430,7 +432,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.lmu.swivelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-direct-manipulation-samples.app/ios-direct-manipulation-samples";
 			};
