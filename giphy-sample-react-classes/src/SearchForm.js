@@ -21,21 +21,27 @@ class SearchForm extends Component {
     [event.target.name]: event.target.value
   })
 
-  performQuery = event => {
+  performQuery = async event => {
     event.preventDefault()
 
     this.setState({
       error: null
     })
 
-    searchGifs({
-      rating: 'pg-13',
-      q: this.state.query
-    }).then(result => this.setState({
-      images: result.data
-    })).catch(() => this.setState({
-      error: 'Sorry, but something went wrong.'
-    }))
+    try {
+      const result = await searchGifs({
+        rating: 'pg-13',
+        q: this.state.query
+      })
+
+      this.setState({
+        images: result.data
+      })
+    } catch (error) {
+      this.setState({
+        error: 'Sorry, but something went wrong.'
+      })
+    }
   }
 
   render() {
