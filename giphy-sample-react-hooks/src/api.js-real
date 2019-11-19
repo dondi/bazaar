@@ -52,10 +52,18 @@ const paramsWithApiKey = params => {
 // _single statement_, thus obviating the need for curly braces but
 // resulting in what many will view to be a decrease in readability
 // (for those who aren’t used to functional-style programming). YMMV
-const query = (resource, params) => fetch(`${urlFor(resource)}?${paramsWithApiKey(params)}`, {
-  headers
-}).then(okCheck, emitNativeError)
-  .then(response => response.json())
+const query = async (resource, params) => {
+  try {
+    const response = await fetch(`${urlFor(resource)}?${paramsWithApiKey(params)}`, {
+      headers
+    })
+
+    const responseJson = okCheck(response)
+    return responseJson.json()
+  } catch(error) {
+    emitNativeError(error)
+  }
+}
 
 const searchGifs = params => query('gifs/search', params)
 
