@@ -38,20 +38,16 @@ const paramsWithApiKey = params => {
 
 // The fetch function initiates a connection to the web service.
 // fetch returns a _promise_: an object that represents a future result.
-// Thus, the function actually returns right away. However, when the
-// anticipated result does show up, the code specifies what to do using
-// either `then` or `catch`. Both functions accept another function,
-// to be called upon a successful or failed promise, respectively.
-// Furthermore, then `then` function can be chained: its return result
-// is passed to the next `then` function as an argument. Here, the initial
-// handler converts the raw result into JSON. That JSON then goes to the
-// next handler, which does the actual work of putting the result on the
-// web page.
+// Thus, the function’s result needs to be `await`ed because its result
+// is not known right away. Any errors encountered during execution will
+// be handled by the usual `catch` clause.
 //
-// The design of fetch allows this entire sequence to be rendered in a
-// _single statement_, thus obviating the need for curly braces but
-// resulting in what many will view to be a decrease in readability
-// (for those who aren’t used to functional-style programming). YMMV
+// The `okCheck` function ensures that the response came back with a
+// status of 200 (i.e., HTTP OK). If it passes that check, its body is
+// then converted to JSON via the `json` function—another promise.
+// This promise is returned directly, so that `query`’s caller can `await`
+// its result, finally going about the actual work of putting this result
+// on the web page.
 const query = async (resource, params) => {
   try {
     const response = await fetch(`${urlFor(resource)}?${paramsWithApiKey(params)}`, {
