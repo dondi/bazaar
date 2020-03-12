@@ -33,6 +33,9 @@ Yup, it’s the same one that I’ll be using for class.
 
 Further, I will remain reachable (as before) via email (dondi@lmu.edu) or Slack (@dondi in the Slack LMUCS workspace).
 
+### Slack Channels
+* Mention #cmsi284 and #cmsi355
+
 ### Online Presence Tips
 (to be refined)
 
