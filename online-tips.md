@@ -63,3 +63,5 @@ As long as I am able to do so, I will continue to record things so that if you c
 * Again on the theme of multiple means of communication, find and use the Zoom chat panel—I’ll keep it open myself. You can type messages in here at any time. I might also switch to this if audio or video start to glitch.
 * Even with today’s high bandwidth, audio will have a slight delay—give people time to respond, perhaps speak a little more slowly, and pause a little more between sentences.
 * _Here’s something we can’t do in class easily:_ You can share your screen when needed! When asking a question, you have the option to take over the screen so you can demonstrate where you’re stuck firsthand. Get to know how to use the Share button in order to avail of this capability.
+
+OK, I think that’s everything (so far). Do keep the link to this document handy in case I add or change something. Even with this document, we’ll practice what we preached above about being flexible and going with the flow.
