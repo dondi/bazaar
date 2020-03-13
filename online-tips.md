@@ -4,8 +4,11 @@ Welcome to the wild and woolly world of learning things exclusively via online r
 ## Take Care of Yourself First
 By all means, make sure you are in a good situation first in terms of health, housing, food, etc. before worrying about any of this. Just send me a note on how things are with you and we’ll work something out.
 
+## A Word from Your University
+This document is written specifically for students in the computer science courses that I teach. For a university-level perspective on learning online, please consult LMU’s [Keep Learning Wherever You Are](https://its.lmu.edu/whatwedo/computingsoftware/keeplearning/) page.
+
 ## Learning Online is Useful Outside of a Pandemic
-One quick point of perspective: learning how to learn in this manner will serve you well way beyond the immediate moment. When you fully launch into a career in computing, you’ll find that learning in this way will be quite useful, as new technologies emerge and the only resources about these technologies will be available solely online at first. Thus, if you get the hang of it now, you are picking up a skill that you will find handy for a _long_ time to come.
+Some perspective: learning how to learn in this manner will serve you well way beyond the immediate moment. When you fully launch into a career in computing, you’ll find that learning in this way will be quite useful, as new technologies emerge and the only resources about these technologies will be available solely online at first. Thus, if you get the hang of it now, you are picking up a skill that you will find handy for a _long_ time to come.
 
 ## Things That Don’t Change
 Many aspects of the way that I already teach computer science courses will not change. So if you’re used to them, then great. If you aren’t, then this is a good time to check them out:
@@ -17,24 +20,24 @@ Many aspects of the way that I already teach computer science courses will not c
 * Grades will continue to be entered in Brightspace
 
 ## Things That Are Different
-OK, so now here are the adjustments that we’ll have to make.
+OK, so now here are the adjustments that we’re making to get fully online.
 
 ### Classes
-I will continue to hold classes at our scheduled times via Zoom. But again, _see the first section_. I will record those Zoom sessions just as I always have, so if you are more comfortable with watching the screengrabs later, then that is perfectly OK.
+I will continue to hold classes at our scheduled times via Zoom. But again, _see the first section about taking care of yourself first_. I will record those Zoom sessions just as I always have, so if you are more comfortable with watching the screengrabs later, then that is perfectly OK.
 
-For all Zoom-related activities, I will be available at this link: https://lmula.zoom.us/my/dondi
+For all classes and other Zoom-related activities, we will use this Zoom link: https://lmula.zoom.us/my/dondi
 
 Just go there in order to “attend class.” See the section below for some tips on getting the most out of this medium.
 
 ### Office Hours
-I will continue to be available at my pre-scheduled office hours. The only change is that, instead of physically going to my office, you would just go to this link: https://lmula.zoom.us/my/dondi
+I will continue to be available at my pre-scheduled office hours. The only change is that, instead of physically going to my office, you would just go to the aforementioned Zoom link: https://lmula.zoom.us/my/dondi
 
 Yup, it’s the same one that I’ll be using for class.
 
-Further, I will remain reachable (as before) via email (dondi@lmu.edu) or Slack (@dondi in the Slack LMUCS workspace).
+Further, I will remain reachable (as before) via email (dondi@lmu.edu) or Slack (@dondi in the [Slack LMUCS workspace](https://lmucs.slack.com).
 
 ### Slack Channels
-* Mention #cmsi284 and #cmsi355
+Due to the anticipated increased use of Slack while we are fully online, I have created specific channels for our courses. This will help with putting related messages and threads together more easily. Do go to those channels and monitor them actively while we are in 100% online mode: [#cmsi284](https://lmucs.slack.com/archives/CV6PX0RBP) and [#cmsi355](https://lmucs.slack.com/archives/CV8KCB2HM), respectively.
 
 ### Online Presence Tips
 (to be refined)
