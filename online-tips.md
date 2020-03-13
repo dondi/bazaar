@@ -27,7 +27,7 @@ I will continue to hold classes at our scheduled times via Zoom. But again, _see
 
 For all classes and other Zoom-related activities, we will use this Zoom link: https://lmula.zoom.us/my/dondi
 
-Just go there in order to “attend class.” See the last section for some tips on getting the most out of this medium.
+Just go there in order to “attend class.” See [the last section of this document](#maximize-live-session-success-by-learning-how-to-control-your-feed) for some tips on getting the most out of this medium.
 
 For our first class online, I plan to get everyone acquainted with the environment and field questions on this temporary new normal.
 
