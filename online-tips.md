@@ -31,12 +31,26 @@ Just go there in order to “attend class.” See [the last section of this docu
 
 For our first class online, I plan to get everyone acquainted with the environment and field questions on this temporary new normal.
 
+#### Time Zone Differences
+For students who will be living in different time zones, connecting to the live sessions and office hours may become infeasible (unless you are truly a night denizen and can now live by your true body clock 🌒🌔🌕🌖🌘).
+
+If you are in this situation, note that the live sessions will continue to be recorded and posted to YouTube, so feel free to view those whenever the time is right for you. For office hours and other direct interactions, the following options are available:
+
+* Individual appointments for an online session
+* Email
+* Slack
+
+With all of the stuff going on, I may tend to still use Pacific time by default, so please bear that in mind if I state a date and time without being specific about time zone.
+
 ### Office Hours
 I will continue to be available at my pre-scheduled office hours. The only change is that, instead of physically going to my office, you would just go to the aforementioned Zoom link: https://lmula.zoom.us/my/dondi
 
 Yup, it’s the same one that I’ll be using for class.
 
-Further, I will remain reachable (as before) via email (dondi@lmu.edu) or Slack (@dondi in the [Slack LMUCS workspace](https://lmucs.slack.com).
+Further, I will remain reachable (as before) via email (dondi@lmu.edu) or Slack (@dondi in the [Slack LMUCS workspace](https://lmucs.slack.com)).
+
+#### Office Hours for Students in a Different Time Zone
+As mentioned above, the regularly-scheduled office hour times might not work for students who are living in a different time zone. In those situations, please avail of the three possibilities listed above. Baseline rule: Maintain open, multiple communication channels. We will adjust as needed.
 
 ### Slack Channels
 Due to the anticipated increased use of Slack while we are fully online, I have created specific channels for our courses. This will help with putting related messages and threads together more easily. Do go to those channels and monitor them actively while we are in 100% online mode: [#cmsi284](https://lmucs.slack.com/archives/CV6PX0RBP) and [#cmsi355](https://lmucs.slack.com/archives/CV8KCB2HM), respectively.
