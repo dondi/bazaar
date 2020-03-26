@@ -25,7 +25,7 @@ OK, so now here are the adjustments that we’re making to get fully online.
 ### Classes
 I will continue to hold classes at our scheduled times via Zoom. But again, _see the first section about taking care of yourself first_. I will record those Zoom sessions just as I always have, so if you are more comfortable with watching the screengrabs later, then that is perfectly OK.
 
-For all classes and other Zoom-related activities, we will use this Zoom link: https://lmula.zoom.us/my/dondi
+For all classes and other Zoom-related activities, we will use the Zoom link listed in the Overview section of your respective Brightspace course pages.
 
 Just go there in order to “attend class.” See [the last section of this document](#maximize-live-session-success-by-learning-how-to-control-your-feed) for some tips on getting the most out of this medium.
 
@@ -43,9 +43,7 @@ If you are in this situation, note that the live sessions will continue to be re
 With all of the stuff going on, I may tend to still use Pacific time by default, so please bear that in mind if I state a date and time without being specific about time zone.
 
 ### Office Hours
-I will continue to be available at my pre-scheduled office hours. The only change is that, instead of physically going to my office, you would just go to the aforementioned Zoom link: https://lmula.zoom.us/my/dondi
-
-Yup, it’s the same one that I’ll be using for class.
+I will continue to be available at my pre-scheduled office hours. The only change is that, instead of physically going to my office, you would just go to office hours Zoom link listed in the Overview section of your respective Brightspace course pages.
 
 Further, I will remain reachable (as before) via email (dondi@lmu.edu) or Slack (@dondi in the [Slack LMUCS workspace](https://lmucs.slack.com)).
 
