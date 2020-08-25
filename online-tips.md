@@ -14,9 +14,12 @@ The lack of physical presence means that your _online_ presence equates to your 
 - Discord
 - Brightspace
 - Microsoft Teams
-Please consult the Brightspace Content Overview page for your course to get more specific links/information on these venues.
 
-It’s my obligation to be on all of them—not yours. However, the expectation is that you are available (and responsive) on at least one of these channels. I try to be in all the places where students might be (online), but students need to _be_ somewhere in the first place in order for this to work.
+Feel free to leave a note on any of them at any time. I am most likely to be _active_ on them during “office hours,” a term we now use in an online rather than physical sense, but please don’t let that stop you from chiming in whenever it works for you, especially since many of us will be on different time zones as well.
+
+Please consult the Brightspace Content Overview page for your course to get more specific links/information on these venues. Course syllabi will have my office hours.
+
+It’s my obligation to be on all of them—_you_ don’t have to be on all of them yourself, but the expectation is that you are available (and responsive) on at least one of these channels. I try to be in all the places where students might be (online), but students need to _be_ somewhere in the first place in order for this to work.
 
 ## Learning Online is Useful Outside of a Pandemic
 Some perspective: learning how to learn in this manner will serve you well way beyond the immediate moment. When you fully launch into a career in computing, you’ll find that learning in this way will be quite useful, as new technologies emerge and the only resources about these technologies will be available solely online at first. Thus, if you get the hang of it now, you are picking up a skill that you will find handy for a _long_ time to come.
