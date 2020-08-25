@@ -1,11 +1,22 @@
-# Ready Learner One: Tips and Tricks for Learning in the LMU OaCSis
-Welcome to the wild and woolly world of learning things exclusively via online resources! This may be very new to you, especially if the shift is made on short notice, so I’ve written a few notes that you might find useful.
+# Ready Learner One: Tips and Tricks for Learning in the LMU Oasis
+Welcome to the wild and woolly world of learning things exclusively via online resources! At this point we’ve had some time to gird ourselves for the experience, but now we will be in this mode for much longer and new challenges may emerge because of that.
 
-## Take Care of Yourself First
-By all means, make sure you are in a good situation first in terms of health, housing, food, etc. before worrying about any of this. Just send me a note on how things are with you and we’ll work something out.
+## Take Care of Yourself and Your Vicinity First
+Let’s not forget that we are in this situation due to larger and greater concerns happening outside, so certainly attend to those as they arise and coordinate with me as needed if they affect your course work. LMU also has many health and wellness resources available to support you, collated here: https://studentaffairs.lmu.edu/lionwellness.
 
 ## A Word from Your University
-This document is written specifically for students in the computer science courses that I teach. For a university-level perspective on learning online, please consult LMU’s [Keep Learning Wherever You Are](https://its.lmu.edu/whatwedo/computingsoftware/keeplearning/) page. Please also review the _Student FAQs_ section of [this page](https://www.lmu.edu/coronavirus/) and don’t hesitate to use the [university-level question form](https://www.lmu.edu/coronavirus/questions/) if you have any concerns beyond the courses that you’re taking with me.
+LMU has set up a [Student Online Learning Hub](https://academics.lmu.edu/onlinelearning) so be sure to check that out in case there’s something there for you.
+
+## Maintain Multiple Lines of Communication
+The lack of physical presence means that your _online_ presence equates to your presence overall. As such, at any given time please make sure that you have multiple mechanisms for making your presence known. For myself personally, there are ways to reach me via:
+- email
+- Slack
+- Discord
+- Brightspace
+- Microsoft Teams
+Please consult the Brightspace Content Overview page for your course to get more specific links/information on these venues.
+
+It’s my obligation to be on all of them—not yours. However, the expectation is that you are available (and responsive) on at least one of these channels. I try to be in all the places where students might be (online), but students need to _be_ somewhere in the first place in order for this to work.
 
 ## Learning Online is Useful Outside of a Pandemic
 Some perspective: learning how to learn in this manner will serve you well way beyond the immediate moment. When you fully launch into a career in computing, you’ll find that learning in this way will be quite useful, as new technologies emerge and the only resources about these technologies will be available solely online at first. Thus, if you get the hang of it now, you are picking up a skill that you will find handy for a _long_ time to come.
