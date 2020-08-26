@@ -5,7 +5,7 @@ Welcome to the wild and woolly world of learning things exclusively via online r
 Let’s not forget that we are in this situation due to larger and greater concerns happening outside, so certainly attend to those as they arise and coordinate with me as needed if they affect your course work. LMU also has many health and wellness resources available to support you, collated here: https://studentaffairs.lmu.edu/lionwellness.
 
 ## A Word from Your University
-LMU has set up a [Student Online Learning Hub](https://academics.lmu.edu/onlinelearning) so be sure to check that out in case there’s something there for you.
+LMU has set up a [Student Online Learning Hub](https://academics.lmu.edu/onlinelearning) so be sure to check that out in case there’s something there for you. There is also a site with resources to [Keep Learning](https://its.lmu.edu/whatwedo/computingsoftware/keeplearning).
 
 ## Maintain Multiple Lines of Communication
 The lack of physical presence means that your _online_ presence equates to your presence overall. As such, at any given time please make sure that you have multiple mechanisms for making your presence known. For myself personally, there are ways to reach me via:
