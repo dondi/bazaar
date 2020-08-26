@@ -28,22 +28,22 @@ Some perspective: learning how to learn in this manner will serve you well way b
 In addition to [maintaining multiple lines of communication](#maintain-multiple-lines-of-communication) (essentially the online rule to rule them all), here are a few more factors to consider when fully online.
 
 ### Synchronous Class Sessions
-I will hold classes at our scheduled times via Zoom. But again, _see the first section about taking care of yourself first_. I will record those Zoom sessions and post them to Brightspace. I won’t have much time to clean up or refine these videos so they’ll be quite raw (and thus best kept private 😂)—hope that will be OK. As mentioned, please visit the **Content > Overview** section of our Brightspace course page for Zoom links and content.
+I will hold classes at our scheduled times via Zoom. But again, _see the [what was said earlier](#take-care-of-yourself-and-your-vicinity-first) about taking care of yourself first_. I will record all Zoom sessions and post them to Brightspace. I won’t have much time to clean up or refine these videos so they’ll be quite raw (and thus best kept private 😂)—hope that will be OK. As mentioned, please visit the **Content > Overview** section of our Brightspace course page for Zoom links and content.
 
 See [the last section of this document](#maximize-live-session-success-by-learning-how-to-control-your-feed) for some tips on getting the most out of this medium.
 
 ### Interactions with Classmates
 If one thing _really_ changes in an online format, it is our interpersonal interactions. Listening to a professor talk at you or show you stuff on a screen isn’t too different, and neither is putting your nose to the grindstone to get 💩 done on your own.
 
-What shifts significantly—and in many ways what we (including professors) miss the most in this new normal—is how we interact with others in our class. As such, perhaps the biggest change in my course(s) with you will be intentionally increased opportunities to work with your classmates, live and online. To maximize success with these (now-rare) encounters, please keep the following in mind:
-* Maintain reliable communication with your current (or past) collaborators—the multi-channel approach I mentioned above will help among your classmates as well
+What shifts significantly—and in many ways what we (including professors) miss the most in this new normal—is how we interact with others in our class. As such, perhaps the biggest change in my course(s) with you will be intentionally increased opportunities to work with your classmates, live but online. To maximize success with these encounters, please keep the following in mind:
+* Maintain reliable communication with your current (or past) collaborators—the [multi-channel approach](#maintain-multiple-lines-of-communication) I mentioned above will help among your classmates as well
 * Try to be as flexible as possible with each other when scheduling things—there may be some give one way or the other, and although that might take some work, the hope is that the resulting interactions will be worth it (this is particularly relevant for working with folks in different time zones, as addressed in [the next section](#time-zone-differences)
 * Don’t hesitate to approach me if you encounter any challenges or issues with working in a group
 
 ### Time Zone Differences
-For students who live in different time zones, connecting to the live sessions and pre-scheduled office hours may become infeasible (unless you are truly a night denizen and can now live by your true body clock 🌒🌔🌕🌖🌘).
+For students who live in different time zones, connecting to the synchronous sessions and pre-scheduled office hours may become infeasible (unless you are truly a night denizen and can now live by your true body clock 🌒🌔🌕🌖🌘).
 
-If you are in this situation, note that the live sessions will continue to be recorded and posted to Brightspace, so feel free to view those whenever the time is right for you. For office hours and other direct interactions, start with the following:
+If you are in this situation, note that the live sessions will be recorded and posted to Brightspace, so feel free to view those whenever the time is right for you. For office hours and other direct interactions, start with the following:
 - email
 - Slack
 - Discord
@@ -52,28 +52,26 @@ If you are in this situation, note that the live sessions will continue to be re
 
 As mentioned, specific links for those can be found in the **Content > Overview** area for your course on Brightspace.
 
-As also mentioned, these are all “available” 24/7 although my response time may vary. But the key is this: these are all stepping stones to setting up sessions for synchronous interaction, whether via Zoom, Slack, Discord, or Teams. Don’t hesitate to ask, and we’ll see what we can work out.
+As also mentioned, these are all “available” 24/7 although my response time may vary. But the key is this: these channels are ultimately stepping stones to setting up sessions for synchronous interaction, whether via Zoom, Slack, Discord, or Teams. Don’t hesitate to ask, and we’ll see what we can work out.
 
-I’ll seek to stay cognizant of time zone differences but I may tend to still use Pacific time by default, so please bear that in mind if I state a date and time without being specific about time zone.
+I’ll seek to stay cognizant of time zone differences but I may tend to still speak in Pacific time by default, so please bear that in mind if I state a date and time without being specific about time zone.
 
-This really can’t be stated enough: Maintain open, multiple communication channels. We will adjust as needed.
+This really can’t be stated enough: [Monitor and be responsive to multiple communication channels](#maintain-multiple-lines-of-communication). We will adjust as needed as long as we can communicate.
 
 ## Online Presence Tips
 OK, so now we come to some slightly more general tips regarding life online. Some are practical, some are philosophical—all are based on things I’ve seen and experienced personally, so although they won’t all be absolutely true for everyone, they are indeed based on my own lived online reality (is that an oxymoron?) so far.
 
 ### We’ll need to be flexible and go with the flow—and always keep tabs on alternate communications channels
 Stuff will glitch. Stuff will cut off. Stuff might crash. It’s all OK. When we’re online, it is understood that these things can happen. What helps us manage this?
-* _Keep tabs on multiple means of communication whenever possible:_ (there it is again!) If video stops working, there can still be audio. If audio breaks, there’s possibly chat. If the entire video app crashes, you can look at Slack and email. If all else fails, you can leave voicemail. Redundancy fosters resilience in this scenario.
-* _Watch your email closely than you usually do:_ Speaking of multiple means of communication, email is perhaps the bedrock of all online means of communication. It’s mature; it’s ubiquitous. Make sure that you have easy access to university email as much as possible.
+* _Keep tabs on multiple means of communication whenever possible:_ ([there it is again!](#maintain-multiple-lines-of-communication)) If video stops working, there can still be audio. If audio breaks, there’s possibly chat. If the entire video app crashes, you can look at Slack, Discord, Teams, or email (as applicable to you). If all else fails, you can leave voicemail (fortunately, I can check that from home). Redundancy fosters resilience in this scenario.
+* _Watch your email more closely than you usually do:_ Speaking of multiple means of communication, email is perhaps the bedrock of all online means of communication. It’s mature; it’s ubiquitous. Make sure that you have easy access to university email as much as possible.
 
-If any of this happens to _me_, I will seek to resolve the issue as quickly as possible, so the first thing to do is hang tight. If I experience protracted issues, I’ll seek to use one or more of the alternate channels mentioned above in order to keep you posted. If this happens during a synchronous class session and I somehow can’t recover quickly enough, we’ll find ways to make up for it.
+If any glitches happen to _me_, I will seek to resolve the issue as quickly as possible, so the first thing to do is hang tight. If I experience protracted issues, I’ll seek to use one or more of the alternate channels mentioned above in order to keep you posted. If this happens during a synchronous class session and I somehow can’t recover quickly enough, we’ll find ways to make up for it.
 
-### Online resources are finite, and these days, everyone will be using them
+### Online resources are finite, and these days, everyone is using them
 All computing resources are finite. Bandwidth is perhaps the prime resource that we’ll be consuming online. There are times when there won’t be enough of it or we will lose it outright.
 
-Class and office hour video sessions consume a lot of resources and may get glitchy or go down. You can try again as needed but don’t worry if you can’t reconnect; we’ll figure it out (see: multiple means of communication above).
-
-As long as I am able to do so, I will continue to record things so that if you can’t attend synchronously, you can watch things later. The only thing you lose is that live, interactive element—which can be made up for during \[virtual\] office hours or chat/DM. So bottom line: no worries, we’ll work something out.
+Class and office hour video sessions consume a lot of resources and may get glitchy or go down. You can try again as needed but don’t worry if you can’t reconnect; we’ll figure it out (again see: [multiple means of communication](#maintain-multiple-lines-of-communication)).
 
 ### Maximize live session success by learning how to control your feed
 We want to approximate that in-person feeling as much as possible, but we also know (as already stated) that there are resource and medium limitations to this. Overall, the approach I recommend is this:
