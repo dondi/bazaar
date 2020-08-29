@@ -65,8 +65,11 @@ OK, so now we come to some slightly more general tips regarding life online. Som
 Stuff will glitch. Stuff will cut off. Stuff might crash. It’s all OK. When we’re online, it is understood that these things can happen. What helps us manage this?
 * _Keep tabs on multiple means of communication whenever possible:_ ([there it is again!](#maintain-multiple-lines-of-communication)) If video stops working, there can still be audio. If audio breaks, there’s possibly chat. If the entire video app crashes, you can look at Slack, Discord, Teams, or email (as applicable to you). If all else fails, you can leave voicemail (fortunately, I can check that from home). Redundancy fosters resilience in this scenario.
 * _Watch your email more closely than you usually do:_ Speaking of multiple means of communication, email is perhaps the bedrock of all online means of communication. It’s mature; it’s ubiquitous. Make sure that you have easy access to university email as much as possible.
+* _Your ultimate backup is a mobile phone with Internet:_ In the event of a _huge_ glitch (ISP cuts you off, power goes down, etc.), chances are that a mobile phone will still work. Don’t try to get back on Zoom (unless your phone is super-amazing with a ⚡️ fast connection)—but leave a message on one of the venues listed multiple times already so that I know not to worry.
 
-If any glitches happen to _me_, I will seek to resolve the issue as quickly as possible, so the first thing to do is hang tight. If I experience protracted issues, I’ll seek to use one or more of the alternate channels mentioned above in order to keep you posted. If this happens during a synchronous class session and I somehow can’t recover quickly enough, we’ll find ways to make up for it.
+<small>_(and if we encounter a glitch that’s so catastrophic that even mobile phones can’t communicate…well…we probably have bigger problems than staying connected in class)_</small>
+
+If any glitches happen to _me_, I will seek to resolve the issue as quickly as possible, so the first thing to do is hang tight. If I experience protracted issues, I’ll seek to follow the same flow above in order to keep you posted. If this happens during a synchronous class session and I somehow can’t recover quickly enough, we’ll find ways to make up for it.
 
 ### Online resources are finite, and these days, everyone is using them
 All computing resources are finite. Bandwidth is perhaps the prime resource that we’ll be consuming online. There are times when there won’t be enough of it or we will lose it outright.
@@ -89,7 +92,8 @@ A few other notions:
 - Practice doing quick toggles of your video and audio—this will minimize disruption during synchronous sessions
 - But of course, don’t forget to unmute yourself when you want to talk
 - _Audio will have a slight delay_ (as those of you who have tried to do live singalongs over Zoom may attest)—give people time to respond, perhaps speak a little more slowly, and pause a little more between sentences
-    * If two or more people accidentally start talking at the same time, be conscious of who got to speak first, and give the other people “first dibs” at speaking right after
+    * If two or more people accidentally start talking at the same time, volunteer to give the other people “first dibs” at speaking right after
+    * Be ready to help arbitrate who spoke first in case people keep speaking on top of each other
     * I may also pause for potentially awkward lengths of time, to accommodate delays when people try to talk…this will be normal, so don’t worry if I do this (unless it turns out that I actually lost my connection—in which case, follow the earlier protocol)
 - _And here’s something we can’t do in person as easily:_ You can share your screen when permitted! With permission from me, you can take over or annotate the screen so you can demonstrate where you’re stuck firsthand. Get to know how to use the sharing and annotation tools in order to avail of this capability.
 
