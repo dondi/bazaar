@@ -37,7 +37,7 @@ If one thing _really_ changes in an online format, it is our interpersonal inter
 
 What shifts significantly—and in many ways what we (including professors) miss the most in this new normal—is how we interact with others in our class. As such, perhaps the biggest change in my course(s) with you will be intentionally increased opportunities to work with your classmates, live but online. To maximize success with these encounters, please keep the following in mind:
 * Maintain reliable communication with your current (or past) collaborators—the [multi-channel approach](#maintain-multiple-lines-of-communication) I mentioned above will help among your classmates as well
-* Try to be as flexible as possible with each other when scheduling things—there may be some give one way or the other, and although that might take some work, the hope is that the resulting interactions will be worth it (this is particularly relevant for working with folks in different time zones, as addressed in [the next section](#time-zone-differences)
+* Try to be as flexible as possible with each other when scheduling things—there may be some give one way or the other, and although that might take some work, the hope is that the resulting interactions will be worth it (this is particularly relevant for working with folks in different time zones, as addressed in [the next section](#time-zone-differences))
 * Don’t hesitate to approach me if you encounter any challenges or issues with working in a group
 
 ### Time Zone Differences
